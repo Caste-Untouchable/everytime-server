@@ -1,9 +1,6 @@
 package com.untouchable.everytime.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +15,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class SchoolEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long SPK;
     @OneToMany
     ArrayList<FoodEntity> food;

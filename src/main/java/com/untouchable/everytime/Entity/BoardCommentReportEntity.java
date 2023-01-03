@@ -1,5 +1,6 @@
 package com.untouchable.everytime.Entity;
 
+import com.untouchable.everytime.Enum.ReportType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,17 +12,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPointHistoryEntity {
+
+public class BoardCommentReportEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long PK;
+    Long PK;
+
+    @Enumerated(EnumType.STRING)
+    ReportType reportType;
 
     @ManyToOne
-    UserEntity userEntity;
+    UserEntity reportUser;
 
-    //@ManyToOne
-    //TODO : 강의평가 클래스 넣기
-
-    Long point;
-
+    @ManyToOne
+    UserEntity reportedUser;
 }

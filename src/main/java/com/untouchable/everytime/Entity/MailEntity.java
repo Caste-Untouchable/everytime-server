@@ -1,27 +1,30 @@
 package com.untouchable.everytime.Entity;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPointHistoryEntity {
+
+public class MailEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long PK;
+    Long MPK;
 
-    @ManyToOne
-    UserEntity userEntity;
-
-    //@ManyToOne
-    //TODO : 강의평가 클래스 넣기
-
-    Long point;
+    @Column
+    String reciever;
+    String sender;
+    String comment;
+    Date createdAT;
 
 }

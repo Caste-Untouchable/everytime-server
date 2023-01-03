@@ -1,5 +1,6 @@
 package com.untouchable.everytime.Entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,21 +8,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPointHistoryEntity {
+@Data
+public class ScheduleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long PK;
+    private Long pk;
+
+    @Nullable
+    @ManyToOne
+    UserEntity user;
 
     @ManyToOne
-    UserEntity userEntity;
+    SchoolEntity school;
 
-    //@ManyToOne
-    //TODO : 강의평가 클래스 넣기
-
-    Long point;
 
 }

@@ -1,25 +1,30 @@
 package com.untouchable.everytime.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import com.untouchable.everytime.Enum.ReportType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserFriendship {
+
+public class MailReportEntity {
+
     @Id
     Long PK;
 
+    @Enumerated(EnumType.STRING)
+    ReportType reportType;
+
     @ManyToOne
-    UserEntity user1;
+    UserEntity reportUser;
+
     @ManyToOne
-    UserEntity user2;
+    UserEntity reportedUser;
+
 }

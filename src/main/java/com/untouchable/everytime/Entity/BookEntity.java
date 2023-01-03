@@ -6,22 +6,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPointHistoryEntity {
+
+public class BookEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long PK;
+    Long BPK;
 
-    @ManyToOne
-    UserEntity userEntity;
-
-    //@ManyToOne
-    //TODO : 강의평가 클래스 넣기
-
-    Long point;
-
+    @Column
+    String title;
+    String author;
+    String publisher;
+    Date publicationDate;
+    Long price;
 }
