@@ -31,7 +31,7 @@ public class BoardEntity {
 
     @Column
     String boardTitle;
-    String Content;
+    String content;
     int recommendCount;
     @OneToMany
     ArrayList<BoardImageEntity> images;
