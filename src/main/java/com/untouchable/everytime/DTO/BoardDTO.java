@@ -24,10 +24,8 @@ public class BoardDTO {
     BoardType boardType;
 
     String boardTitle;
-    String Content;
+    String content;
     int recommendCount;
-
-
 
     Date createdAT;
     String author;

@@ -12,12 +12,8 @@ import java.sql.Date;
 @AllArgsConstructor
 @Builder
 
-public class FoodDTO {
+public class MyScheduleDTO {
 
-    Long FPK;
-
-    String where;
-    String menu;
     Date date;
 
 }
