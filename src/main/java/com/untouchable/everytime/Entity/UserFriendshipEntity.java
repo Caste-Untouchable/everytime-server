@@ -6,22 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
+@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPointHistoryEntity {
+public class UserFriendshipEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long PK;
+    Long PK;
 
     @ManyToOne
-    UserEntity userEntity;
-
-    //@ManyToOne
-    //TODO : 강의평가 클래스 넣기
-
-    Long point;
-
+    UserEntity user1;
+    @ManyToOne
+    UserEntity user2;
 }

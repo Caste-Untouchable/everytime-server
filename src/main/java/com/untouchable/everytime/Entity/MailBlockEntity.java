@@ -1,6 +1,5 @@
 package com.untouchable.everytime.Entity;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -10,20 +9,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class Schedule {
+
+public class MailBlockEntity {
+
     @Id
-    private Long pk;
-
-    @Nullable
-    @ManyToOne
-    UserEntity user;
+    Long PK;
 
     @ManyToOne
-    SchoolEntity school;
+    UserEntity blockUser;
 
+    @ManyToOne
+    UserEntity blockedUser;
 
 }

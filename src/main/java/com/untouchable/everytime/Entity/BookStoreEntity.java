@@ -11,17 +11,19 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPointHistoryEntity {
+
+public class BookStoreEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long PK;
+    Long PK;
+
+    @Column
+    Long price;
+    int bookStatus;
+    String location;
+    int dealing;
 
     @ManyToOne
-    UserEntity userEntity;
-
-    //@ManyToOne
-    //TODO : 강의평가 클래스 넣기
-
-    Long point;
+    UserEntity seller;
 
 }

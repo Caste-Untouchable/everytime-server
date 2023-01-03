@@ -18,7 +18,8 @@ import java.util.ArrayList;
 public class BoardEntity {
 
     @Id
-    Long PK;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long BookPK;
 
     @ManyToOne
     SchoolEntity school;
@@ -40,5 +41,7 @@ public class BoardEntity {
     String author;
     boolean anonymity;
     Long reportCount;
+
+
 
 }

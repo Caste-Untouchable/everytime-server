@@ -1,13 +1,14 @@
 package com.untouchable.everytime.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.User;
+
+import java.sql.Date;
 
 @Entity
 @Data
@@ -18,8 +19,24 @@ import lombok.NoArgsConstructor;
 public class BoardCommentEntity {
 
     @Id
-    Long PK;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long CPK;
 
     @ManyToOne
     BoardEntity board;
+
+    @ManyToOne
+    UserEntity user;
+
+    boolean anonymity;
+    Boolean isReply;
+    String author;
+    Date createdAT;
+    Long reportCount;
+    String content;
+    Long reportNum;
+
+    @Nullable
+    Long replyTo;
+
 }

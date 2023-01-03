@@ -1,11 +1,8 @@
 package com.untouchable.everytime.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
-import java.nio.file.AccessMode;
 import java.sql.Date;
 
 @Entity
@@ -13,8 +10,9 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MySchedule {
+public class MyScheduleEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long pk;
 
     @ManyToOne
