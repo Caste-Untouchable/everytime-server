@@ -2,7 +2,7 @@ package com.untouchable.everytime.DTO;
 
 public class BookStoreDTO {
 
-    Long BookStore_PK;
+    private Long BookStore_PK;
 
     Long price;
     int bookStatus;

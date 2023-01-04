@@ -2,7 +2,7 @@ package com.untouchable.everytime.DTO;
 
 public class LectureDTO {
 
-    Long Lecture_PK;
+    private Long Lecture_PK;
 
     int lectureNum;
     int separation;
