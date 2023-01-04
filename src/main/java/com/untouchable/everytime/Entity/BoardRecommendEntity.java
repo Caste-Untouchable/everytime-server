@@ -16,7 +16,7 @@ public class BoardRecommendEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long PK;
+    Long BoardRecommend_PK;
 
     @ManyToOne
     UserEntity user;

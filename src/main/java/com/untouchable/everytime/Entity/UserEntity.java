@@ -17,7 +17,7 @@ import java.sql.Date;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long UPK;
+    Long User_PK;
     @Column(unique = true)
     String ID;
     String PWD;

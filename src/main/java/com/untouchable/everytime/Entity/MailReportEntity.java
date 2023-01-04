@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class MailReportEntity {
 
     @Id
-    Long PK;
+    Long MailReport_PK;
 
     @Enumerated(EnumType.STRING)
     ReportType reportType;

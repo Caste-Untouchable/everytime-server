@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class LectureScheduleEntity {
     @Id
-    Long PK;
+    Long LectureSchedule_PK;
 
     @ManyToMany
     ArrayList<LectureEntity> lectureName;

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class UserPointHistoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long PK;
+    private Long UserPoint_PK;
 
     @ManyToOne
     UserEntity userEntity;
