@@ -11,6 +11,10 @@ import lombok.NoArgsConstructor;
 
 public class ScheduleDTO {
 
-    //TODO
+    Long schedule_PK;
+
+    Long user_PK;
+
+    Long school_PK;
 
 }

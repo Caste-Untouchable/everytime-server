@@ -19,13 +19,19 @@ import java.util.ArrayList;
 
 public class BoardDTO {
 
-    Long PK;
+    private Long board_PK;
+
+    Long school_PK;
+
+    Long user_PK;
 
     BoardType boardType;
 
     String boardTitle;
     String content;
     int recommendCount;
+
+    ArrayList<String> storeFilename;
 
     Date createdAT;
     String author;

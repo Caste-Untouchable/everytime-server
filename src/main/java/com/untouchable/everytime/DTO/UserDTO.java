@@ -16,13 +16,12 @@ public class UserDTO {
     String name;
     String nickname;
     String email;
-    //SchoolEntity schoolEntity;
-    Date year;
 
-    UserProfileDTO userProfile;
+    Long school_PK;
+    Date year;
 
     boolean verified;
     Long point;
 
-    private UserStatus status;
+    UserStatus status;
 }
