@@ -13,7 +13,7 @@ import java.sql.Date;
 public class MyScheduleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long MySchedule_pk;
+    private Long MySchedule_PK;
 
     @ManyToOne
     UserEntity userEntity;

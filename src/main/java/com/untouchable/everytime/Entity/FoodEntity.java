@@ -16,7 +16,7 @@ import java.sql.Date;
 public class FoodEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Food_PK;
+    private Long Food_PK;
     @ManyToOne
     SchoolEntity school;
     String where;

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SchoolDTO {
-    long SPK;
+    long School_PK;
     String name;
     String location;
     String tell;

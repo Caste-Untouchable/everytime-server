@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class MailBlockEntity {
 
     @Id
-    Long MailBlock_PK;
+    private Long MailBlock_PK;
 
     @ManyToOne
     UserEntity blockUser;

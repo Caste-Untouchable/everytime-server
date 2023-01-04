@@ -14,7 +14,7 @@ import java.sql.Date;
 
 public class FoodDTO {
 
-    Long FPK;
+    Long Food_PK;
 
     String where;
     String menu;

@@ -1,5 +1,5 @@
 package com.untouchable.everytime.DTO;
 
 public class BoardCommentReportDTO {
-    Long PK;
+    Long BoardCommentReport_PK;
 }

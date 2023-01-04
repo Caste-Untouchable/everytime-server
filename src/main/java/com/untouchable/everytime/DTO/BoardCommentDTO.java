@@ -9,7 +9,7 @@ import java.sql.Date;
 
 public class BoardCommentDTO {
 
-    Long CPK;
+    Long BoardComment_PK;
 
     boolean anonymity;
     Boolean isReply;

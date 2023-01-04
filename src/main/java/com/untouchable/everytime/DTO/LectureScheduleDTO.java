@@ -2,6 +2,6 @@ package com.untouchable.everytime.DTO;
 
 public class LectureScheduleDTO {
 
-    Long PK;
+    Long LectureSchedule_PK;
 
 }

@@ -19,7 +19,7 @@ public class BoardEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Board_PK;
+    private Long Board_PK;
 
     @ManyToOne
     SchoolEntity school;

@@ -14,6 +14,8 @@ import java.sql.Date;
 
 public class MyScheduleDTO {
 
+    Long MySchedule_PK;
+
     Date date;
 
 }
