@@ -11,6 +11,10 @@ public class BoardCommentDTO {
 
     private Long BoardComment_PK;
 
+    Long Board_PK;
+
+    Long User_PK;
+
     boolean anonymity;
     Boolean isReply;
     String author;

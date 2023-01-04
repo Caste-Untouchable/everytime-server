@@ -17,7 +17,7 @@ import java.sql.Date;
 
 public class LectureRateEntity {
     @Id
-    private Long LectureRate_PK;
+    private Long lectureRate_PK;
 
     @ManyToOne
     LectureEntity lecture;
