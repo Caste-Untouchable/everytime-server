@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class ScheduleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pk;
+    private Long schedule_PK;
 
     @Nullable
     @ManyToOne
