@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     UserRepository userRepository;
-    ModelMapper modelMapper = new ModelMapper();
+    ModelMapper modelMapper;
 
     JwtConfig jwtConfig;
 
@@ -21,10 +21,11 @@ public class UserService {
 
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig) {
+    public UserService(UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig,ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.jwtConfig = jwtConfig;
+        this.modelMapper = modelMapper;
     }
 
     public String login(String ID, String PWD) {

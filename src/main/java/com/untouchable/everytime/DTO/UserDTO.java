@@ -11,17 +11,14 @@ import java.sql.Date;
 @AllArgsConstructor
 @Builder
 public class UserDTO {
-    String ID;
+    String User_ID;
     String PWD;
     String name;
     String nickname;
     String email;
-
-    Long school_PK;
-    Date year;
-
+    String schoolName;
+    int registeredYear;
     boolean verified;
     Long point;
-
     UserStatus status;
 }

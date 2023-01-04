@@ -18,7 +18,7 @@ import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "유저", description = "유저 정보 왔다갔다 하는 API")
+@Tag(name = "User CRUD", description = "유저 정보 CRUD 관련 API")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -36,7 +36,7 @@ public class UserController {
     @PostMapping("/login")
     @ResponseBody
     public String login(@RequestBody UserDTO userDTO) {
-        return userService.login(userDTO.getID(), userDTO.getPWD());
+        return userService.login(userDTO.getUser_ID(), userDTO.getPWD());
 
     }
 

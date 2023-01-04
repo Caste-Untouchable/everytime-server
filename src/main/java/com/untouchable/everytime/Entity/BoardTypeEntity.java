@@ -1,25 +1,25 @@
 package com.untouchable.everytime.Entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.sql.Date;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FoodEntity {
+public class BoardTypeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long food_PK;
+    private Long boardType_PK;
+
     @ManyToOne
     SchoolEntity school;
-    String where;
-    String menu;
-    Date date;
+
+    String boardType;
+
 }

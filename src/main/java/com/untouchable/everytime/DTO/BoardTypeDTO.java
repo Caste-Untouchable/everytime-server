@@ -5,17 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class FoodDTO {
-    Long food_PK;
-    Long school_PK;
-    String where;
-    String menu;
-    Date date;
+public class BoardTypeDTO {
+    private Long boardType_PK;
+    SchoolDTO school;
+    String boardType;
 
 }

@@ -1,9 +1,7 @@
 package com.untouchable.everytime.Entity;
 
-import com.untouchable.everytime.Enum.BoardType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -26,8 +24,8 @@ public class BoardEntity {
     SchoolEntity school;
     @ManyToOne
     UserEntity user;
-    @Enumerated(EnumType.STRING)
-    BoardType boardType;
+    @ManyToOne
+    BoardTypeEntity boardType;
     @Column
     String boardTitle;
     String content;

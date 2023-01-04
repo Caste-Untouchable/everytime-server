@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class BoardCommentReportEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

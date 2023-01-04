@@ -1,26 +1,24 @@
 package com.untouchable.everytime.DTO;
 
-import com.untouchable.everytime.Entity.BoardEntity;
-import com.untouchable.everytime.Entity.UserEntity;
-import jakarta.annotation.Nullable;
-import jakarta.persistence.ManyToOne;
+
+
+import lombok.*;
 
 import java.sql.Date;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class BoardCommentDTO {
-
     private Long boardComment_PK;
-
     Long board_PK;
-
-    Long user_PK;
-
+    String nickname;
+    String User_ID;
     boolean anonymity;
-    Boolean isReply;
-    String author;
     Date createdAT;
     Long reportCount;
     String content;
-    Long reportNum;
+    Long replyTo;
 
 }
