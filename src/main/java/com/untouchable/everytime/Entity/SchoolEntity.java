@@ -15,10 +15,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class SchoolEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long school_PK;
-    @Column(unique = true)
-    String schoolName;
+    String SchoolName;
     String location;
     String tell;
     String fax;

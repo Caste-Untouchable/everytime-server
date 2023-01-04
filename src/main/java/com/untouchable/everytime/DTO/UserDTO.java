@@ -16,7 +16,7 @@ public class UserDTO {
     String name;
     String nickname;
     String email;
-    String schoolName;
+    String SchoolName;
     int registeredYear;
     boolean verified;
     Long point;

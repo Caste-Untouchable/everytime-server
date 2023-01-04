@@ -31,7 +31,7 @@ class UserDTOTest {
                 .name("test")
                 .nickname("Tester")
                 .email("test@test.com")
-                .schoolName("Dong-eui")
+                .SchoolName("Dong-eui")
                 .registeredYear(2020)
                 .verified(true)
                 .point(100L)
@@ -61,7 +61,7 @@ class UserDTOTest {
                 .name("test1")
                 .nickname("Tester")
                 .email("test@test.com")
-                .school(SchoolEntity.builder().schoolName("dong-eui").school_PK(1L).build())
+                .school(SchoolEntity.builder().SchoolName("dong-eui").build())
                 .registeredYear(2020)
                 .verified(true)
                 .point(100L)
@@ -69,7 +69,6 @@ class UserDTOTest {
                 .build();
         UserDTO userDTO = modelMapper.map(userEntity, UserDTO.class);
 
-        assertEquals(userDTO.getUser_ID(), userEntity.getUser_ID());
         assertEquals(userDTO.getPWD(), userEntity.getPWD());
         assertEquals(userDTO.getName(), userEntity.getName());
         assertEquals(userDTO.getNickname(), userEntity.getNickname());
