@@ -20,6 +20,7 @@ public class BookEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long book_PK;
 
+
     @Column
     String title;
     String author;

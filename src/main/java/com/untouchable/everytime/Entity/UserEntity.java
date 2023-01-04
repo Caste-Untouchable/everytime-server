@@ -16,9 +16,6 @@ import java.sql.Date;
 @AllArgsConstructor
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_PK;
-    @Column(unique = true)
     String ID;
     String PWD;
     String name;

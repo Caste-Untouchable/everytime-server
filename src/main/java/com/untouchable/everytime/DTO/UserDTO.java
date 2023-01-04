@@ -11,8 +11,6 @@ import java.sql.Date;
 @AllArgsConstructor
 @Builder
 public class UserDTO {
-    Long user_PK;
-
     String ID;
     String PWD;
     String name;
