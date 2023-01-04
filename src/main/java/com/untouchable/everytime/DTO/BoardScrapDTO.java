@@ -2,6 +2,10 @@ package com.untouchable.everytime.DTO;
 
 public class BoardScrapDTO {
 
-    private Long BoardScrap_PK;
+    Long BoardScrap_PK;
+
+    Long board_PK;
+
+    Long user_PK;
 
 }

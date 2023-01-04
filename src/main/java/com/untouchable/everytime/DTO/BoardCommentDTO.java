@@ -9,11 +9,11 @@ import java.sql.Date;
 
 public class BoardCommentDTO {
 
-    private Long BoardComment_PK;
+    private Long boardComment_PK;
 
-    Long Board_PK;
+    Long board_PK;
 
-    Long User_PK;
+    Long user_PK;
 
     boolean anonymity;
     Boolean isReply;

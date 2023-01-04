@@ -11,19 +11,19 @@ import java.sql.Date;
 @AllArgsConstructor
 @Builder
 public class UserDTO {
-    private Long User_PK;
+    Long user_PK;
+
     String ID;
     String PWD;
     String name;
     String nickname;
     String email;
-    //SchoolEntity schoolEntity;
-    Date year;
 
-    UserProfileDTO userProfile;
+    Long school_PK;
+    Date year;
 
     boolean verified;
     Long point;
 
-    private UserStatus status;
+    UserStatus status;
 }

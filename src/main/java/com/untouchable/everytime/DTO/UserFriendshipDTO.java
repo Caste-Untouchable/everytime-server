@@ -11,6 +11,10 @@ import lombok.NoArgsConstructor;
 
 public class UserFriendshipDTO {
 
-    //TODO
+   Long userFriendShip_PK;
+
+   String user1;
+
+   String user2;
 
 }

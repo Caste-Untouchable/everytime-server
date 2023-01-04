@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class BookDTO {
 
-    private Long Book_PK;
+    Long book_PK;
 
     String title;
     String author;

@@ -1,8 +1,12 @@
 package com.untouchable.everytime.DTO;
 
+import java.util.ArrayList;
+
 public class LectureDTO {
 
-    private Long Lecture_PK;
+    Long Lecture_PK;
+
+    Long lecture_PK;
 
     int lectureNum;
     int separation;
@@ -10,4 +14,9 @@ public class LectureDTO {
     int credit;
     int grade;
     String professor;
+
+    ArrayList<String> book_PK;
+
+    Long schedule_PK;
+
 }

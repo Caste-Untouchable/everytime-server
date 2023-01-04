@@ -2,6 +2,8 @@ package com.untouchable.everytime.DTO;
 
 public class BoardRecommendDTO {
 
-    private Long BoardRecommend_PK;
+    Long boardRecommend_PK;
+
+    Long user_PK;
 
 }
