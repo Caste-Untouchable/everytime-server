@@ -2,6 +2,6 @@ package com.untouchable.everytime.DTO;
 
 public class MailBlockDTO {
 
-    Long MailBlock_PK;
+    private Long MailBlock_PK;
 
 }

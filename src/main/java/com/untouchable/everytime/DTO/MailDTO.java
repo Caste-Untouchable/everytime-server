@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class MailDTO {
 
-    Long Mail_PK;
+    private Long Mail_PK;
 
     String reciever;
     String sender;

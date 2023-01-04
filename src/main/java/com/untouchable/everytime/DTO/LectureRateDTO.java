@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class LectureRateDTO {
 
-    Long LectureRate_PK;
+    private Long LectureRate_PK;
 
     String content;
     Date lectureDate;

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class BoardDTO {
 
-    Long Board_PK;
+    private Long Board_PK;
 
     BoardType boardType;
 
