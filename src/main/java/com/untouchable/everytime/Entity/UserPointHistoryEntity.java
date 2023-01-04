@@ -17,7 +17,7 @@ public class UserPointHistoryEntity {
     private Long userPoint_PK;
 
     @ManyToOne
-    UserEntity userEntity;
+    UserEntity user;
 
     //@ManyToOne
     //TODO : 강의평가 클래스 넣기

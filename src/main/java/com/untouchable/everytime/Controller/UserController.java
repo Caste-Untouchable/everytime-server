@@ -1,5 +1,6 @@
 package com.untouchable.everytime.Controller;
 
+import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.DTO.UserDTO;
 import com.untouchable.everytime.Entity.UserEntity;
 import com.untouchable.everytime.Enum.AttachmentType;
@@ -17,20 +18,23 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     UserService userService;
+    JwtConfig jwtConfig;
+
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtConfig jwtConfig) {
         this.userService = userService;
+        this.jwtConfig = jwtConfig;
     }
 
     @PostMapping("/login")
-    public UserDTO login(@RequestBody UserDTO userDTO) {
-        // TODO : 해야함
-        UserDTO user = userDTO;
-        userService.login(user.getID(), user.getPWD());
-        return user;
+    @ResponseBody
+    public String login(@RequestBody UserDTO userDTO) {
+        return userService.login(userDTO.getID(), userDTO.getPWD());
+
     }
-    @PostMapping("/singup")
+
+    @PostMapping("/signup")
     public UserDTO singup(@RequestBody UserDTO userDTO) {
 
         return userService.register(userDTO);
@@ -42,13 +46,13 @@ public class UserController {
         UserDTO user = new UserDTO();
         return user;
     }
+
     @DeleteMapping("/delete")
     public UserDTO delete() {
         // TODO : 해야함
         UserDTO user = new UserDTO();
         return user;
     }
-
 
 
 }
