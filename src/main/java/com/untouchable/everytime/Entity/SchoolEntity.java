@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class SchoolEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long SPK;
+    long School_PK;
     @OneToMany
     ArrayList<FoodEntity> food;
     @OneToMany

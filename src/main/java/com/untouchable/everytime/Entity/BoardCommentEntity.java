@@ -20,7 +20,7 @@ public class BoardCommentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long CPK;
+    Long BoardComment_PK;
 
     @ManyToOne
     BoardEntity board;

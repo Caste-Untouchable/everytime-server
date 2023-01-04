@@ -19,7 +19,7 @@ public class LectureEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long LPK;
+    Long Lecture_PK;
 
     @Enumerated(EnumType.STRING)
     LectureType lectureType;
