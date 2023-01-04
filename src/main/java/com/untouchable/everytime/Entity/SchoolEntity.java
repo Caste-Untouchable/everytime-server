@@ -17,11 +17,8 @@ public class SchoolEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long school_PK;
-    @OneToMany
-    ArrayList<FoodEntity> foodList;
-    @OneToMany
-    ArrayList<UserEntity> userList;
-    String name;
+    @Column(unique = true)
+    String schoolName;
     String location;
     String tell;
     String fax;

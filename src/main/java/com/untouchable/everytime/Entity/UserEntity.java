@@ -16,14 +16,14 @@ import java.sql.Date;
 @AllArgsConstructor
 public class UserEntity {
     @Id
-    String ID;
+    String User_ID;
     String PWD;
     String name;
     String nickname;
     String email;
     @ManyToOne
     SchoolEntity school;
-    Date year;
+    int registeredYear;
     @OneToOne
     UserProfileEntity userProfile;
     boolean verified;

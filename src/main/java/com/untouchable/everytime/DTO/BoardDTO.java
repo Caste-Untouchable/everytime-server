@@ -1,12 +1,5 @@
 package com.untouchable.everytime.DTO;
 
-import com.untouchable.everytime.Entity.BoardImageEntity;
-import com.untouchable.everytime.Entity.SchoolEntity;
-import com.untouchable.everytime.Entity.UserEntity;
-import com.untouchable.everytime.Enum.BoardType;
-import com.untouchable.everytime.Enum.UserStatus;
-
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
@@ -25,7 +18,7 @@ public class BoardDTO {
 
     Long user_PK;
 
-    BoardType boardType;
+    BoardTypeDTO boardType;
 
     String boardTitle;
     String content;
