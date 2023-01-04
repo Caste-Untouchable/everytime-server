@@ -14,17 +14,20 @@ import java.sql.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class MailEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mail_PK;
 
-    @Column
-    String reciever;
-    String sender;
+    @ManyToOne
+    UserEntity receiver;
+    @ManyToOne
+    UserEntity sender;
     String comment;
     Date createdAT;
+
+    @ManyToOne
+    MailRoomEntity mailRoom;
 
 }

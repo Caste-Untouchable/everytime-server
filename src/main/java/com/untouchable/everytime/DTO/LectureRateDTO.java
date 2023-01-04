@@ -1,6 +1,6 @@
 package com.untouchable.everytime.DTO;
 
-import com.untouchable.everytime.Enum.LectureInfo;
+import com.untouchable.everytime.Enum.LectureStatus;
 
 import java.sql.Date;
 
@@ -16,6 +16,6 @@ public class LectureRateDTO {
     Long rate;
     String testInfo;
 
-    LectureInfo lectureInfo;
+    LectureStatus lectureInfo;
 
 }

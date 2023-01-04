@@ -13,18 +13,13 @@ import java.sql.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class BookEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long book_PK;
-
-
-    @Column
     String title;
     String author;
     String publisher;
     Date publicationDate;
-    Long price;
+    Long bookPrice;
 }
