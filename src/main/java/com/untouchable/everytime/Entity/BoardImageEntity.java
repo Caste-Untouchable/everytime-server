@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class BoardImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long BoardImage_PK;
+    private Long boardImage_PK;
     private String originFilename;
     private String storeFilename;
     @Enumerated(EnumType.STRING)

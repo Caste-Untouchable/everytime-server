@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class LectureRecommendCountEntity {
 
     @Id
-    private Long LectureRecommendCount_PK;
+    private Long lectureRecommendCount_PK;
 
     @ManyToOne
     BoardEntity board;

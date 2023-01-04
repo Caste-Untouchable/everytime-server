@@ -16,7 +16,7 @@ public class BoardScrapEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long BoardScarp_PK;
+    private Long boardScarp_PK;
 
     @ManyToOne
     BoardEntity board;

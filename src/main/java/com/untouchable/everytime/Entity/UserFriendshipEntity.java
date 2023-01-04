@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class UserFriendshipEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UserFriendship_PK;
+    private Long userFriendship_PK;
 
     @ManyToOne
     UserEntity user1;
