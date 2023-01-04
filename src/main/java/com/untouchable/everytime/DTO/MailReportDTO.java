@@ -2,6 +2,6 @@ package com.untouchable.everytime.DTO;
 
 public class MailReportDTO {
 
-    Long PK;
+    Long MailReport_PK;
 
 }

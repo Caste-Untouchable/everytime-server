@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 
 public class BoardImageDTO {
 
-    private Long PK;
+    private Long BoardImage_PK;
     private String originFilename;
     private String storeFilename;
 
