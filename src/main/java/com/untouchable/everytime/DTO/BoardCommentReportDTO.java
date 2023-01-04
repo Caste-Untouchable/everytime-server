@@ -1,7 +1,10 @@
 package com.untouchable.everytime.DTO;
 
-public class BoardCommentReportDTO {
-    private Long BoardCommentReport_PK;
+import com.untouchable.everytime.Enum.ReportType;
 
-    Long User_PK;
+public class BoardCommentReportDTO {
+    Long BoardCommentReport_PK;
+
+    ReportType reportType;
+    Long user_PK;
 }

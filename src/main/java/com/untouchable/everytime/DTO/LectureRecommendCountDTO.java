@@ -2,6 +2,10 @@ package com.untouchable.everytime.DTO;
 
 public class LectureRecommendCountDTO {
 
-    private Long LectureRecommendCount_PK;
+    Long lectureRecommendCount_PK;
+
+    Long board_PK;
+
+    Long user_PK;
 
 }

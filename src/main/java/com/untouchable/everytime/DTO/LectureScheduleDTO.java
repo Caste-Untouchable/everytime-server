@@ -1,7 +1,11 @@
 package com.untouchable.everytime.DTO;
 
+import java.util.ArrayList;
+
 public class LectureScheduleDTO {
 
-    private Long LectureSchedule_PK;
+    Long lectureSchedule_PK;
+
+    ArrayList<String> lecture_PK;
 
 }

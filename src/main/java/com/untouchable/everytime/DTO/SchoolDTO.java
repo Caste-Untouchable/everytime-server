@@ -17,7 +17,12 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SchoolDTO {
-    private long School_PK;
+    long School_PK;
+
+    ArrayList<String> food_PK;
+
+    ArrayList<String> user_PK;
+
     String name;
     String location;
     String tell;

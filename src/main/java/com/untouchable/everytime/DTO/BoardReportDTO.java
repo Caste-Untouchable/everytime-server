@@ -2,6 +2,10 @@ package com.untouchable.everytime.DTO;
 
 public class BoardReportDTO {
 
-    private Long Board_PK;
+    Long board_PK;
+
+    Long report_PK;
+
+    Long user_PK;
 
 }

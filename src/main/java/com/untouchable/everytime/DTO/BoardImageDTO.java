@@ -17,10 +17,12 @@ import lombok.NoArgsConstructor;
 
 public class BoardImageDTO {
 
-    private Long BoardImage_PK;
-    private String originFilename;
-    private String storeFilename;
+    Long boardImage_PK;
+    String originFilename;
+    String storeFilename;
 
-    private AttachmentType attachmentType;
+    AttachmentType attachmentType;
+
+    Long board_UK;
 
 }
