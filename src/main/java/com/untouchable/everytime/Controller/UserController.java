@@ -2,21 +2,14 @@ package com.untouchable.everytime.Controller;
 
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.DTO.UserDTO;
-import com.untouchable.everytime.Entity.UserEntity;
-import com.untouchable.everytime.Enum.AttachmentType;
 import com.untouchable.everytime.Service.UserService;
-
-import io.swagger.v3.oas.annotations.*;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.persistence.*;
-import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+import java.util.Optional;
 
 @Tag(name = "User CRUD", description = "유저 정보 CRUD 관련 API")
 @RestController
@@ -42,29 +35,32 @@ public class UserController {
 
     @PostMapping("/signup")
     public UserDTO singup(@RequestBody UserDTO userDTO) {
-
         return userService.register(userDTO);
     }
 
     @PatchMapping("/update")
-    public UserDTO update(@RequestBody UserDTO userDTO) {
-        // TODO : 해야함
-        UserDTO user = new UserDTO();
-        return user;
+    public UserDTO update(
+            @RequestHeader(value = "jwt") String token,
+            @RequestBody UserDTO userDTO) {
+        return userService.register(userDTO);
     }
 
     @DeleteMapping("/delete")
-    public UserDTO delete(@RequestBody UserDTO userDTO) {
-        // TODO : 해야함
-        UserDTO user = new UserDTO();
-        return user;
+    public ResponseEntity<UserDTO> delete(@RequestHeader(value = "jwt") String token) {
+        Map<String, Object> result = jwtConfig.verifyJWT(token);
+        userService.deleteUser((String) result.get("ID"));
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/info")
-    public UserDTO info(@RequestBody UserDTO userDTO) {
-        // TODO : 해야함
-        UserDTO user = new UserDTO();
-        return user;
+    public ResponseEntity<UserDTO> info(@RequestHeader(value = "jwt") String token) {
+        Map<String, Object> result = jwtConfig.verifyJWT(token);
+        Optional<UserDTO> user = userService.getUserById((String) result.get("ID"));
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 

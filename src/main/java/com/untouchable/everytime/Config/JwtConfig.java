@@ -54,7 +54,7 @@ public class JwtConfig {
         return jwt;
     }
 
-    public Map<String, Object> verifyJWT(String jwt) throws UnsupportedEncodingException {
+    public Map<String, Object> verifyJWT(String jwt) {
         Map<String, Object> claimMap = null;
         try {
             Claims claims = Jwts.parser()

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -35,8 +37,6 @@ public class UserService {
             return jwtConfig.createToken(userEntity);
             //return modelMapper.map(userEntity, UserDTO.class);
         }
-
-
         return null;
     }
 
@@ -47,6 +47,24 @@ public class UserService {
         System.out.println(userEntity.toString());
         userRepository.save(userEntity);
         return modelMapper.map(userEntity, UserDTO.class);
+    }
+
+    public Optional<UserDTO> updateUser(UserDTO userDTO) {
+        UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
+        userRepository.save(userEntity);
+        return Optional.of(modelMapper.map(userEntity, UserDTO.class));
+    }
+
+    public void deleteUser(String ID) {
+        userRepository.deleteById(ID);
+    }
+
+    public Optional<UserDTO> getUserById(String ID) {
+        Optional<UserEntity> userEntity = userRepository.findById(ID);
+        if (userEntity.isPresent()){
+            return Optional.of(modelMapper.map(userEntity.get(), UserDTO.class));
+        }
+        return Optional.empty();
     }
 
 }
