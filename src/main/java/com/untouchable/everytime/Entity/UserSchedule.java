@@ -2,7 +2,8 @@ package com.untouchable.everytime.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,13 +16,15 @@ import java.util.ArrayList;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class LectureScheduleEntity {
+public class UserSchedule {
     @Id
-    private Long lectureSchedule_PK;
+    Long userSchedule_PK;
 
-    @ManyToMany
-    ArrayList<LectureEntity> lectureName;
+    String scheduleName;
 
+    @OneToMany
+    ArrayList<ScheduleEntity> userScheduleList;
 
+    @OneToMany
+    ArrayList<ScheduleCustomEntity> userScheduleCustomList;
 }

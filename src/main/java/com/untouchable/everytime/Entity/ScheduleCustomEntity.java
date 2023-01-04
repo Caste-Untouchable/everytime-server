@@ -1,24 +1,20 @@
 package com.untouchable.everytime.Entity;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.sql.Date;
 
 @Entity
-@SuperBuilder
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-public class ScheduleEntity {
+@AllArgsConstructor
+@NoArgsConstructor
+@SuperBuilder
+public class ScheduleCustomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long schedule_PK;
+    private Long ScheduleCustom_PK;
 
     @ManyToOne
     LectureEntity lecture;
@@ -32,6 +28,7 @@ public class ScheduleEntity {
     int start;
     int end;
 
-
+    @ManyToOne
+    UserEntity userEntity;
 
 }

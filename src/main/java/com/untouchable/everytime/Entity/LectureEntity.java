@@ -14,7 +14,6 @@ import java.util.ArrayList;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class LectureEntity {
 
     @Id
@@ -32,10 +31,21 @@ public class LectureEntity {
     int grade;
     String professor;
 
+    Long averageRate;
+
+    // 10 1학기, 11 하계 계절학기, 20 2학기, 21 동계 계절학기
+    int year;
+    int semester;
+
     @ManyToMany
     ArrayList<BookEntity> book;
 
-    @ManyToOne
-    ScheduleEntity schedule;
+    @OneToMany
+    ArrayList<ScheduleEntity> schedule;
+
+    // 최신 2개만 가져오기
+    // TODO : Custom Mapper 만들기
+    @OneToMany
+    ArrayList<LectureRateEntity> lectureRateList;
 
 }

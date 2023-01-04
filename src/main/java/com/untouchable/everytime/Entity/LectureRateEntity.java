@@ -1,6 +1,6 @@
 package com.untouchable.everytime.Entity;
 
-import com.untouchable.everytime.Enum.LectureInfo;
+import com.untouchable.everytime.Enum.LectureStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,19 +17,30 @@ import java.sql.Date;
 
 public class LectureRateEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lectureRate_PK;
 
     @ManyToOne
     LectureEntity lecture;
 
-    @Column
     String content;
     Date lectureDate;
     int recommendCount;
-    Long rate;
-    String testInfo;
+    int rate;
+
+    // 10 1학기, 11 하계 계절학기, 20 2학기, 21 동계 계절학기
+    int year;
+    int semester;
 
     @Enumerated(EnumType.STRING)
-    LectureInfo lectureInfo;
+    LectureStatus assignmentStatus;
+    @Enumerated(EnumType.STRING)
+    LectureStatus teamMeetingStatus;
+    @Enumerated(EnumType.STRING)
+    LectureStatus scoreStatus;
+
+
+    @ManyToOne
+    UserEntity user;
 
 }

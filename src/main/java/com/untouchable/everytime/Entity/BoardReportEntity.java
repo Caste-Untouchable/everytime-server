@@ -25,6 +25,6 @@ public class BoardReportEntity {
     UserEntity reportUser;
 
     @ManyToOne
-    UserEntity reportedUser;
+    BoardEntity reportBoard;
 
 }
