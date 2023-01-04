@@ -1,6 +1,6 @@
 package com.untouchable.everytime.Entity;
 
-import com.untouchable.everytime.Enum.AttachmentType;
+import com.untouchable.everytime.Enum.LectureType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,15 +14,28 @@ import java.util.ArrayList;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardImageEntity {
+
+public class LectureEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardImage_PK;
-    private String originFilename;
-    private String storeFilename;
+    private Long lecture_PK;
+
     @Enumerated(EnumType.STRING)
-    private AttachmentType attachmentType;
+    LectureType lectureType;
+
+    @Column
+    int lectureNum;
+    int separation;
+    String lectureName;
+    int credit;
+    int grade;
+    String professor;
+
+    @ManyToMany
+    ArrayList<BookEntity> book;
 
     @ManyToOne
-    BoardEntity board;
+    ScheduleEntity schedule;
+
 }

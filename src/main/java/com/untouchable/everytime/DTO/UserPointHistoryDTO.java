@@ -12,6 +12,10 @@ import lombok.NoArgsConstructor;
 
 public class UserPointHistoryDTO {
 
+    Long userPoint_PK;
+
+    Long user_PK;
+
     Long point;
 
 }
