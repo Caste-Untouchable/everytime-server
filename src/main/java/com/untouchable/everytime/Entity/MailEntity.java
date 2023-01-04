@@ -19,7 +19,7 @@ public class MailEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long MPK;
+    private Long mail_PK;
 
     @Column
     String reciever;

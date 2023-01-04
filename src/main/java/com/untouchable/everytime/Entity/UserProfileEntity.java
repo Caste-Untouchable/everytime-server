@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class UserProfileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long PK;
+    private Long userProfile_PK;
     private String originFilename;
     private String storeFilename;
     @Enumerated(EnumType.STRING)

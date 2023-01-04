@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class BookStoreEntity {
 
     @Id
-    Long PK;
+    private Long bookStore_PK;
 
     @Column
     Long price;

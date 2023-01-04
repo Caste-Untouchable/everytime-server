@@ -1,6 +1,8 @@
 package com.untouchable.everytime.Entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,12 +14,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class BoardRecommendEntity {
+public class LectureRecommendCountEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardRecommend_PK;
+    private Long lectureRecommendCount_PK;
+
+    @ManyToOne
+    BoardEntity board;
 
     @ManyToOne
     UserEntity user;
+
 }
