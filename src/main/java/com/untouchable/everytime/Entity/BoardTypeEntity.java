@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class BoardTypeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardType_PK;
+    private Long boardTypePK;
 
     @ManyToOne
     SchoolEntity school;

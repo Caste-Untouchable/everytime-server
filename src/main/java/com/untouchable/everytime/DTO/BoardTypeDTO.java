@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardTypeDTO {
-    private Long boardType_PK;
-    String schoolName;;
+    private Long boardTypePK;
+    String schoolName;
     String boardType;
     String boardDescription;
 
