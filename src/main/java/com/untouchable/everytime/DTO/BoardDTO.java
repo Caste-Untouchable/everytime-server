@@ -10,7 +10,6 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class BoardDTO {
 
     private Long boardPK;

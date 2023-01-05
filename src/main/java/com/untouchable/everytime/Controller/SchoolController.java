@@ -42,8 +42,9 @@ public class SchoolController {
     }
 
     @DeleteMapping("/delete")
-    public void deleteSchool(@RequestParam Long id) {
+    public ResponseEntity deleteSchool(@RequestParam Long id) {
         schoolService.deleteSchool(id);
+        return ResponseEntity.ok().build();
     }
 
 

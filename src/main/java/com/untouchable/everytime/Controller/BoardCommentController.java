@@ -5,6 +5,7 @@ import com.untouchable.everytime.DTO.BoardCommentDTO;
 import com.untouchable.everytime.Entity.BoardCommentEntity;
 import com.untouchable.everytime.Service.BoardCommentService;
 import com.untouchable.everytime.Service.BoardRecommendService;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,15 +31,16 @@ public class BoardCommentController {
         this.boardRecommendService = boardRecommendService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ArrayList<BoardCommentDTO>> getBoardCommentByBoardId(@RequestParam Long id, @RequestHeader(value = "jwt") String token) {
+
+    @GetMapping("/Board/{id}")
+    public ResponseEntity<ArrayList<BoardCommentDTO>> getBoardCommentByBoardId(@PathVariable Long id, @RequestHeader(value = "jwt") String token) {
         //그냥 검증용 코드
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
         return boardCommentService.getBoardCommentByBoardID(id, token);
     }
 
-    @PostMapping("/{id}/recommend")
-    public ResponseEntity<BoardCommentDTO> recommendBoardComment(@RequestParam Long id, @RequestHeader(value = "jwt") String token) {
+    @PostMapping("/recommend/{id}")
+    public ResponseEntity<BoardCommentDTO> recommendBoardComment(@PathVariable Long id, @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
         return boardRecommendService.recommendBoardComment(id, token);
     }
