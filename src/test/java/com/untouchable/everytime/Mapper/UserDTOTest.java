@@ -40,7 +40,7 @@ class UserDTOTest {
 
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
 
-        assertEquals(userDTO.getUser_ID(), userEntity.getUser_ID());
+        assertEquals(userDTO.getUser_ID(), userEntity.getUserID());
         assertEquals(userDTO.getPWD(), userEntity.getPWD());
         assertEquals(userDTO.getName(), userEntity.getName());
         assertEquals(userDTO.getNickname(), userEntity.getNickname());
@@ -56,7 +56,7 @@ class UserDTOTest {
     @DisplayName("UserEntity to UserDTO")
     public void UserEntityToUserDTO() {
         UserEntity userEntity = UserEntity.builder()
-                .User_ID("test")
+                .UserID("test")
                 .PWD("test")
                 .name("test1")
                 .nickname("Tester")

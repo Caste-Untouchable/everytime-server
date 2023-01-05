@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-
 @Entity
 @Data
 @Builder
@@ -16,7 +14,7 @@ import java.sql.Date;
 @AllArgsConstructor
 public class UserEntity {
     @Id
-    String User_ID;
+    String UserID;
     String PWD;
     String name;
     String nickname;

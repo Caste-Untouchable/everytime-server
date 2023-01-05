@@ -4,6 +4,6 @@ public class BoardRecommendDTO {
 
     Long boardRecommend_PK;
 
-    Long user_PK;
+    String UserID;
 
 }

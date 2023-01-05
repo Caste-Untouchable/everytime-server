@@ -1,0 +1,90 @@
+package com.untouchable.everytime.Controller;
+
+import com.untouchable.everytime.Config.JwtConfig;
+import com.untouchable.everytime.DTO.BoardDTO;
+import com.untouchable.everytime.Service.BoardService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Optional;
+
+@Tag(name = "게시글 CRUD", description = "게시글 CRUD 관련 API")
+@RestController
+@RequestMapping("/board")
+public class BoardController {
+
+    BoardService boardService;
+    JwtConfig jwtConfig;
+
+    @Autowired
+    public BoardController(BoardService boardService, JwtConfig jwtConfig) {
+        this.boardService = boardService;
+        this.jwtConfig = jwtConfig;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BoardDTO> getBoard(@RequestParam("id") Long id, @RequestHeader(value = "jwt") String token) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+
+        Optional<BoardDTO> result = boardService.boardGetByIdWithSchool(id, token);
+
+        if (result.isPresent()) {
+            return ResponseEntity.ok(result.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/getBoardByBoardType/{boardTypeId}")
+    public ResponseEntity<ArrayList<BoardDTO>> getBoardByBoardType(@RequestParam Long boardTypeId, @RequestHeader(value = "jwt") String token) {
+        //그냥 검증용 코드
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+
+        ArrayList<BoardDTO> result = boardService.boardGetByBoardType(boardTypeId, token);
+
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<BoardDTO> createBoard(@RequestBody BoardDTO boardDTO, @RequestHeader(value = "jwt") String token) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+
+        boardDTO.setSchoolName(String.valueOf(jwt.get("SCHOOL")));
+        boardDTO.setUserID(String.valueOf(jwt.get("ID")));
+        boardDTO.setRecommendCount(0);
+        boardDTO.setCreatedAT(new Timestamp(System.currentTimeMillis()));
+
+        return ResponseEntity.ok(boardService.createBoard(boardDTO));
+    }
+
+    @PatchMapping("/update")
+    public ResponseEntity<BoardDTO> updateBoard(@RequestBody BoardDTO boardDTO, @RequestHeader(value = "jwt") String token) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+
+        return ResponseEntity.ok(boardService.updateBoard(boardDTO));
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteBoard(@RequestParam("id") Long id, @RequestHeader(value = "jwt") String token) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+
+        Optional<BoardDTO> result = boardService.boardGetByIdWithSchool(id, token);
+
+        if (result.isPresent() && result.get().getUserID().equals(jwt.get("USERID"))) {
+            boardService.deleteBoard(id);
+            return ResponseEntity.ok("삭제 성공");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+
+}
+

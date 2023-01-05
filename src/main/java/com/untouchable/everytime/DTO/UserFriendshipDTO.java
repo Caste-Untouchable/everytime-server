@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @Builder
-
 public class UserFriendshipDTO {
 
    Long userFriendShip_PK;

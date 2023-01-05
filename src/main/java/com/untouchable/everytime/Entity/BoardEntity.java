@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 @Entity
@@ -31,10 +31,9 @@ public class BoardEntity {
     String content;
     int recommendCount;
     int scrapCount;
-    @OneToMany
-    ArrayList<BoardImageEntity> images;
-    Date createdAT;
-    String author;
+    //    @OneToMany
+//    ArrayList<BoardImageEntity> images;
+    Timestamp createdAT;
     boolean anonymity;
     int reportCount;
 
