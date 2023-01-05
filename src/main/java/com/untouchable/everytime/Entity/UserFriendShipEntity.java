@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserFriendshipEntity {
+public class UserFriendShipEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userFriendship_PK;
+    private Long userFriendshipPK;
 
     @ManyToOne
     UserEntity user1;
