@@ -1,5 +1,6 @@
 package com.untouchable.everytime.DTO;
 
+import com.untouchable.everytime.Enum.BoardTypeClass;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,5 +15,6 @@ public class BoardTypeDTO {
     String schoolName;
     String boardType;
     String boardDescription;
+    BoardTypeClass boardTypeClass;
 
 }

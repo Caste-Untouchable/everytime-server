@@ -1,5 +1,6 @@
 package com.untouchable.everytime.Entity;
 
+import com.untouchable.everytime.Enum.BoardTypeClass;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,9 @@ public class BoardTypeEntity {
     SchoolEntity school;
 
     String boardType;
+
+    @Enumerated(EnumType.STRING)
+    BoardTypeClass boardTypeClass;
 
     String boardDescription;
 
