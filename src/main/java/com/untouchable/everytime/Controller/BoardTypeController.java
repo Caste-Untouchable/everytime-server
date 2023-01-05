@@ -42,7 +42,7 @@ public class BoardTypeController {
 
     @DeleteMapping("/delete")
     public void deleteBoardType(@RequestBody BoardTypeDTO boardTypeDTO) {
-        boardTypeService.deleteBoardType(boardTypeDTO.getBoardType_PK());
+        boardTypeService.deleteBoardType(boardTypeDTO.getBoardTypePK());
     }
 
 

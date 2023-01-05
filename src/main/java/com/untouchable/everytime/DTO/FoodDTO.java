@@ -12,9 +12,9 @@ import java.sql.Date;
 @AllArgsConstructor
 @Builder
 public class FoodDTO {
-    Long food_PK;
-    Long school_PK;
-    String where;
+    Long foodPK;
+    String schoolName;
+    String place;
     String menu;
     Date date;
 

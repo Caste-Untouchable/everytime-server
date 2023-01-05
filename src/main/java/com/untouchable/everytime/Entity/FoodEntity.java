@@ -16,10 +16,10 @@ import java.sql.Date;
 public class FoodEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long food_PK;
+    Long foodPK;
     @ManyToOne
     SchoolEntity school;
-    String where;
+    String place;
     String menu;
     Date date;
 }
