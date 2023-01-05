@@ -1,8 +1,6 @@
 package com.untouchable.everytime.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,11 +13,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BoardTypeEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardType_PK;
 
     @ManyToOne
     SchoolEntity school;
 
     String boardType;
+
+    String boardDescription;
 
 }

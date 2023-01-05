@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class SchoolEntity {
     @Id
-    String SchoolName;
+    String schoolName;
     String location;
     String tell;
     String fax;

@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BoardTypeDTO {
     private Long boardType_PK;
-    SchoolDTO school;
+    String schoolName;;
     String boardType;
+    String boardDescription;
 
 }

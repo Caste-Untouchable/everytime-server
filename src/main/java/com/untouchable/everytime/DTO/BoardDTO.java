@@ -12,11 +12,11 @@ import java.util.ArrayList;
 
 public class BoardDTO {
 
-    private Long board_PK;
+    private Long boardPK;
 
-    Long school_PK;
+    Long schoolPK;
 
-    Long user_PK;
+    String SchoolName;
 
     BoardTypeDTO boardType;
 
