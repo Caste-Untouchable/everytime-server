@@ -2,6 +2,8 @@ package com.untouchable.everytime.Controller;
 
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.DTO.BoardDTO;
+import com.untouchable.everytime.Service.BoardReportService;
+import com.untouchable.everytime.Service.BoardScrapService;
 import com.untouchable.everytime.Service.BoardService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +21,17 @@ import java.util.Optional;
 @RequestMapping("/board")
 public class BoardController {
 
+    BoardScrapService boardScrapService;
+    BoardReportService boardReportService;
     BoardService boardService;
     JwtConfig jwtConfig;
 
     @Autowired
-    public BoardController(BoardService boardService, JwtConfig jwtConfig) {
+    public BoardController(BoardScrapService boardScrapService,BoardReportService boardReportService, BoardService boardService, JwtConfig jwtConfig) {
         this.boardService = boardService;
         this.jwtConfig = jwtConfig;
+        this.boardReportService = boardReportService;
+        this.boardScrapService = boardScrapService;
     }
 
     @GetMapping("/{id}")
@@ -39,6 +45,19 @@ public class BoardController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/{id}/scrap")
+    public ResponseEntity scrapBoard(@RequestParam("id") Long id, @RequestHeader(value = "jwt") String token) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+        return scrapBoard(id, token);
+    }
+
+    @Tag(name = "신고는 body에 담아주세요", description = "ABUSING, SCAM, COMMERCIAL, BELITTLE, PORNO, PHISHING, INAPPROPRIATE")
+    @PostMapping("/{id}/report")
+    public ResponseEntity reportBoard(@RequestParam("id") Long id, @RequestHeader(value = "jwt") String token,@RequestBody String content) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+        return boardReportService.reportBoard(id, token,content);
     }
 
     @GetMapping("/getBoardByBoardType/{boardTypeId}")

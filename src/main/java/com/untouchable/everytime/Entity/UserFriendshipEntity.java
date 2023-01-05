@@ -16,7 +16,6 @@ public class UserFriendshipEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userFriendship_PK;
 
-    //TODO : ModelMapper Custom 만들기
     @ManyToOne
     UserEntity user1;
     @ManyToOne

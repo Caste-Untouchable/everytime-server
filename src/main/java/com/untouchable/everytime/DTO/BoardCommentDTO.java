@@ -4,19 +4,19 @@ package com.untouchable.everytime.DTO;
 
 import lombok.*;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class BoardCommentDTO {
-    private Long boardComment_PK;
-    Long board_PK;
+    private Long boardCommentPK;
+    Long boardPK;
     String nickname;
-    String User_ID;
+    String UserID;
     boolean anonymity;
-    Date createdAT;
+    Timestamp createdAT;
     Long reportCount;
     String content;
     Long replyTo;
