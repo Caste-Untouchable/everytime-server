@@ -34,6 +34,7 @@ public class JwtConfig {
         payloads.put("ID", user.getUser_ID());
         payloads.put("NAME", user.getName());
         payloads.put("NICKNAME", user.getNickname());
+        payloads.put("SCHOOL", user.getSchool().getSchoolName());
 
 
 
