@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -22,7 +22,7 @@ public class BoardCommentEntity {
     @ManyToOne
     UserEntity user;
     boolean anonymity;
-    Date createdAT;
+    Timestamp createdAT;
     Long reportCount;
     String content;
     Long replyTo;

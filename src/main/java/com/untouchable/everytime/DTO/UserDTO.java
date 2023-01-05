@@ -4,14 +4,12 @@ import com.untouchable.everytime.Enum.UserStatus;
 
 import lombok.*;
 
-import java.sql.Date;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class UserDTO {
-    String User_ID;
+    String userID;
     String PWD;
     String name;
     String nickname;

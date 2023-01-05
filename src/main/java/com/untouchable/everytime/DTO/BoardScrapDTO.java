@@ -1,8 +1,14 @@
 package com.untouchable.everytime.DTO;
 
+import lombok.*;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BoardScrapDTO {
 
-    Long BoardScrap_PK;
+    Long BoardScrapPK;
 
     Long board_PK;
 

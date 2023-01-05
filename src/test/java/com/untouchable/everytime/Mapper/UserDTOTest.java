@@ -26,7 +26,7 @@ class UserDTOTest {
     @DisplayName("UserEntity to UserDTO")
     public void UserDtoTOUserEntity() {
         UserDTO userDTO = UserDTO.builder()
-                .User_ID("test")
+                .userID("test")
                 .PWD("test")
                 .name("test")
                 .nickname("Tester")
@@ -40,7 +40,7 @@ class UserDTOTest {
 
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
 
-        assertEquals(userDTO.getUser_ID(), userEntity.getUserID());
+        assertEquals(userDTO.getUserID(), userEntity.getUserID());
         assertEquals(userDTO.getPWD(), userEntity.getPWD());
         assertEquals(userDTO.getName(), userEntity.getName());
         assertEquals(userDTO.getNickname(), userEntity.getNickname());
@@ -56,7 +56,7 @@ class UserDTOTest {
     @DisplayName("UserEntity to UserDTO")
     public void UserEntityToUserDTO() {
         UserEntity userEntity = UserEntity.builder()
-                .UserID("test")
+                .userID("test")
                 .PWD("test")
                 .name("test1")
                 .nickname("Tester")

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserEntity {
     @Id
-    String UserID;
+    String userID;
     String PWD;
     String name;
     String nickname;
