@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-
 @Entity
 @Data
 @Builder
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 public class BoardImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardImage_PK;
+    private Long boardImagePK;
     private String originFilename;
     private String storeFilename;
     @Enumerated(EnumType.STRING)

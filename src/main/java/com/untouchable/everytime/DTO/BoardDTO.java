@@ -3,6 +3,7 @@ package com.untouchable.everytime.DTO;
 import lombok.*;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 @Data
@@ -14,20 +15,20 @@ public class BoardDTO {
 
     private Long boardPK;
 
-    Long schoolPK;
+    String schoolName;
 
-    String SchoolName;
+    String UserID;
+    String nickname;
 
-    BoardTypeDTO boardType;
+    Long boardTypePK;
 
     String boardTitle;
     String content;
     int recommendCount;
 
-    ArrayList<String> storeFilename;
+//    ArrayList<BoardImageDTO> images;
 
-    Date createdAT;
-    String author;
+    Timestamp createdAT;
     boolean anonymity;
     Long reportCount;
 

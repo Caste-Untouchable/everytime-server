@@ -6,6 +6,6 @@ public class BoardReportDTO {
 
     Long report_PK;
 
-    Long user_PK;
+    String UserID;
 
 }

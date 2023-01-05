@@ -6,11 +6,8 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySources;
 import org.springframework.stereotype.Component;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +28,7 @@ public class JwtConfig {
 
         //payload 부분 설정
         Map<String, Object> payloads = new HashMap<>();
-        payloads.put("ID", user.getUser_ID());
+        payloads.put("ID", user.getUserID());
         payloads.put("NAME", user.getName());
         payloads.put("NICKNAME", user.getNickname());
         payloads.put("SCHOOL", user.getSchool().getSchoolName());

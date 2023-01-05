@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class BoardCommentReportEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardCommentReport_PK;
+    private Long boardCommentReportPK;
 
     @Enumerated(EnumType.STRING)
     ReportType reportType;

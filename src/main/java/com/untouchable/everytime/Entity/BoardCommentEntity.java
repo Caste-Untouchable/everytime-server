@@ -16,7 +16,7 @@ import java.sql.Date;
 public class BoardCommentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardComment_PK;
+    private Long boardCommentPK;
     @ManyToOne
     BoardEntity board;
     @ManyToOne
