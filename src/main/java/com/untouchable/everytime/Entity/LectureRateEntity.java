@@ -18,13 +18,12 @@ import java.sql.Date;
 public class LectureRateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lectureRate_PK;
+    private Long lectureRatePK;
 
     @ManyToOne
     LectureEntity lecture;
 
     String content;
-    Date lectureDate;
     int recommendCount;
     int rate;
 

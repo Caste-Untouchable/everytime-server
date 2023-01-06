@@ -18,12 +18,14 @@ public class LectureEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lecture_PK;
+    private Long lecturePK;
 
     @Enumerated(EnumType.STRING)
     LectureType lectureType;
 
-    @Column
+    @ManyToOne
+    SchoolEntity school;
+
     int lectureNum;
     int separation;
     String lectureName;
@@ -37,15 +39,15 @@ public class LectureEntity {
     int year;
     int semester;
 
-    @ManyToMany
-    ArrayList<BookEntity> book;
+//    @ManyToMany
+//    ArrayList<BookEntity> book;
 
-    @OneToMany
-    ArrayList<ScheduleEntity> schedule;
+//    @OneToMany
+//    ArrayList<ScheduleEntity> schedule;
 
     // 최신 2개만 가져오기
     // TODO : Custom Mapper 만들기
-    @OneToMany
-    ArrayList<LectureRateEntity> lectureRateList;
+//    @OneToMany
+//    ArrayList<LectureRateEntity> lectureRateList;
 
 }

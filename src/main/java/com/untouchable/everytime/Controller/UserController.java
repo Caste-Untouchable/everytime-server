@@ -3,6 +3,7 @@ package com.untouchable.everytime.Controller;
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.DTO.UserDTO;
 import com.untouchable.everytime.Service.UserService;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,8 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @Tag(name = "User 정보 가져오기", description = "유저 정보")
+    @ApiResponse(responseCode = "200", description = "유저 정보 가져오기 성공")
     @GetMapping("/info")
     public ResponseEntity<UserDTO> info(@RequestHeader(value = "jwt") String token) {
         Map<String, Object> result = jwtConfig.verifyJWT(token);

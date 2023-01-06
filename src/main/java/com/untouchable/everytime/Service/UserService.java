@@ -43,6 +43,7 @@ public class UserService {
     public UserDTO register(UserDTO userDTO) {
         String password = encoder.encode(userDTO.getPWD());
         userDTO.setPWD(password);
+        userDTO.setPoint(0L);
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
         System.out.println(userEntity.toString());
         userRepository.save(userEntity);

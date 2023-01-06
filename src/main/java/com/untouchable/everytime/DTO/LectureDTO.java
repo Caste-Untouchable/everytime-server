@@ -1,5 +1,6 @@
 package com.untouchable.everytime.DTO;
 
+import com.untouchable.everytime.Enum.LectureType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,19 +14,23 @@ import java.util.ArrayList;
 @Builder
 public class LectureDTO {
 
-    Long Lecture_PK;
-
-    Long lecture_PK;
-
+    Long lecturePK;
+    LectureType lectureType;
+    String schoolName;
     int lectureNum;
     int separation;
     String lectureName;
     int credit;
     int grade;
     String professor;
+    Long averageRate;
 
-    ArrayList<String> book_PK;
+    // 10 1학기, 11 하계 계절학기, 20 2학기, 21 동계 계절학기
+    int year;
+    int semester;
 
-    Long schedule_PK;
+    //ArrayList<String> book_PK;
+
+    //Long schedule_PK;
 
 }

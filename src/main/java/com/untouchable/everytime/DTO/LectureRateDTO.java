@@ -1,6 +1,8 @@
 package com.untouchable.everytime.DTO;
 
 import com.untouchable.everytime.Enum.LectureStatus;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,16 +15,16 @@ import java.sql.Date;
 @Builder
 public class LectureRateDTO {
 
-    Long lectureRate_PK;
+    Long lectureRatePK;
 
-    Long lecture_PK;
+    Long lecturePK;
 
     String content;
-    Date lectureDate;
     int recommendCount;
     Long rate;
-    String testInfo;
-
-    LectureStatus lectureInfo;
+    LectureStatus assignmentStatus;
+    LectureStatus teamMeetingStatus;
+    LectureStatus scoreStatus;
+    String userID;
 
 }
