@@ -12,4 +12,6 @@ public interface BoardTypeRepository extends JpaRepository<BoardTypeEntity, Long
 
 
 
+
+
 }

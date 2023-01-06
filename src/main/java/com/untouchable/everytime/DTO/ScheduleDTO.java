@@ -1,5 +1,7 @@
 package com.untouchable.everytime.DTO;
 
+import com.untouchable.everytime.Entity.LectureEntity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,10 +13,17 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ScheduleDTO {
 
-    Long schedule_PK;
+    private Long schedulePK;
 
-    Long user_PK;
+    Long lecturePK;
 
-    Long school_PK;
+    String location;
+
+    // 일요일 0 ~ 토요일 6
+    int day;
+
+    // 0시 ~ 24시 , start < end
+    int start;
+    int end;
 
 }
