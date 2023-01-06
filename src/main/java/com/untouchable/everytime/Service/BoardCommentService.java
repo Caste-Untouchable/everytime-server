@@ -37,7 +37,7 @@ public class BoardCommentService {
 
         BoardCommentEntity resultEntity = boardCommentRepository.save(modelMapper.map(boardCommentDTO, BoardCommentEntity.class));
 
-        if (resultEntity.getBoard().getSchool().getSchoolName().equals(jwt.get("schoolName"))) {
+        if (resultEntity.getBoard().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
             return ResponseEntity.ok(modelMapper.map(resultEntity, BoardCommentDTO.class));
         } else {
             return ResponseEntity.badRequest().build();
