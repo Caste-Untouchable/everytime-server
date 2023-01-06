@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-
 public class ScheduleDTO {
 
     Long schedule_PK;

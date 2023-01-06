@@ -32,7 +32,7 @@ public class BoardReportService {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity reportBoard(Long id, String token, String content) {
+    public ResponseEntity<String> reportBoard(Long id, String token, String content) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
         Optional<BoardEntity> boardEntity = boardRepository.findById(id);
@@ -49,9 +49,9 @@ public class BoardReportService {
             boardEntity.get().setReportCount(boardEntity.get().getReportCount() + 1);
             boardRepository.save(boardEntity.get());
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body("신고 완료");
         } else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("이미 신고 했습니다.");
         }
     }
 }

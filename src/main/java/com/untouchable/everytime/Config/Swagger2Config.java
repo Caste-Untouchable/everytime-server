@@ -23,5 +23,7 @@ public class Swagger2Config {
                         .description("Caste-Untouchable API 명세서입니다.")
                         .version("v0.0.1"));
     }
+
+
 }
 
