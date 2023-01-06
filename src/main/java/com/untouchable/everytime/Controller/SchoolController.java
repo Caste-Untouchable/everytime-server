@@ -28,7 +28,7 @@ public class SchoolController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<SchoolDTO> getSchool(@RequestParam Long id) {
+    public ResponseEntity<SchoolDTO> getSchool(@RequestParam("id") Long id) {
         Optional<SchoolDTO> school = schoolService.getSchool(id);
         if (school.isPresent()) {
             return ResponseEntity.ok(school.get());
@@ -42,7 +42,7 @@ public class SchoolController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteSchool(@RequestParam Long id) {
+    public ResponseEntity deleteSchool(@RequestParam("id") Long id) {
         schoolService.deleteSchool(id);
         return ResponseEntity.ok().build();
     }

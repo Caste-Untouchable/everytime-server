@@ -33,14 +33,14 @@ public class BoardCommentController {
 
 
     @GetMapping("/Board/{id}")
-    public ResponseEntity<ArrayList<BoardCommentDTO>> getBoardCommentByBoardId(@PathVariable Long id, @RequestHeader(value = "jwt") String token) {
+    public ResponseEntity<ArrayList<BoardCommentDTO>> getBoardCommentByBoardId(@PathVariable("id") Long id, @RequestHeader(value = "jwt") String token) {
         //그냥 검증용 코드
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
         return boardCommentService.getBoardCommentByBoardID(id, token);
     }
 
     @PostMapping("/recommend/{id}")
-    public ResponseEntity<BoardCommentDTO> recommendBoardComment(@PathVariable Long id, @RequestHeader(value = "jwt") String token) {
+    public ResponseEntity<String> recommendBoardComment(@PathVariable("id") Long id, @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
         return boardRecommendService.recommendBoardComment(id, token);
     }
@@ -52,7 +52,7 @@ public class BoardCommentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteBoardComment(@PathVariable Long id, @RequestHeader(value = "jwt") String token) {
+    public ResponseEntity deleteBoardComment(@PathVariable("id") Long id, @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
         if (boardCommentService.deleteBoardComment(id, token)) {
