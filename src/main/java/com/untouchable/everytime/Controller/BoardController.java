@@ -34,8 +34,8 @@ public class BoardController {
         this.boardScrapService = boardScrapService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BoardDTO> getBoard(@RequestParam("id") Long id, @RequestHeader(value = "jwt") String token) {
+    @GetMapping("/get/{id}")
+    public ResponseEntity<BoardDTO> getBoard(@PathVariable("id") Long id, @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
         Optional<BoardDTO> result = boardService.boardGetByIdWithSchool(id, token);
@@ -47,21 +47,21 @@ public class BoardController {
         }
     }
 
-    @PostMapping("/{id}/scrap")
-    public ResponseEntity scrapBoard(@RequestParam("id") Long id, @RequestHeader(value = "jwt") String token) {
+    @PostMapping("/scrap/{id}")
+    public ResponseEntity scrapBoard(@PathVariable("id") Long id, @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
         return scrapBoard(id, token);
     }
 
     @Tag(name = "신고는 body에 담아주세요", description = "ABUSING, SCAM, COMMERCIAL, BELITTLE, PORNO, PHISHING, INAPPROPRIATE")
-    @PostMapping("/{id}/report")
-    public ResponseEntity reportBoard(@RequestParam("id") Long id, @RequestHeader(value = "jwt") String token,@RequestBody String content) {
+    @PostMapping("/report/{id}")
+    public ResponseEntity reportBoard(@PathVariable("id") Long id, @RequestHeader(value = "jwt") String token,@RequestBody String content) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
         return boardReportService.reportBoard(id, token,content);
     }
 
     @GetMapping("/getBoardByBoardType/{boardTypeId}")
-    public ResponseEntity<ArrayList<BoardDTO>> getBoardByBoardType(@RequestParam Long boardTypeId, @RequestHeader(value = "jwt") String token) {
+    public ResponseEntity<ArrayList<BoardDTO>> getBoardByBoardType(@PathVariable("boardTypeId") Long boardTypeId, @RequestHeader(value = "jwt") String token) {
         //그냥 검증용 코드
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
