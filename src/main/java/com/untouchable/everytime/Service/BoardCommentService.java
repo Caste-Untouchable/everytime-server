@@ -35,25 +35,31 @@ public class BoardCommentService {
     public ResponseEntity<BoardCommentDTO> createBoardComment(BoardCommentDTO boardCommentDTO, String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        BoardCommentEntity resultEntity = boardCommentRepository.save(modelMapper.map(boardCommentDTO, BoardCommentEntity.class));
+        BoardCommentEntity boardCommentEntity =  modelMapper.map(boardCommentDTO, BoardCommentEntity.class);
 
-        if (resultEntity.getBoard().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
-            return ResponseEntity.ok(modelMapper.map(resultEntity, BoardCommentDTO.class));
-        } else {
-            return ResponseEntity.badRequest().build();
+        if (!boardCommentEntity.getBoard().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
+            ResponseEntity.badRequest().build();
         }
+
+        BoardCommentEntity resultEntity = boardCommentRepository.save(boardCommentEntity);
+
+        return ResponseEntity.ok(modelMapper.map(resultEntity, BoardCommentDTO.class));
     }
 
     public ResponseEntity<BoardCommentDTO> updateBoardComment(BoardCommentDTO boardCommentDTO, String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-        BoardCommentEntity resultEntity = modelMapper.map(boardCommentDTO, BoardCommentEntity.class);
 
-        if (resultEntity.getBoard().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
-            return ResponseEntity.ok(modelMapper.map(boardCommentRepository.save(resultEntity), BoardCommentDTO.class));
+        Optional<BoardEntity> boardEntity = boardRepository.findById(boardCommentDTO.getBoardPK());
 
-        } else {
-            return ResponseEntity.badRequest().build();
+        if (!boardEntity.isPresent()){
+            ResponseEntity.notFound().build();
+        } else if (!boardEntity.get().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
+            ResponseEntity.badRequest().build();
         }
+
+        BoardCommentEntity resultEntity = boardCommentRepository.save(modelMapper.map(boardCommentDTO, BoardCommentEntity.class));
+
+        return ResponseEntity.ok(modelMapper.map(resultEntity, BoardCommentDTO.class));
     }
 
     public boolean deleteBoardComment(Long id, String token) {

@@ -6,9 +6,11 @@ import com.untouchable.everytime.Entity.UserEntity;
 import com.untouchable.everytime.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -23,7 +25,7 @@ public class UserService {
 
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig,ModelMapper modelMapper) {
+    public UserService(UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.jwtConfig = jwtConfig;
@@ -40,20 +42,27 @@ public class UserService {
         return null;
     }
 
-    public UserDTO register(UserDTO userDTO) {
+    public ResponseEntity<UserDTO> register(UserDTO userDTO) {
+
+        if (userRepository.existsByUserID(userDTO.getUserID())) {
+            return ResponseEntity.badRequest().build();
+        }
+
         String password = encoder.encode(userDTO.getPWD());
         userDTO.setPWD(password);
         userDTO.setPoint(0L);
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
-        System.out.println(userEntity.toString());
-        userRepository.save(userEntity);
-        return modelMapper.map(userEntity, UserDTO.class);
+
+        userEntity = userRepository.save(userEntity);
+
+        return ResponseEntity.ok(modelMapper.map(userEntity, UserDTO.class));
     }
 
-    public Optional<UserDTO> updateUser(UserDTO userDTO) {
+    public ResponseEntity<UserDTO> updateUser(UserDTO userDTO,String token) {
+        Map<String, Object> result = jwtConfig.verifyJWT(token);
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
-        userRepository.save(userEntity);
-        return Optional.of(modelMapper.map(userEntity, UserDTO.class));
+        userEntity = userRepository.save(userEntity);
+        return ResponseEntity.ok(modelMapper.map(userEntity, UserDTO.class));
     }
 
     public void deleteUser(String ID) {
@@ -62,7 +71,7 @@ public class UserService {
 
     public Optional<UserDTO> getUserById(String ID) {
         Optional<UserEntity> userEntity = userRepository.findById(ID);
-        if (userEntity.isPresent()){
+        if (userEntity.isPresent()) {
             return Optional.of(modelMapper.map(userEntity.get(), UserDTO.class));
         }
         return Optional.empty();

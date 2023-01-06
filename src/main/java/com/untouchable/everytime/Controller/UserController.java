@@ -35,15 +35,15 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public UserDTO singup(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> singup(@RequestBody UserDTO userDTO) {
         return userService.register(userDTO);
     }
 
     @PatchMapping("/update")
-    public UserDTO update(
+    public ResponseEntity<UserDTO> update(
             @RequestHeader(value = "jwt") String token,
             @RequestBody UserDTO userDTO) {
-        return userService.register(userDTO);
+        return userService.updateUser(userDTO,token);
     }
 
     @DeleteMapping("/delete")
