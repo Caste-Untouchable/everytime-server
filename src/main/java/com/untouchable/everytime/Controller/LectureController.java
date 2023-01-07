@@ -24,8 +24,9 @@ public class LectureController {
     }
 
 
-    @Operation(summary ="강의 생성",description = "강의 생성하는 API ")
+
     @PostMapping("/create")
+    @Operation(summary ="강의 생성",description = "강의 생성하는 API ")
     public LectureDTO createLecture(@RequestBody LectureDTO lectureDTO) {
         return lectureService.createLecture(lectureDTO);
     }

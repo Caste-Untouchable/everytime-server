@@ -5,6 +5,7 @@ import com.untouchable.everytime.DTO.BoardDTO;
 import com.untouchable.everytime.Service.BoardReportService;
 import com.untouchable.everytime.Service.BoardScrapService;
 import com.untouchable.everytime.Service.BoardService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +54,7 @@ public class BoardController {
         return scrapBoard(id, token);
     }
 
-    @Tag(name = "신고는 body에 담아주세요", description = "ABUSING, SCAM, COMMERCIAL, BELITTLE, PORNO, PHISHING, INAPPROPRIATE")
+    @Operation(summary = "신고는 body에 담아주세요", description = "ABUSING, SCAM, COMMERCIAL, BELITTLE, PORNO, PHISHING, INAPPROPRIATE")
     @PostMapping("/report/{id}")
     public ResponseEntity reportBoard(@PathVariable("id") Long id, @RequestHeader(value = "jwt") String token,@RequestBody String content) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
