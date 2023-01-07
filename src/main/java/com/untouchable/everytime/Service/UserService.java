@@ -16,15 +16,11 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
     UserRepository userRepository;
     SchoolRepository schoolRepository;
     ModelMapper modelMapper;
-
     JwtConfig jwtConfig;
-
     PasswordEncoder encoder;
-
 
     @Autowired
     public UserService(SchoolRepository schoolRepository, UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig, ModelMapper modelMapper) {

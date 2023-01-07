@@ -2,6 +2,7 @@ package com.untouchable.everytime.Controller;
 
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.DTO.BoardDTO;
+import com.untouchable.everytime.DTO.BoardScrapDTO;
 import com.untouchable.everytime.Service.BoardReportService;
 import com.untouchable.everytime.Service.BoardScrapService;
 import com.untouchable.everytime.Service.BoardService;
@@ -12,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
@@ -22,14 +21,13 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/board")
 public class BoardController {
-
     BoardScrapService boardScrapService;
     BoardReportService boardReportService;
     BoardService boardService;
     JwtConfig jwtConfig;
 
     @Autowired
-    public BoardController(BoardScrapService boardScrapService,BoardReportService boardReportService, BoardService boardService, JwtConfig jwtConfig) {
+    public BoardController(BoardScrapService boardScrapService, BoardReportService boardReportService, BoardService boardService, JwtConfig jwtConfig) {
         this.boardService = boardService;
         this.jwtConfig = jwtConfig;
         this.boardReportService = boardReportService;
@@ -52,46 +50,50 @@ public class BoardController {
         }
     }
 
-    @PostMapping("/scrap/{id}")
-    public ResponseEntity scrapBoard(@PathVariable("id") Long id, @RequestHeader(value = "jwt") String token) {
-        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-        return scrapBoard(id, token);
-    }
 
-    @Operation(summary = "신고는 body에 담아주세요", description = "ABUSING, SCAM, COMMERCIAL, BELITTLE, PORNO, PHISHING, INAPPROPRIATE")
-    @PostMapping("/report/{id}")
-    public ResponseEntity reportBoard(@PathVariable("id") Long id, @RequestHeader(value = "jwt") String token,@RequestBody String content) {
+    @PostMapping("/{id}/report")
+    @Operation(summary = "특정 게시물 신고", description = "Body에는 다음 ABUSING, SCAM, COMMERCIAL, BELITTLE, PORNO, PHISHING, INAPPROPRIATE 문자열만 넣어주세요")
+    public ResponseEntity<String> reportBoard(
+            @Parameter(name = "게시글 PK", description = "게시글 PK") @PathVariable("id") Long id,
+            @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token,
+            @RequestBody String content) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-        return boardReportService.reportBoard(id, token,content);
+        return boardReportService.reportBoard(id, token, content);
     }
 
     @GetMapping("/getBoardByBoardType/{boardTypeId}")
-    public ResponseEntity<ArrayList<BoardDTO>> getBoardByBoardType(@PathVariable("boardTypeId") Long boardTypeId, @RequestHeader(value = "jwt") String token) {
-        //그냥 검증용 코드
-        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+    @Operation(summary = "특정 게시판들 글만 조회", description = "ex)동의대학교 자유게시판 조회")
+    public ResponseEntity<ArrayList<BoardDTO>> getBoardByBoardType(
+            @Parameter(name = "게시글 PK", description = "특정 게시판 PK") @PathVariable("boardTypeId") Long boardTypeId,
+            @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token) {
 
         ArrayList<BoardDTO> result = boardService.boardGetByBoardType(boardTypeId, token);
-
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<BoardDTO> createBoard(@RequestBody BoardDTO boardDTO, @RequestHeader(value = "jwt") String token) {
-        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-
-
-        return ResponseEntity.ok(boardService.createBoard(boardDTO,token));
+    @Operation(summary = "게시글 생성", description = "게시글 새로 생성하는 기능")
+    public ResponseEntity<BoardDTO> createBoard(
+            @RequestBody BoardDTO boardDTO,
+            @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token) {
+        return ResponseEntity.ok(boardService.createBoard(boardDTO, token));
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<BoardDTO> updateBoard(@RequestBody BoardDTO boardDTO, @RequestHeader(value = "jwt") String token) {
+    @Operation(summary = "게시글 수정", description = "게시글 수정 하는 기능")
+    public ResponseEntity<BoardDTO> updateBoard(
+            @RequestBody BoardDTO boardDTO,
+            @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
         return ResponseEntity.ok(boardService.updateBoard(boardDTO));
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteBoard(@RequestParam("id") Long id, @RequestHeader(value = "jwt") String token) {
+    @Operation(summary = "게시글 삭제", description = "게시글 삭제하는 기능")
+    public ResponseEntity<String> deleteBoard(
+            @Parameter(name = "게시글 PK", description = "게시글 PK") @RequestParam("id") Long id,
+            @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
         Optional<BoardDTO> result = boardService.boardGetByIdWithSchool(id, token);
@@ -105,6 +107,20 @@ public class BoardController {
 
     }
 
+    @PostMapping("/{id}/scrap")
+    @Operation(summary = "게시글 스크랩", description = "게시글 스크랩 하는 기능")
+    public ResponseEntity scrapBoard(
+            @Parameter(name = "게시글 PK", description = "게시글 PK") @PathVariable("id") Long id,
+            @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+        return scrapBoard(id, token);
+    }
 
+    @GetMapping("/getMyScrap")
+    @Operation(summary = "스크랩한 글 조회", description = "스크랩 한 글들을 조회하는 기능")
+    public ArrayList<BoardScrapDTO> getMyScrap(
+            @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token) {
+        return boardScrapService.getMyScrap(token);
+    }
 }
 
