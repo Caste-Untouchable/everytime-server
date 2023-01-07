@@ -5,6 +5,7 @@ import com.untouchable.everytime.Entity.SchoolEntity;
 import com.untouchable.everytime.Repository.SchoolRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,9 +19,9 @@ public class SchoolService {
     ModelMapper modelMapper;
 
     @Autowired
-    public SchoolService(SchoolRepository schoolRepository, ModelMapper modelMapper) {
+    public SchoolService(SchoolRepository schoolRepository, ModelMapper standardMapper) {
         this.schoolRepository = schoolRepository;
-        this.modelMapper = modelMapper;
+        this.modelMapper = standardMapper;
     }
 
     public SchoolDTO createSchool(SchoolDTO schoolDTO) {
@@ -29,12 +30,12 @@ public class SchoolService {
         return modelMapper.map(schoolEntity, SchoolDTO.class);
     }
 
-    public Optional<SchoolDTO> getSchool(Long id) {
+    public ResponseEntity<SchoolDTO> getSchool(String id) {
         Optional<SchoolEntity> schoolEntity = schoolRepository.findById(id);
         if (schoolEntity.isPresent()) {
-            return Optional.of(modelMapper.map(schoolEntity.get(), SchoolDTO.class));
+            return ResponseEntity.ok(modelMapper.map(schoolEntity, SchoolDTO.class));
         }
-        return Optional.empty();
+        return ResponseEntity.notFound().build();
 
     }
 
@@ -44,7 +45,7 @@ public class SchoolService {
         return modelMapper.map(schoolEntity, SchoolDTO.class);
     }
 
-    public void deleteSchool(Long id) {
+    public void deleteSchool(String id) {
         schoolRepository.deleteById(id);
     }
 

@@ -14,7 +14,7 @@ public class BoardCommentDTO {
     private Long boardCommentPK;
     Long boardPK;
     String nickname;
-    String UserID;
+    String userID;
     boolean anonymity;
     Timestamp createdAT;
     Long reportCount;

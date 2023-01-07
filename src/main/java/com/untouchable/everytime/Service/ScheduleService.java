@@ -22,9 +22,9 @@ public class ScheduleService {
     JwtConfig jwtConfig;
 
     @Autowired
-    public ScheduleService(JwtConfig jwtConfig,ScheduleRepository scheduleRepository, ModelMapper modelMapper) {
+    public ScheduleService(JwtConfig jwtConfig,ScheduleRepository scheduleRepository, ModelMapper standardMapper) {
         this.scheduleRepository = scheduleRepository;
-        this.modelMapper = modelMapper;
+        this.modelMapper = standardMapper;
         this.jwtConfig = jwtConfig;
     }
 

@@ -29,7 +29,7 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public String login(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<String>  login(@RequestBody UserDTO userDTO) {
         return userService.login(userDTO.getUserID(), userDTO.getPWD());
 
     }

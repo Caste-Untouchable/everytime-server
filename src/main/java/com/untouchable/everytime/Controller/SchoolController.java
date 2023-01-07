@@ -28,12 +28,10 @@ public class SchoolController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<SchoolDTO> getSchool(@RequestParam("id") Long id) {
-        Optional<SchoolDTO> school = schoolService.getSchool(id);
-        if (school.isPresent()) {
-            return ResponseEntity.ok(school.get());
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<SchoolDTO> getSchool(@RequestParam("id") String id) {
+        
+        return schoolService.getSchool(id);
+
     }
 
     @PatchMapping("/update")
@@ -42,7 +40,7 @@ public class SchoolController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteSchool(@RequestParam("id") Long id) {
+    public ResponseEntity deleteSchool(@RequestParam("id") String id) {
         schoolService.deleteSchool(id);
         return ResponseEntity.ok().build();
     }

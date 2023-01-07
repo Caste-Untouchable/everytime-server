@@ -1,27 +1,40 @@
 package com.untouchable.everytime.Config;
 
-import com.untouchable.everytime.DTO.BoardDTO;
-import com.untouchable.everytime.Entity.BoardEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.ArrayList;
 
 @Configuration
 public class ModelMapperConfig {
 
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @Bean
-    public ModelMapper modelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
-
-
+    public ModelMapper standardMapper() {
+        modelMapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.STANDARD);
 
         return  modelMapper;
     }
+
+
+    @Bean
+    public ModelMapper strictMapper() {
+        // 매핑 전략 설정
+        modelMapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.STRICT);
+        return modelMapper;
+    }
+
+    @Bean
+    public ModelMapper looseMapper() {
+        // 매핑 전략 설정
+        modelMapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.LOOSE);
+        return modelMapper;
+    }
+
 
 
 }

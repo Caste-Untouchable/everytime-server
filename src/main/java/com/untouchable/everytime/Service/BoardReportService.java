@@ -24,10 +24,10 @@ public class BoardReportService {
     ModelMapper modelMapper;
 
     @Autowired
-    public BoardReportService(UserRepository userRepository, BoardRepository boardRepository, BoardReportRepository boardReportRepository, JwtConfig jwtConfig, ModelMapper modelMapper) {
+    public BoardReportService(UserRepository userRepository, BoardRepository boardRepository, BoardReportRepository boardReportRepository, JwtConfig jwtConfig, ModelMapper standardMapper) {
         this.boardReportRepository = boardReportRepository;
         this.jwtConfig = jwtConfig;
-        this.modelMapper = modelMapper;
+        this.modelMapper = standardMapper;
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
     }

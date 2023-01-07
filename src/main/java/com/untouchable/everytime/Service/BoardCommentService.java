@@ -25,19 +25,26 @@ public class BoardCommentService {
     JwtConfig jwtConfig;
 
     @Autowired
-    public BoardCommentService(BoardRepository boardRepository, BoardCommentRepository boardCommentRepository, ModelMapper modelMapper, JwtConfig jwtConfig) {
+    public BoardCommentService(BoardRepository boardRepository, BoardCommentRepository boardCommentRepository, ModelMapper looseMapper, JwtConfig jwtConfig) {
         this.boardCommentRepository = boardCommentRepository;
-        this.modelMapper = modelMapper;
+        this.modelMapper = looseMapper;
         this.jwtConfig = jwtConfig;
         this.boardRepository = boardRepository;
     }
 
     public ResponseEntity<BoardCommentDTO> createBoardComment(BoardCommentDTO boardCommentDTO, String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+        Optional<BoardEntity> boardEntity = boardRepository.findById(boardCommentDTO.getBoardPK());
 
+
+
+        boardCommentDTO.setUserID((String) jwt.get("userID"));
         BoardCommentEntity boardCommentEntity =  modelMapper.map(boardCommentDTO, BoardCommentEntity.class);
 
-        if (!boardCommentEntity.getBoard().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
+
+        if (!boardEntity.isPresent()) {
+            ResponseEntity.notFound().build();
+        } else if (!boardEntity.get().getSchool().equals(jwt.get("ID"))) {
             ResponseEntity.badRequest().build();
         }
 

@@ -18,9 +18,9 @@ public class BoardTypeService {
     ModelMapper modelMapper;
 
     @Autowired
-    public BoardTypeService(BoardTypeRepository boardTypeRepository, ModelMapper modelMapper) {
+    public BoardTypeService(BoardTypeRepository boardTypeRepository, ModelMapper standardMapper) {
         this.boardTypeRepository = boardTypeRepository;
-        this.modelMapper = modelMapper;
+        this.modelMapper = standardMapper;
     }
 
     public BoardTypeDTO createBoardType(BoardTypeDTO boardTypeDTO) {

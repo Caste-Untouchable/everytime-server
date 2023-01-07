@@ -25,21 +25,21 @@ public class UserService {
 
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig, ModelMapper modelMapper) {
+    public UserService(UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig, ModelMapper standardMapper) {
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.jwtConfig = jwtConfig;
-        this.modelMapper = modelMapper;
+        this.modelMapper = standardMapper;
     }
 
-    public String login(String ID, String PWD) {
+    public ResponseEntity<String> login(String ID, String PWD) {
         UserEntity userEntity = userRepository.findById(ID).get();
 
         if (encoder.matches(PWD, userEntity.getPWD())) {
-            return jwtConfig.createToken(userEntity);
+            return ResponseEntity.ok(jwtConfig.createToken(userEntity));
             //return modelMapper.map(userEntity, UserDTO.class);
         }
-        return null;
+        return ResponseEntity.badRequest().build();
     }
 
     public ResponseEntity<UserDTO> register(UserDTO userDTO) {
@@ -58,7 +58,7 @@ public class UserService {
         return ResponseEntity.ok(modelMapper.map(userEntity, UserDTO.class));
     }
 
-    public ResponseEntity<UserDTO> updateUser(UserDTO userDTO,String token) {
+    public ResponseEntity<UserDTO> updateUser(UserDTO userDTO, String token) {
         Map<String, Object> result = jwtConfig.verifyJWT(token);
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
         userEntity = userRepository.save(userEntity);
