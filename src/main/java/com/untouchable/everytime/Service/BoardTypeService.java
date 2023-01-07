@@ -20,9 +20,9 @@ public class BoardTypeService {
     SchoolRepository schoolRepository;
 
     @Autowired
-    public BoardTypeService(SchoolRepository schoolRepository,BoardTypeRepository boardTypeRepository, ModelMapper standardMapper) {
+    public BoardTypeService(SchoolRepository schoolRepository,BoardTypeRepository boardTypeRepository, ModelMapper modelMapper) {
         this.boardTypeRepository = boardTypeRepository;
-        this.modelMapper = standardMapper;
+        this.modelMapper = modelMapper;
         this.schoolRepository = schoolRepository;
     }
 

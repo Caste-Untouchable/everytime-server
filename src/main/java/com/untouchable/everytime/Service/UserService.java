@@ -27,11 +27,11 @@ public class UserService {
 
 
     @Autowired
-    public UserService(SchoolRepository schoolRepository,UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig, ModelMapper standardMapper) {
+    public UserService(SchoolRepository schoolRepository,UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.jwtConfig = jwtConfig;
-        this.modelMapper = standardMapper;
+        this.modelMapper = modelMapper;
         this.schoolRepository = schoolRepository;
     }
 

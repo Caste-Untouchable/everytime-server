@@ -22,9 +22,9 @@ public class BoardService {
     JwtConfig jwtConfig;
 
     @Autowired
-    public BoardService(BoardRepository boardRepository, ModelMapper standardMapper, JwtConfig jwtConfig) {
+    public BoardService(BoardRepository boardRepository, ModelMapper modelMapper, JwtConfig jwtConfig) {
         this.boardRepository = boardRepository;
-        this.modelMapper = standardMapper;
+        this.modelMapper = modelMapper;
         this.jwtConfig = jwtConfig;
     }
 

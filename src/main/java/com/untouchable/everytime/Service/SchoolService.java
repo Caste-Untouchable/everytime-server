@@ -19,9 +19,9 @@ public class SchoolService {
     ModelMapper modelMapper;
 
     @Autowired
-    public SchoolService(SchoolRepository schoolRepository, ModelMapper standardMapper) {
+    public SchoolService(SchoolRepository schoolRepository, ModelMapper modelMapper) {
         this.schoolRepository = schoolRepository;
-        this.modelMapper = standardMapper;
+        this.modelMapper = modelMapper;
     }
 
     public SchoolDTO createSchool(SchoolDTO schoolDTO) {

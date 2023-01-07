@@ -26,10 +26,10 @@ public class BoardScrapService {
     ModelMapper modelMapper;
 
     @Autowired
-    public BoardScrapService(UserRepository userRepository,BoardRepository boardRepository,BoardScrapRepository boardScrapRepository,JwtConfig jwtConfig,ModelMapper standardMapper) {
+    public BoardScrapService(UserRepository userRepository,BoardRepository boardRepository,BoardScrapRepository boardScrapRepository,JwtConfig jwtConfig,ModelMapper modelMapper) {
         this.boardScrapRepository = boardScrapRepository;
         this.jwtConfig = jwtConfig;
-        this.modelMapper = standardMapper;
+        this.modelMapper = modelMapper;
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
     }
