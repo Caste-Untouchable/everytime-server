@@ -4,6 +4,7 @@ import com.untouchable.everytime.DTO.BoardTypeDTO;
 import com.untouchable.everytime.Entity.BoardEntity;
 import com.untouchable.everytime.Entity.BoardTypeEntity;
 import com.untouchable.everytime.Repository.BoardTypeRepository;
+import com.untouchable.everytime.Repository.SchoolRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,15 +17,18 @@ public class BoardTypeService {
 
     BoardTypeRepository boardTypeRepository;
     ModelMapper modelMapper;
+    SchoolRepository schoolRepository;
 
     @Autowired
-    public BoardTypeService(BoardTypeRepository boardTypeRepository, ModelMapper standardMapper) {
+    public BoardTypeService(SchoolRepository schoolRepository,BoardTypeRepository boardTypeRepository, ModelMapper standardMapper) {
         this.boardTypeRepository = boardTypeRepository;
         this.modelMapper = standardMapper;
+        this.schoolRepository = schoolRepository;
     }
 
     public BoardTypeDTO createBoardType(BoardTypeDTO boardTypeDTO) {
         BoardTypeEntity boardTypeEntity = modelMapper.map(boardTypeDTO, BoardTypeEntity.class);
+        boardTypeEntity.setSchool(schoolRepository.findById(boardTypeDTO.getSchoolName()).get());
         BoardTypeEntity result = boardTypeRepository.save(boardTypeEntity);
         return modelMapper.map(result, BoardTypeDTO.class);
     }

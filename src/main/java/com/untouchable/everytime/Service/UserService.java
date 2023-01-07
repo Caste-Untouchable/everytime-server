@@ -3,6 +3,7 @@ package com.untouchable.everytime.Service;
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.DTO.UserDTO;
 import com.untouchable.everytime.Entity.UserEntity;
+import com.untouchable.everytime.Repository.SchoolRepository;
 import com.untouchable.everytime.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class UserService {
 
     UserRepository userRepository;
+    SchoolRepository schoolRepository;
     ModelMapper modelMapper;
 
     JwtConfig jwtConfig;
@@ -25,11 +27,12 @@ public class UserService {
 
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig, ModelMapper standardMapper) {
+    public UserService(SchoolRepository schoolRepository,UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig, ModelMapper standardMapper) {
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.jwtConfig = jwtConfig;
         this.modelMapper = standardMapper;
+        this.schoolRepository = schoolRepository;
     }
 
     public ResponseEntity<String> login(String ID, String PWD) {
@@ -52,6 +55,8 @@ public class UserService {
         userDTO.setPWD(password);
         userDTO.setPoint(0L);
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
+
+        userEntity.setSchool(schoolRepository.findById(userDTO.getSchoolName()).get());
 
         userEntity = userRepository.save(userEntity);
 
