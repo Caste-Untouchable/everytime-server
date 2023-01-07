@@ -34,7 +34,7 @@ public class BoardTypeController {
     @GetMapping("/getBoardTypeBySchoolName")
     public ArrayList<BoardTypeDTO> getBoardType(@RequestHeader(value = "jwt") String token) {
         Map<String, Object> result = jwtConfig.verifyJWT(token);
-        return boardTypeService.getBoardTypeBySchoolName(result.get("SCHOOL").toString());
+        return boardTypeService.getBoardTypeBySchoolName(String.valueOf(result.get("SCHOOL"))  );
     }
 
     @PatchMapping("/update")

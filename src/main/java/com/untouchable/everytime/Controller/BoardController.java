@@ -74,12 +74,8 @@ public class BoardController {
     public ResponseEntity<BoardDTO> createBoard(@RequestBody BoardDTO boardDTO, @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        boardDTO.setSchoolName(String.valueOf(jwt.get("SCHOOL")));
-        boardDTO.setUserID(String.valueOf(jwt.get("ID")));
-        boardDTO.setRecommendCount(0);
-        boardDTO.setCreatedAT(new Timestamp(System.currentTimeMillis()));
 
-        return ResponseEntity.ok(boardService.createBoard(boardDTO));
+        return ResponseEntity.ok(boardService.createBoard(boardDTO,token));
     }
 
     @PatchMapping("/update")

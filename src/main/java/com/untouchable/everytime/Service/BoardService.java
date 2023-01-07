@@ -5,10 +5,13 @@ import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.DTO.BoardDTO;
 import com.untouchable.everytime.Entity.BoardEntity;
 import com.untouchable.everytime.Repository.BoardRepository;
+import com.untouchable.everytime.Repository.SchoolRepository;
+import com.untouchable.everytime.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,18 +21,29 @@ import java.util.Optional;
 public class BoardService {
 
     BoardRepository boardRepository;
+    SchoolRepository schoolRepository;
+    UserRepository userRepository;
     ModelMapper modelMapper;
     JwtConfig jwtConfig;
 
     @Autowired
-    public BoardService(BoardRepository boardRepository, ModelMapper modelMapper, JwtConfig jwtConfig) {
+    public BoardService(UserRepository userRepository,SchoolRepository schoolRepository,BoardRepository boardRepository, ModelMapper modelMapper, JwtConfig jwtConfig) {
         this.boardRepository = boardRepository;
+        this.schoolRepository = schoolRepository;
         this.modelMapper = modelMapper;
         this.jwtConfig = jwtConfig;
+        this.userRepository = userRepository;
     }
 
-    public BoardDTO createBoard(BoardDTO boardDTO) {
+    public BoardDTO createBoard(BoardDTO boardDTO, String token) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
         BoardEntity boardEntity = modelMapper.map(boardDTO, BoardEntity.class);
+
+        boardEntity.setSchool(schoolRepository.findById(String.valueOf(jwt.get("SCHOOL"))).get());
+        boardEntity.setUser(userRepository.findById(String.valueOf(jwt.get("ID"))).get());
+        boardEntity.setCreatedAT(new Timestamp(System.currentTimeMillis()));
+        boardEntity.setRecommendCount(0);
+
         BoardEntity result = boardRepository.save(boardEntity);
         return modelMapper.map(result, BoardDTO.class);
     }
