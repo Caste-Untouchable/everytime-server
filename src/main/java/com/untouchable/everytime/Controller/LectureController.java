@@ -24,14 +24,13 @@ public class LectureController {
     }
 
 
-
     @PostMapping("/create")
-    @Operation(summary ="강의 생성",description = "강의 생성하는 API ")
+    @Operation(summary = "강의 생성", description = "강의 생성하는 API ")
     public LectureDTO createLecture(@RequestBody LectureDTO lectureDTO) {
         return lectureService.createLecture(lectureDTO);
     }
 
-    @Operation(summary ="강의 수정", description = "강의 업데이트하는 API ")
+    @Operation(summary = "강의 수정", description = "강의 업데이트하는 API ")
     @PatchMapping("/update")
     public LectureDTO updateLecture(@RequestBody LectureDTO lectureDTO) {
         return lectureService.updateLecture(lectureDTO);

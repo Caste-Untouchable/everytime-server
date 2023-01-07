@@ -61,7 +61,10 @@ public class UserService {
 
     public ResponseEntity<UserDTO> updateUser(UserDTO userDTO, String token) {
         Map<String, Object> result = jwtConfig.verifyJWT(token);
+
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
+        userEntity.setPWD(encoder.encode(userDTO.getPWD()));
+
         userEntity = userRepository.save(userEntity);
         return ResponseEntity.ok(modelMapper.map(userEntity, UserDTO.class));
     }

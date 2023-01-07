@@ -6,6 +6,7 @@ import com.untouchable.everytime.Service.BoardCommentService;
 import com.untouchable.everytime.Service.BoardRecommendService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class BoardCommentController {
     @GetMapping("/Board/{id}")
     @Operation(summary = "특정 게시글 댓글 조회", description = "해당 게시글 조회 후, JWT 에 포함된 학교와 일치 할 시 해당 게시글 댓글 리스트를 반환")
     public ResponseEntity<ArrayList<BoardCommentDTO>> getBoardCommentByBoardId(
-            @Parameter(name = "Board PK", description = "게시글 번호") @PathVariable("id") Long id,
+            @Parameter(name = "id", description = "게시글 번호", in = ParameterIn.PATH) @PathVariable("id") Long id,
             @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
         //그냥 검증용 코드
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
@@ -43,7 +44,7 @@ public class BoardCommentController {
     @PostMapping("/recommend/{id}")
     @Operation(summary = "특정 댓글 공감하기", description = "해당 댓글 공감하는 기능")
     public ResponseEntity<String> recommendBoardComment(
-            @Parameter(name = "Comment PK", description = "댓글 PK") @PathVariable("id") Long id,
+            @Parameter(name = "Comment PK", description = "댓글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
             @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
         return boardRecommendService.recommendBoardComment(id, token);
@@ -54,15 +55,14 @@ public class BoardCommentController {
     public ResponseEntity<BoardCommentDTO> createBoardComment(
             @RequestBody BoardCommentDTO boardCommentDTO,
             @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
-        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
         return boardCommentService.createBoardComment(boardCommentDTO, token);
     }
 
     @DeleteMapping("/delete/{id}")
     @Operation(summary = "댓글 삭제", description = "특정 댓글을 삭제하는 기능")
     public ResponseEntity deleteBoardComment(
-            @Parameter(name = "Comment PK", description = "댓글 PK") @PathVariable("id") Long id,
-            @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
+            @Parameter(name = "Comment PK", description = "댓글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
+            @Parameter(name = "JWT", description = "유저 토큰", in = ParameterIn.HEADER) @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
         if (boardCommentService.deleteBoardComment(id, token)) {
@@ -76,7 +76,7 @@ public class BoardCommentController {
     @Operation(summary = "댓글 수정", description = "특정 댓글을 수정하는 기능")
     public ResponseEntity<BoardCommentDTO> updateBoardComment(
             @RequestBody BoardCommentDTO boardCommentDTO,
-            @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
+            @Parameter(name = "JWT", description = "유저 토큰", in = ParameterIn.HEADER) @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
         return boardCommentService.updateBoardComment(boardCommentDTO, token);
     }
