@@ -27,7 +27,7 @@ public class UserService {
 
 
     @Autowired
-    public UserService(SchoolRepository schoolRepository,UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig, ModelMapper modelMapper) {
+    public UserService(SchoolRepository schoolRepository, UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.jwtConfig = jwtConfig;
@@ -70,16 +70,20 @@ public class UserService {
         return ResponseEntity.ok(modelMapper.map(userEntity, UserDTO.class));
     }
 
-    public void deleteUser(String ID) {
-        userRepository.deleteById(ID);
+    public ResponseEntity deleteUser(String token) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+        userRepository.deleteById(String.valueOf(jwt.get("ID")));
+        return ResponseEntity.ok("유저 삭제 완료");
     }
 
-    public Optional<UserDTO> getUserById(String ID) {
-        Optional<UserEntity> userEntity = userRepository.findById(ID);
-        if (userEntity.isPresent()) {
-            return Optional.of(modelMapper.map(userEntity.get(), UserDTO.class));
+    public ResponseEntity<UserDTO> getUserById(String token) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+        Optional<UserEntity> user = userRepository.findById(String.valueOf(jwt.get("ID")));
+
+        if (user.isPresent()) {
+            return ResponseEntity.ok(modelMapper.map(user.get(), UserDTO.class));
+        } else {
+            return ResponseEntity.notFound().build();
         }
-        return Optional.empty();
     }
-
 }

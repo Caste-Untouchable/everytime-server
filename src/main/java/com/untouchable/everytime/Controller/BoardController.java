@@ -6,6 +6,7 @@ import com.untouchable.everytime.Service.BoardReportService;
 import com.untouchable.everytime.Service.BoardScrapService;
 import com.untouchable.everytime.Service.BoardService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
 
-@Tag(name = "게시글 CRUD", description = "게시글 CRUD 관련 API")
+@Tag(name = "게시글", description = "게시글 CRUD 관련 API")
 @RestController
 @RequestMapping("/board")
 public class BoardController {
@@ -36,7 +37,10 @@ public class BoardController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<BoardDTO> getBoard(@PathVariable("id") Long id, @RequestHeader(value = "jwt") String token) {
+    @Operation(summary = "게시글 조회", description = "게시글 PK와, JWT를 입력받아 회원 인증 후 특정 게시물 조회 하는 기능")
+    public ResponseEntity<BoardDTO> getBoard(
+            @Parameter(name = "게시글 PK", description = "게시글 PK") @PathVariable("id") Long id,
+            @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
         Optional<BoardDTO> result = boardService.boardGetByIdWithSchool(id, token);
