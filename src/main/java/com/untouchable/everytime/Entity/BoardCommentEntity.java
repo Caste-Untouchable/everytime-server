@@ -26,5 +26,4 @@ public class BoardCommentEntity {
     Long reportCount;
     String content;
     Long replyTo;
-
 }

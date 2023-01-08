@@ -33,7 +33,7 @@ public class LectureDTO {
     @Schema(description = "교수(소속)")
     String professor;
     @Schema(description = "평점")
-    Long averageRate;
+    Long average;
     @Schema(description = "년도")
     int year;
     @Schema(description = "학기 설명 10 1학기, 11 하계 계절학기, 20 2학기, 21 동계 계절학기")

@@ -30,9 +30,9 @@ public class BoardCommentService {
     JwtConfig jwtConfig;
 
     @Autowired
-    public BoardCommentService(UserRepository userRepository,BoardRepository boardRepository, BoardCommentRepository boardCommentRepository, ModelMapper looseMapper, JwtConfig jwtConfig) {
+    public BoardCommentService(UserRepository userRepository,BoardRepository boardRepository, BoardCommentRepository boardCommentRepository, ModelMapper strictMapper, JwtConfig jwtConfig) {
         this.boardCommentRepository = boardCommentRepository;
-        this.modelMapper = looseMapper;
+        this.modelMapper = strictMapper;
         this.jwtConfig = jwtConfig;
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
@@ -43,7 +43,7 @@ public class BoardCommentService {
         BoardCommentEntity boardCommentEntity = modelMapper.map(boardCommentDTO, BoardCommentEntity.class);
 
         //게시글 유효한지 확인
-        Optional<BoardEntity> boardEntity = boardRepository.findById(boardCommentDTO.getBoardPK());
+        Optional<BoardEntity> boardEntity = boardRepository.findById(boardCommentDTO.getBoardBoardPK());
         if (!boardEntity.isPresent()) {
             ResponseEntity.notFound().build();
         }
@@ -63,7 +63,7 @@ public class BoardCommentService {
     public ResponseEntity<BoardCommentDTO> updateBoardComment(BoardCommentDTO boardCommentDTO, String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        Optional<BoardEntity> boardEntity = boardRepository.findById(boardCommentDTO.getBoardPK());
+        Optional<BoardEntity> boardEntity = boardRepository.findById(boardCommentDTO.getBoardBoardPK());
 
         if (!boardEntity.isPresent()){
             ResponseEntity.notFound().build();

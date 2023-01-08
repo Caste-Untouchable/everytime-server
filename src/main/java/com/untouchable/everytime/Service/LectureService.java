@@ -23,9 +23,9 @@ public class LectureService {
     JwtConfig jwtConfig;
 
     @Autowired
-    public LectureService(JwtConfig jwtConfig, LectureRepository lectureRepository, ModelMapper modelMapper) {
+    public LectureService(JwtConfig jwtConfig, LectureRepository lectureRepository, ModelMapper strictMapper) {
         this.lectureRepository = lectureRepository;
-        this.modelMapper = modelMapper;
+        this.modelMapper = strictMapper;
         this.jwtConfig = jwtConfig;
     }
 

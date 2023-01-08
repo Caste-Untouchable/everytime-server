@@ -18,25 +18,25 @@ import java.sql.Date;
 public class LectureRateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lectureRatePK;
+    private Long LPK;
 
     @ManyToOne
     LectureEntity lecture;
 
     String content;
     int recommendCount;
-    int rate;
+    Long rate;
 
     // 10 1학기, 11 하계 계절학기, 20 2학기, 21 동계 계절학기
     int year;
     int semester;
 
     @Enumerated(EnumType.STRING)
-    LectureStatus assignmentStatus;
+    LectureStatus assignment;
     @Enumerated(EnumType.STRING)
-    LectureStatus teamMeetingStatus;
+    LectureStatus teamMeeting;
     @Enumerated(EnumType.STRING)
-    LectureStatus scoreStatus;
+    LectureStatus score;
 
 
     @ManyToOne

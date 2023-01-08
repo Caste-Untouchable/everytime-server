@@ -33,7 +33,7 @@ public class LectureEntity {
     int grade;
     String professor;
 
-    Long averageRate;
+    Long average;
 
     // 10 1학기, 11 하계 계절학기, 20 2학기, 21 동계 계절학기
     int year;

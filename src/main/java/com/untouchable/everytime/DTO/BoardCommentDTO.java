@@ -12,9 +12,8 @@ import java.sql.Timestamp;
 @Builder
 public class BoardCommentDTO {
     private Long boardCommentPK;
-    Long boardPK;
-    String nickname;
-    String userID;
+    Long boardBoardPK;
+    String userUserID;
     boolean anonymity;
     Timestamp createdAT;
     Long reportCount;
