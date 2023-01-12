@@ -28,10 +28,10 @@ public class JwtConfig {
 
         //payload 부분 설정
         Map<String, Object> payloads = new HashMap<>();
-        payloads.put("ID", user.getUserID());
-        payloads.put("NAME", user.getName());
-        payloads.put("NICKNAME", user.getNickname());
-        payloads.put("SCHOOL", user.getSchool().getSchoolName());
+        payloads.put("userId", user.getUserId());
+        payloads.put("userName", user.getUserName());
+        payloads.put("userNickname", user.getUserNickname());
+        payloads.put("userSchool", user.getUserSchool().getSchoolName());
 
 
 

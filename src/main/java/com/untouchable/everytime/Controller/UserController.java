@@ -29,7 +29,7 @@ public class UserController {
     @Operation(summary = "로그인", description = "ID, PWD를 입력받아 JWT 발급하는 기능")
     @ResponseBody
     public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
-        return userService.login(userDTO.getUserID(), userDTO.getPWD());
+        return userService.login(userDTO.getUserId(), userDTO.getUserPwd());
     }
 
     @PostMapping("/signup")

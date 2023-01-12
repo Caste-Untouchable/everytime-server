@@ -34,7 +34,7 @@ public class UserService {
     public ResponseEntity<String> login(String ID, String PWD) {
         UserEntity userEntity = userRepository.findById(ID).get();
 
-        if (encoder.matches(PWD, userEntity.getPWD())) {
+        if (encoder.matches(PWD, userEntity.getUserPwd())) {
             return ResponseEntity.ok(jwtConfig.createToken(userEntity));
             //return modelMapper.map(userEntity, UserDTO.class);
         }
@@ -43,16 +43,16 @@ public class UserService {
 
     public ResponseEntity<UserDTO> register(UserDTO userDTO) {
 
-        if (userRepository.existsByUserID(userDTO.getUserID())) {
+        if (userRepository.existsByUserId(userDTO.getUserId())) {
             return ResponseEntity.badRequest().build();
         }
 
-        String password = encoder.encode(userDTO.getPWD());
-        userDTO.setPWD(password);
-        userDTO.setPoint(0L);
+        String password = encoder.encode(userDTO.getUserPwd());
+        userDTO.setUserPwd(password);
+        userDTO.setUserPoint(0L);
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
 
-        userEntity.setSchool(schoolRepository.findById(userDTO.getSchoolName()).get());
+        userEntity.setUserSchool(schoolRepository.findById(userDTO.getUserSchoolSchoolName()).get());
 
         userEntity = userRepository.save(userEntity);
 
@@ -62,7 +62,7 @@ public class UserService {
     public ResponseEntity<UserDTO> updateUser(UserDTO userDTO, String token) {
         Map<String, Object> result = jwtConfig.verifyJWT(token);
         UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
-        userEntity.setPWD(encoder.encode(userDTO.getPWD()));
+        userEntity.setUserPwd(encoder.encode(userDTO.getUserId()));
 
         userEntity = userRepository.save(userEntity);
         return ResponseEntity.ok(modelMapper.map(userEntity, UserDTO.class));
@@ -84,4 +84,6 @@ public class UserService {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 }

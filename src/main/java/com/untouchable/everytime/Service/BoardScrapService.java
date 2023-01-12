@@ -37,7 +37,7 @@ public class BoardScrapService {
     public ArrayList<BoardScrapDTO> getMyScrap(String token){
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        List<BoardScrapEntity> resultEntity = boardScrapRepository.findByUser_UserID(String.valueOf(jwt.get("ID")));
+        List<BoardScrapEntity> resultEntity = boardScrapRepository.findByUser_UserId(String.valueOf(jwt.get("ID")));
         ArrayList<BoardScrapDTO> resultDTOs = new ArrayList<>();
 
         for (BoardScrapEntity entity : resultEntity) {

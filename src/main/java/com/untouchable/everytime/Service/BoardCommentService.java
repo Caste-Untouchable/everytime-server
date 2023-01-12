@@ -78,7 +78,7 @@ public class BoardCommentService {
 
     public boolean deleteBoardComment(Long id, String token) {
         Optional<BoardCommentEntity> found = boardCommentRepository.findById(id);
-        if (found.isPresent() && found.get().getUser().getUserID().equals(jwtConfig.verifyJWT(token).get("userID"))) {
+        if (found.isPresent() && found.get().getUser().getUserId().equals(jwtConfig.verifyJWT(token).get("userID"))) {
             boardCommentRepository.deleteById(id);
             return true;
         } else {

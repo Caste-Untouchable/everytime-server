@@ -38,7 +38,7 @@ public class BoardRecommendService {
         List<BoardRecommendEntity> result = boardRecommendRepository.findByBoard_BoardPK(id);
         if (result.size() > 0) {
             for (BoardRecommendEntity boardRecommendEntity : result) {
-                if (boardRecommendEntity.getUser().getUserID().equals(jwt.get("ID"))) {
+                if (boardRecommendEntity.getUser().getUserId().equals(jwt.get("ID"))) {
 
                     return ResponseEntity.badRequest().body("Already recommended");
                 }

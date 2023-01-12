@@ -2,15 +2,21 @@ package com.untouchable.everytime.Repository;
 
 import com.untouchable.everytime.Entity.BoardScrapEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface BoardScrapRepository extends JpaRepository<BoardScrapEntity, Long> {
-    ;
 
-    List<BoardScrapEntity> findByUser_UserID(String UserID);
+
+
+    @Query("select b from BoardScrapEntity b where b.user.userId = ?1")
+    List<BoardScrapEntity> findByUser_UserId(String userId);
+
+
+
 
 
 
