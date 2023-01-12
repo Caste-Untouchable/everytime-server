@@ -1,12 +1,11 @@
 package com.untouchable.everytime.Entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 
 @Entity
 @Data
@@ -16,13 +15,13 @@ import java.util.ArrayList;
 public class SchoolEntity {
     @Id
     String schoolName;
-    String location;
-    String tell;
-    String fax;
-    String urlHome;
-    String urlStudyRoom;
-    String urlShuttle;
-    String urlNotice;
-    String urlCalendar;
-    String urlLibrary;
+    String schoolLocation;
+    String schoolTell;
+    String schoolFax;
+    String schoolUrlHome;
+    String schoolUrlStudyRoom;
+    String schoolUrlShuttle;
+    String schoolUrlNotice;
+    String schoolUrlCalendar;
+    String schoolUrlLibrary;
 }

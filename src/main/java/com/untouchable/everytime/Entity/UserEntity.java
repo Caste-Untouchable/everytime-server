@@ -14,18 +14,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserEntity {
     @Id
-    String userID;
-    String PWD;
-    String name;
-    String nickname;
-    String email;
+    private String userId;
+    private String userPwd;
+    private String userName;
+    private String userNickname;
+    private String userEmail;
     @ManyToOne
-    SchoolEntity school;
-    int registeredYear;
+    private SchoolEntity userSchool;
+    private int userRegisteredYear;
     @OneToOne
-    UserProfileEntity userProfile;
-    boolean verified;
-    Long point;
+    private UserProfileEntity userProfile;
+    private boolean userSchoolVerified;
+    Long userPoint;
     @Enumerated(EnumType.STRING)
-    private UserStatus status;
+    private UserStatus userStatus;
 }

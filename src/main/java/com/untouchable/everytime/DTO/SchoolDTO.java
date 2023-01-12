@@ -1,16 +1,9 @@
 package com.untouchable.everytime.DTO;
 
-import com.untouchable.everytime.Entity.FoodEntity;
-import com.untouchable.everytime.Entity.UserEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 
 @Data
 @Builder
@@ -18,13 +11,13 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class SchoolDTO {
     String schoolName;
-    String location;
-    String tell;
-    String fax;
-    String urlHome;
-    String urlStudyRoom;
-    String urlShuttle;
-    String urlNotice;
-    String urlCalendar;
-    String urlLibrary;
+    String schoolLocation;
+    String schoolTell;
+    String schoolFax;
+    String schoolUrlHome;
+    String schoolUrlStudyRoom;
+    String schoolUrlShuttle;
+    String schoolUrlNotice;
+    String schoolUrlCalendar;
+    String schoolUrlLibrary;
 }

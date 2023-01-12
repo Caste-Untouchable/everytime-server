@@ -1,22 +1,25 @@
 package com.untouchable.everytime.DTO;
 
 import com.untouchable.everytime.Enum.UserStatus;
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class UserDTO {
-    String userID;
-    String PWD;
-    String name;
-    String nickname;
-    String email;
-    String schoolName;
-    int registeredYear;
-    boolean verified;
-    Long point;
-    UserStatus status;
+    private String userId;
+    private String userPwd;
+    private String userName;
+    private String userNickname;
+    private String userEmail;
+    private String userSchoolSchoolName;
+    private int userRegisteredYear;
+    private String userProfile;
+    private boolean userSchoolVerified;
+    Long userPoint;
+    private UserStatus userStatus;
 }
