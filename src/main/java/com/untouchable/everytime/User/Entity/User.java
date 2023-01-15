@@ -1,6 +1,7 @@
-package com.untouchable.everytime.Entity;
+package com.untouchable.everytime.User.Entity;
 
 import com.untouchable.everytime.Enum.UserStatus;
+import com.untouchable.everytime.School.Entity.School;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserEntity {
+public class User {
     @Id
     private String userId;
     private String userPwd;
@@ -20,10 +21,10 @@ public class UserEntity {
     private String userNickname;
     private String userEmail;
     @ManyToOne
-    private SchoolEntity userSchool;
+    private School userSchool;
     private int userRegisteredYear;
-    @OneToOne
-    private UserProfileEntity userProfile;
+//    @OneToOne
+//    private UserProfileEntity userProfile;
     private boolean userSchoolVerified;
     Long userPoint;
     @Enumerated(EnumType.STRING)

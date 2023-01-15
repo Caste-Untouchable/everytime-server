@@ -1,5 +1,7 @@
 package com.untouchable.everytime.Entity;
 
+import com.untouchable.everytime.School.Entity.School;
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 
 @Entity
 @Data
@@ -21,9 +22,9 @@ public class BoardEntity {
     private Long boardPK;
 
     @ManyToOne
-    SchoolEntity school;
+    School school;
     @ManyToOne
-    UserEntity user;
+    User user;
     @ManyToOne
     BoardTypeEntity boardType;
     @Column

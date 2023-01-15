@@ -1,7 +1,8 @@
-package com.untouchable.everytime.Controller;
+package com.untouchable.everytime.School.Controller;
 
-import com.untouchable.everytime.DTO.SchoolDTO;
-import com.untouchable.everytime.Service.SchoolService;
+import com.untouchable.everytime.School.DTO.SchoolInfoDTO;
+import com.untouchable.everytime.School.DTO.SchoolListDTO;
+import com.untouchable.everytime.School.Service.SchoolService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,13 +26,13 @@ public class SchoolController {
 
     @PostMapping("/create")
     @Operation(summary = "학교 생성", description = "학교 생성하는 API")
-    public SchoolDTO createSchool(@RequestBody SchoolDTO schoolDTO) {
-        return schoolService.createSchool(schoolDTO);
+    public SchoolInfoDTO createSchool(@RequestBody SchoolInfoDTO schoolInfoDTO) {
+        return schoolService.createSchool(schoolInfoDTO);
     }
 
     @GetMapping("/get")
     @Operation(summary = "학교 정보 조회", description = "학교 Info 요청하는 기능")
-    public ResponseEntity<SchoolDTO> getSchool(
+    public ResponseEntity<SchoolInfoDTO> getSchool(
             @Parameter(name = "대학명", description = "대학교 이름") @RequestParam("id") String id) {
         return schoolService.getSchool(id);
 
@@ -39,8 +40,8 @@ public class SchoolController {
 
     @PatchMapping("/update")
     @Operation(summary = "학교 정보 수정", description = "학교 정보 수정하는 기능")
-    public SchoolDTO updateSchool(@RequestBody SchoolDTO schoolDTO) {
-        return schoolService.updateSchool(schoolDTO);
+    public SchoolInfoDTO updateSchool(@RequestBody SchoolInfoDTO schoolInfoDTO) {
+        return schoolService.updateSchool(schoolInfoDTO);
     }
 
     @DeleteMapping("/delete")
@@ -54,7 +55,7 @@ public class SchoolController {
 
     @GetMapping("/findAll")
     @Operation(summary = "학교명 전부 요청하는 기능", description = "회원가입 시 모든 학교 정보 가져오는 기능")
-    public ArrayList<SchoolDTO> findAllSchool() {
+    public ArrayList<SchoolListDTO> findAllSchool() {
         return schoolService.findAllSchool();
     }
 

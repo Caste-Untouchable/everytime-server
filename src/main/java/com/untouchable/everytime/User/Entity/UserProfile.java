@@ -1,4 +1,4 @@
-package com.untouchable.everytime.Entity;
+package com.untouchable.everytime.User.Entity;
 
 import com.untouchable.everytime.Enum.AttachmentType;
 import jakarta.persistence.*;
@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserProfileEntity {
+public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userProfile_PK;
+    private Long userProfilePk;
     private String originFilename;
     private String storeFilename;
     @Enumerated(EnumType.STRING)
     private AttachmentType attachmentType;
 
     @OneToOne
-    UserEntity user;
+    User user;
 
 }

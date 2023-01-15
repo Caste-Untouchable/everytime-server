@@ -1,5 +1,6 @@
 package com.untouchable.everytime.Entity;
 
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -21,9 +22,9 @@ public class MailRoomEntity {
     private Long mailRoom_PK;
     boolean anonymity;
     @ManyToOne
-    UserEntity user1;
+    User user1;
     @ManyToOne
-    UserEntity user2;
+    User user2;
     @OneToMany
     ArrayList<MailEntity> mailList;
 

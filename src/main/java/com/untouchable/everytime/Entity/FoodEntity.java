@@ -1,5 +1,6 @@
 package com.untouchable.everytime.Entity;
 
+import com.untouchable.everytime.School.Entity.School;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +19,7 @@ public class FoodEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long foodPK;
     @ManyToOne
-    SchoolEntity school;
+    School school;
     String place;
     String menu;
     Date date;

@@ -1,15 +1,11 @@
 package com.untouchable.everytime.DTO;
 
-import com.untouchable.everytime.Entity.LectureEntity;
-import com.untouchable.everytime.Entity.UserEntity;
 import com.untouchable.everytime.Enum.LectureStatus;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

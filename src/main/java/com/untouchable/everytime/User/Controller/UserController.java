@@ -1,8 +1,8 @@
-package com.untouchable.everytime.Controller;
+package com.untouchable.everytime.User.Controller;
 
 import com.untouchable.everytime.Config.JwtConfig;
-import com.untouchable.everytime.DTO.UserDTO;
-import com.untouchable.everytime.Service.UserService;
+import com.untouchable.everytime.User.DTO.UserDTO;
+import com.untouchable.everytime.User.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -63,5 +63,13 @@ public class UserController {
     public ResponseEntity<UserDTO> info(
             @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
         return userService.getUserById(token);
+    }
+
+    @Operation(summary = "ID 중복체크",description = "ID 중복체크")
+    @ApiResponse(responseCode = "200", description = "true -> ID 사용가능, false -> 사용 불가능")
+    @PostMapping("/Id-check")
+    public ResponseEntity<Boolean> checkId(
+            @Parameter(name = "userId", description = "유저 ID") @RequestParam(value = "userId") String userId) {
+        return userService.userDuplicationCheck(userId);
     }
 }

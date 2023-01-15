@@ -1,4 +1,4 @@
-package com.untouchable.everytime.DTO;
+package com.untouchable.everytime.School.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SchoolDTO {
+public class SchoolInfoDTO {
     String schoolName;
     String schoolLocation;
     String schoolTell;

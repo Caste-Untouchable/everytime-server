@@ -4,10 +4,10 @@ import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.DTO.BoardCommentDTO;
 import com.untouchable.everytime.Entity.BoardCommentEntity;
 import com.untouchable.everytime.Entity.BoardEntity;
-import com.untouchable.everytime.Entity.UserEntity;
+import com.untouchable.everytime.User.Entity.User;
 import com.untouchable.everytime.Repository.BoardCommentRepository;
 import com.untouchable.everytime.Repository.BoardRepository;
-import com.untouchable.everytime.Repository.UserRepository;
+import com.untouchable.everytime.User.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -49,8 +49,8 @@ public class BoardCommentService {
         }
 
         // User 정보 매핑
-        UserEntity userEntity = userRepository.findById(String.valueOf(jwt.get("ID"))).get();
-        boardCommentEntity.setUser(userEntity);
+        User user = userRepository.findById(String.valueOf(jwt.get("ID"))).get();
+        boardCommentEntity.setUser(user);
         boardCommentEntity.setBoard(boardEntity.get());
         boardCommentEntity.setCreatedAT(new Timestamp(System.currentTimeMillis()));
 

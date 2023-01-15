@@ -1,6 +1,6 @@
 package com.untouchable.everytime.Config;
 
-import com.untouchable.everytime.Entity.UserEntity;
+import com.untouchable.everytime.User.Entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -19,7 +19,7 @@ public class JwtConfig {
     String key ;
 
     //토큰 생성
-    public String createToken(UserEntity user) {
+    public String createToken(User user) {
 
         //Header 부분 설정
         Map<String, Object> headers = new HashMap<>();

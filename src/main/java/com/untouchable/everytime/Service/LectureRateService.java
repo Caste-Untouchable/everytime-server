@@ -5,7 +5,7 @@ import com.untouchable.everytime.DTO.LectureRateDTO;
 import com.untouchable.everytime.Entity.LectureRateEntity;
 import com.untouchable.everytime.Repository.LectureRateRepository;
 import com.untouchable.everytime.Repository.LectureRepository;
-import com.untouchable.everytime.Repository.UserRepository;
+import com.untouchable.everytime.User.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

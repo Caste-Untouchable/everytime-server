@@ -1,10 +1,9 @@
 package com.untouchable.everytime.Entity;
 
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-
-import java.sql.Date;
 
 @Entity
 @Data
@@ -29,6 +28,6 @@ public class ScheduleCustomEntity {
     int end;
 
     @ManyToOne
-    UserEntity userEntity;
+    User user;
 
 }

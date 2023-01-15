@@ -1,10 +1,10 @@
-package com.untouchable.everytime.Service;
+package com.untouchable.everytime.User.Service;
 
 import com.untouchable.everytime.Config.JwtConfig;
-import com.untouchable.everytime.DTO.UserDTO;
-import com.untouchable.everytime.Entity.UserEntity;
-import com.untouchable.everytime.Repository.SchoolRepository;
-import com.untouchable.everytime.Repository.UserRepository;
+import com.untouchable.everytime.User.DTO.UserDTO;
+import com.untouchable.everytime.User.Entity.User;
+import com.untouchable.everytime.School.Repository.SchoolRepository;
+import com.untouchable.everytime.User.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +32,10 @@ public class UserService {
     }
 
     public ResponseEntity<String> login(String ID, String PWD) {
-        UserEntity userEntity = userRepository.findById(ID).get();
+        User user = userRepository.findById(ID).get();
 
-        if (encoder.matches(PWD, userEntity.getUserPwd())) {
-            return ResponseEntity.ok(jwtConfig.createToken(userEntity));
+        if (encoder.matches(PWD, user.getUserPwd())) {
+            return ResponseEntity.ok(jwtConfig.createToken(user));
             //return modelMapper.map(userEntity, UserDTO.class);
         }
         return ResponseEntity.badRequest().build();
@@ -50,22 +50,22 @@ public class UserService {
         String password = encoder.encode(userDTO.getUserPwd());
         userDTO.setUserPwd(password);
         userDTO.setUserPoint(0L);
-        UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
+        User user = modelMapper.map(userDTO, User.class);
 
-        userEntity.setUserSchool(schoolRepository.findById(userDTO.getUserSchoolSchoolName()).get());
+        user.setUserSchool(schoolRepository.findById(userDTO.getUserSchoolSchoolName()).get());
 
-        userEntity = userRepository.save(userEntity);
+        user = userRepository.save(user);
 
-        return ResponseEntity.ok(modelMapper.map(userEntity, UserDTO.class));
+        return ResponseEntity.ok(modelMapper.map(user, UserDTO.class));
     }
 
     public ResponseEntity<UserDTO> updateUser(UserDTO userDTO, String token) {
         Map<String, Object> result = jwtConfig.verifyJWT(token);
-        UserEntity userEntity = modelMapper.map(userDTO, UserEntity.class);
-        userEntity.setUserPwd(encoder.encode(userDTO.getUserId()));
+        User user = modelMapper.map(userDTO, User.class);
+        user.setUserPwd(encoder.encode(userDTO.getUserId()));
 
-        userEntity = userRepository.save(userEntity);
-        return ResponseEntity.ok(modelMapper.map(userEntity, UserDTO.class));
+        user = userRepository.save(user);
+        return ResponseEntity.ok(modelMapper.map(user, UserDTO.class));
     }
 
     public ResponseEntity deleteUser(String token) {
@@ -76,13 +76,17 @@ public class UserService {
 
     public ResponseEntity<UserDTO> getUserById(String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-        Optional<UserEntity> user = userRepository.findById(String.valueOf(jwt.get("ID")));
+        Optional<User> user = userRepository.findById(String.valueOf(jwt.get("ID")));
 
         if (user.isPresent()) {
             return ResponseEntity.ok(modelMapper.map(user.get(), UserDTO.class));
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public ResponseEntity<Boolean> userDuplicationCheck(String userId){
+        return ResponseEntity.ok(!userRepository.existsByUserId(userId));
     }
 
 

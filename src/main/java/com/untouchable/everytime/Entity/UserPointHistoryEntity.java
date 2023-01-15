@@ -1,5 +1,6 @@
 package com.untouchable.everytime.Entity;
 
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,7 @@ public class UserPointHistoryEntity {
     private Long userPoint_PK;
 
     @ManyToOne
-    UserEntity user;
+    User user;
 
     //@ManyToOne
     //TODO : 강의평가 클래스 넣기

@@ -1,6 +1,8 @@
 package com.untouchable.everytime.Entity;
 
 import com.untouchable.everytime.Enum.BookStatus;
+import com.untouchable.everytime.School.Entity.School;
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,9 +24,9 @@ public class BookStoreEntity {
     private Long bookStore_PK;
 
     @ManyToOne
-    SchoolEntity school;
+    School school;
     @ManyToOne
-    UserEntity user;
+    User user;
     @ManyToOne
     BoardTypeEntity boardType;
     @Column

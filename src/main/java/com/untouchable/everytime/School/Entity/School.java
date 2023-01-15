@@ -1,7 +1,6 @@
-package com.untouchable.everytime.Entity;
+package com.untouchable.everytime.School.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SchoolEntity {
+public class School {
     @Id
     String schoolName;
     String schoolLocation;

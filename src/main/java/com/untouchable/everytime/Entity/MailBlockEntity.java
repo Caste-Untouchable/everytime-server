@@ -1,5 +1,6 @@
 package com.untouchable.everytime.Entity;
 
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -20,9 +21,9 @@ public class MailBlockEntity {
     private Long mailBlock_PK;
 
     @ManyToOne
-    UserEntity blockUser;
+    User blockUser;
 
     @ManyToOne
-    UserEntity blockedUser;
+    User blockedUser;
 
 }

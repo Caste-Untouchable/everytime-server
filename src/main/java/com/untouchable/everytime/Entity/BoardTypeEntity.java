@@ -1,6 +1,7 @@
 package com.untouchable.everytime.Entity;
 
 import com.untouchable.everytime.Enum.BoardTypeClass;
+import com.untouchable.everytime.School.Entity.School;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +19,7 @@ public class BoardTypeEntity {
     private Long boardTypePK;
 
     @ManyToOne
-    SchoolEntity school;
+    School school;
 
     String boardType;
 

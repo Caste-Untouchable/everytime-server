@@ -1,13 +1,12 @@
 package com.untouchable.everytime.Entity;
 
 import com.untouchable.everytime.Enum.LectureStatus;
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.sql.Date;
 
 @Entity
 @Data
@@ -40,6 +39,6 @@ public class LectureRateEntity {
 
 
     @ManyToOne
-    UserEntity user;
+    User user;
 
 }

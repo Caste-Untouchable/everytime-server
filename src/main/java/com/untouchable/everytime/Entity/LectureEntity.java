@@ -1,13 +1,12 @@
 package com.untouchable.everytime.Entity;
 
 import com.untouchable.everytime.Enum.LectureType;
+import com.untouchable.everytime.School.Entity.School;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
 
 @Entity
 @Data
@@ -24,7 +23,7 @@ public class LectureEntity {
     LectureType lectureType;
 
     @ManyToOne
-    SchoolEntity school;
+    School school;
 
     int lectureNum;
     int separation;

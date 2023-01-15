@@ -3,10 +3,10 @@ package com.untouchable.everytime.Service;
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.Entity.BoardEntity;
 import com.untouchable.everytime.Entity.BoardRecommendEntity;
-import com.untouchable.everytime.Entity.UserEntity;
+import com.untouchable.everytime.User.Entity.User;
 import com.untouchable.everytime.Repository.BoardRecommendRepository;
 import com.untouchable.everytime.Repository.BoardRepository;
-import com.untouchable.everytime.Repository.UserRepository;
+import com.untouchable.everytime.User.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,7 @@ public class BoardRecommendService {
         if (user.isPresent()) {
             boardRecommendEntity.setBoard(user.get());
         }
-        Optional<UserEntity> userEntity = userRepository.findById(jwt.get("ID").toString());
+        Optional<User> userEntity = userRepository.findById(jwt.get("ID").toString());
         if (userEntity.isPresent()) {
             boardRecommendEntity.setUser(userEntity.get());
         }

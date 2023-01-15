@@ -1,5 +1,6 @@
 package com.untouchable.everytime.Entity;
 
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -9,7 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Entity
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class UserSchedules {
     @Id
     @OneToOne
-    UserEntity user;
+    User user;
 
     @OneToMany
     ArrayList<UserSchedule> userSchedule;

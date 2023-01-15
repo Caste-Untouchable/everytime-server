@@ -6,7 +6,7 @@ import com.untouchable.everytime.Entity.BoardReportEntity;
 import com.untouchable.everytime.Enum.ReportType;
 import com.untouchable.everytime.Repository.BoardReportRepository;
 import com.untouchable.everytime.Repository.BoardRepository;
-import com.untouchable.everytime.Repository.UserRepository;
+import com.untouchable.everytime.User.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.untouchable.everytime.DTO;
+package com.untouchable.everytime.User.DTO;
 
 import com.untouchable.everytime.Enum.UserStatus;
 import lombok.AllArgsConstructor;

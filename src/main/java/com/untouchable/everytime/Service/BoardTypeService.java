@@ -1,10 +1,9 @@
 package com.untouchable.everytime.Service;
 
 import com.untouchable.everytime.DTO.BoardTypeDTO;
-import com.untouchable.everytime.Entity.BoardEntity;
 import com.untouchable.everytime.Entity.BoardTypeEntity;
 import com.untouchable.everytime.Repository.BoardTypeRepository;
-import com.untouchable.everytime.Repository.SchoolRepository;
+import com.untouchable.everytime.School.Repository.SchoolRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

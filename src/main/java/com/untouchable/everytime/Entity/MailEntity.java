@@ -1,6 +1,7 @@
 package com.untouchable.everytime.Entity;
 
 
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,9 +22,9 @@ public class MailEntity {
     private Long mail_PK;
 
     @ManyToOne
-    UserEntity receiver;
+    User receiver;
     @ManyToOne
-    UserEntity sender;
+    User sender;
     String comment;
     Date createdAT;
 

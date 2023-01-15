@@ -1,6 +1,7 @@
 package com.untouchable.everytime.Entity;
 
 import com.untouchable.everytime.Enum.ReportType;
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,7 @@ public class BoardReportEntity {
     ReportType reportType;
 
     @ManyToOne
-    UserEntity reportUser;
+    User reportUser;
 
     @ManyToOne
     BoardEntity reportBoard;

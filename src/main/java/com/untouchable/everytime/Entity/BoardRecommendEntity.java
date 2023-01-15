@@ -1,5 +1,6 @@
 package com.untouchable.everytime.Entity;
 
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,5 +22,5 @@ public class BoardRecommendEntity {
     BoardEntity board;
 
     @ManyToOne
-    UserEntity user;
+    User user;
 }
