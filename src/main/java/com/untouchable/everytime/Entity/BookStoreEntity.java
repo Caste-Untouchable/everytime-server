@@ -1,5 +1,7 @@
 package com.untouchable.everytime.Entity;
 
+import com.untouchable.everytime.Board.Entity.BoardImageEntity;
+import com.untouchable.everytime.Board.Entity.BoardTypeEntity;
 import com.untouchable.everytime.Enum.BookStatus;
 import com.untouchable.everytime.School.Entity.School;
 import com.untouchable.everytime.User.Entity.User;
