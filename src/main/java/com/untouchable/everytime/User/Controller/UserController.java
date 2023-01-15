@@ -1,6 +1,7 @@
 package com.untouchable.everytime.User.Controller;
 
 import com.untouchable.everytime.Config.JwtConfig;
+import com.untouchable.everytime.User.DTO.UserChangePasswordDTO;
 import com.untouchable.everytime.User.DTO.UserDTO;
 import com.untouchable.everytime.User.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @PatchMapping("/update")
-    @Operation(summary = "회원 정보 수정", description = "유저 정보를 입력받아 수정하는 기능")
+    @Operation(summary = "회원 정보 수정", description = "유저 정보를 입력받아 수정하는 기능, 현재 닉네임, 이메일만 변경 가능")
     public ResponseEntity<UserDTO> update(
             @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token,
             @RequestBody UserDTO userDTO) {
@@ -62,14 +63,21 @@ public class UserController {
     @GetMapping("/info")
     public ResponseEntity<UserDTO> info(
             @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
-        return userService.getUserById(token);
+        return userService.getUserByToken(token);
     }
 
-    @Operation(summary = "ID 중복체크",description = "ID 중복체크")
+    @Operation(summary = "ID 중복체크", description = "ID 중복체크")
     @ApiResponse(responseCode = "200", description = "true -> ID 사용가능, false -> 사용 불가능")
     @PostMapping("/Id-check")
     public ResponseEntity<Boolean> checkId(
             @Parameter(name = "userId", description = "유저 ID") @RequestParam(value = "userId") String userId) {
         return userService.userDuplicationCheck(userId);
+    }
+
+    @Operation(summary = "비밀번호 수정", description = "비밀번호 수정")
+    public ResponseEntity<String> UserPasswordModify(
+            @RequestBody UserChangePasswordDTO userChangePasswordDTO,
+            @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
+        return userService.modifyUserPassword(userChangePasswordDTO, token);
     }
 }

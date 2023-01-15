@@ -14,14 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserProfile {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userProfilePk;
+    @OneToOne
+    User user;
+
     private String originFilename;
     private String storeFilename;
     @Enumerated(EnumType.STRING)
     private AttachmentType attachmentType;
 
-    @OneToOne
-    User user;
 
 }

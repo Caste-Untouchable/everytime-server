@@ -12,12 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserProfileDTO {
 
-    Long userProfile_PK;
+    String userUserId;
     String originFilename;
     String storeFilename;
-
     AttachmentType attachmentType;
-
-    UserDTO user;
 
 }

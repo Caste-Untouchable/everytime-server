@@ -2,7 +2,7 @@ package com.untouchable.everytime.Repository;
 
 import com.untouchable.everytime.School.Entity.School;
 import com.untouchable.everytime.User.Entity.User;
-import com.untouchable.everytime.Enum.UserStatus;
+import com.untouchable.everytime.User.Enum.UserStatus;
 import com.untouchable.everytime.School.Repository.SchoolRepository;
 import com.untouchable.everytime.User.Repository.UserRepository;
 import org.junit.jupiter.api.*;

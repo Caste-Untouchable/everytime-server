@@ -1,6 +1,6 @@
 package com.untouchable.everytime.User.DTO;
 
-import com.untouchable.everytime.Enum.UserStatus;
+import com.untouchable.everytime.User.Enum.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
