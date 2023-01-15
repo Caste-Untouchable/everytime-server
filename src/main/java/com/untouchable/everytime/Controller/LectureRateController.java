@@ -1,8 +1,7 @@
 package com.untouchable.everytime.Controller;
 
-import com.untouchable.everytime.DTO.LectureRateDTO;
-import com.untouchable.everytime.Service.LectureRateService;
-import com.untouchable.everytime.Service.LectureService;
+import com.untouchable.everytime.Lecture.DTO.LectureRateDTO;
+import com.untouchable.everytime.Lecture.Service.LectureRateService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

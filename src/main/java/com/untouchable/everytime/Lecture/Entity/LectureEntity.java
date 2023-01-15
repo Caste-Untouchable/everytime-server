@@ -1,4 +1,4 @@
-package com.untouchable.everytime.Entity;
+package com.untouchable.everytime.Lecture.Entity;
 
 import com.untouchable.everytime.Enum.LectureType;
 import com.untouchable.everytime.School.Entity.School;

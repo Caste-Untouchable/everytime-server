@@ -1,6 +1,6 @@
-package com.untouchable.everytime.Repository;
+package com.untouchable.everytime.Lecture.Repository;
 
-import com.untouchable.everytime.Entity.LectureEntity;
+import com.untouchable.everytime.Lecture.Entity.LectureEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

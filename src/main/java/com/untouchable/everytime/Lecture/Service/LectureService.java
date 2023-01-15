@@ -1,9 +1,9 @@
-package com.untouchable.everytime.Service;
+package com.untouchable.everytime.Lecture.Service;
 
 import com.untouchable.everytime.Config.JwtConfig;
-import com.untouchable.everytime.DTO.LectureDTO;
-import com.untouchable.everytime.Entity.LectureEntity;
-import com.untouchable.everytime.Repository.LectureRepository;
+import com.untouchable.everytime.Lecture.DTO.LectureDTO;
+import com.untouchable.everytime.Lecture.Entity.LectureEntity;
+import com.untouchable.everytime.Lecture.Repository.LectureRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

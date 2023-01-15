@@ -1,5 +1,6 @@
 package com.untouchable.everytime.Entity;
 
+import com.untouchable.everytime.Lecture.Entity.LectureEntity;
 import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,7 +1,7 @@
 package com.untouchable.everytime.Controller;
 
-import com.untouchable.everytime.DTO.LectureDTO;
-import com.untouchable.everytime.Service.LectureService;
+import com.untouchable.everytime.Lecture.DTO.LectureDTO;
+import com.untouchable.everytime.Lecture.Service.LectureService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

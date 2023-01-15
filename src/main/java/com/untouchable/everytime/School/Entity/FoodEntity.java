@@ -1,4 +1,4 @@
-package com.untouchable.everytime.Entity;
+package com.untouchable.everytime.School.Entity;
 
 import com.untouchable.everytime.School.Entity.School;
 import jakarta.persistence.*;

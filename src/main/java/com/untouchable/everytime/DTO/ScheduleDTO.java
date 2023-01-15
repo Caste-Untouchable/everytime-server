@@ -1,7 +1,5 @@
 package com.untouchable.everytime.DTO;
 
-import com.untouchable.everytime.Entity.LectureEntity;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.untouchable.everytime.DTO;
+package com.untouchable.everytime.School.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

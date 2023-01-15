@@ -1,4 +1,4 @@
-package com.untouchable.everytime.Entity;
+package com.untouchable.everytime.Lecture.Entity;
 
 import com.untouchable.everytime.Enum.LectureStatus;
 import com.untouchable.everytime.User.Entity.User;

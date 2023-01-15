@@ -1,4 +1,4 @@
-package com.untouchable.everytime.DTO;
+package com.untouchable.everytime.Lecture.DTO;
 
 import com.untouchable.everytime.Enum.LectureStatus;
 import lombok.AllArgsConstructor;
