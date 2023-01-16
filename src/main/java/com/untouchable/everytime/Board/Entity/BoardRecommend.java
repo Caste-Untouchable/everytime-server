@@ -1,6 +1,5 @@
 package com.untouchable.everytime.Board.Entity;
 
-import com.untouchable.everytime.Board.Enum.ReportType;
 import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,17 +12,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardCommentReportEntity {
+public class BoardRecommend {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardCommentReportPK;
-
-    @Enumerated(EnumType.STRING)
-    ReportType reportType;
+    private Long boardRecommendPK;
 
     @ManyToOne
-    User reportUser;
+    Board board;
 
     @ManyToOne
-    BoardCommentEntity reportBoardComment;
+    User user;
 }

@@ -1,7 +1,7 @@
 package com.untouchable.everytime.Board.Service;
 
 import com.untouchable.everytime.Board.DTO.BoardTypeDTO;
-import com.untouchable.everytime.Board.Entity.BoardTypeEntity;
+import com.untouchable.everytime.Board.Entity.BoardType;
 import com.untouchable.everytime.Board.Repository.BoardTypeRepository;
 import com.untouchable.everytime.School.Repository.SchoolRepository;
 import org.modelmapper.ModelMapper;
@@ -26,15 +26,15 @@ public class BoardTypeService {
     }
 
     public BoardTypeDTO createBoardType(BoardTypeDTO boardTypeDTO) {
-        BoardTypeEntity boardTypeEntity = modelMapper.map(boardTypeDTO, BoardTypeEntity.class);
-        boardTypeEntity.setSchool(schoolRepository.findById(boardTypeDTO.getSchoolName()).get());
-        BoardTypeEntity result = boardTypeRepository.save(boardTypeEntity);
+        BoardType boardType = modelMapper.map(boardTypeDTO, BoardType.class);
+        boardType.setSchool(schoolRepository.findById(boardTypeDTO.getSchoolName()).get());
+        BoardType result = boardTypeRepository.save(boardType);
         return modelMapper.map(result, BoardTypeDTO.class);
     }
 
     public BoardTypeDTO updateBoardType(BoardTypeDTO boardTypeDTO) {
-        BoardTypeEntity boardTypeEntity = modelMapper.map(boardTypeDTO, BoardTypeEntity.class);
-        BoardTypeEntity result = boardTypeRepository.save(boardTypeEntity);
+        BoardType boardType = modelMapper.map(boardTypeDTO, BoardType.class);
+        BoardType result = boardTypeRepository.save(boardType);
         return modelMapper.map(result, BoardTypeDTO.class);
     }
 
@@ -43,11 +43,11 @@ public class BoardTypeService {
     }
 
     public ArrayList<BoardTypeDTO> getBoardTypeBySchoolName(String schoolName) {
-        List<BoardTypeEntity> boardTypeEntity = boardTypeRepository.findBySchool_SchoolName(schoolName);
+        List<BoardType> boardType = boardTypeRepository.findBySchool_SchoolName(schoolName);
 
         ArrayList<BoardTypeDTO> boardTypeDTOS = new ArrayList<>();
-        for (BoardTypeEntity boardTypeEntity1 : boardTypeEntity) {
-            boardTypeDTOS.add(modelMapper.map(boardTypeEntity1, BoardTypeDTO.class));
+        for (BoardType boardType1 : boardType) {
+            boardTypeDTOS.add(modelMapper.map(boardType1, BoardTypeDTO.class));
         }
 
         return boardTypeDTOS;

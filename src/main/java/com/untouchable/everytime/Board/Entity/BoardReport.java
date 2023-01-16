@@ -1,5 +1,6 @@
 package com.untouchable.everytime.Board.Entity;
 
+import com.untouchable.everytime.Board.Enum.ReportType;
 import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,16 +14,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class BoardScrapEntity {
-
+public class BoardReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardScarpPK;
+    private Long boardReportPK;
+
+    @Enumerated(EnumType.STRING)
+    ReportType reportType;
 
     @ManyToOne
-    BoardEntity board;
-    
+    User reportUser;
+
     @ManyToOne
-    User user;
+    Board reportBoard;
 
 }

@@ -1,7 +1,7 @@
 package com.untouchable.everytime.Book.Entity;
 
-import com.untouchable.everytime.Board.Entity.BoardImageEntity;
-import com.untouchable.everytime.Board.Entity.BoardTypeEntity;
+import com.untouchable.everytime.Board.Entity.BoardImage;
+import com.untouchable.everytime.Board.Entity.BoardType;
 import com.untouchable.everytime.Book.Enum.BookStatus;
 import com.untouchable.everytime.School.Entity.School;
 import com.untouchable.everytime.User.Entity.User;
@@ -30,14 +30,14 @@ public class BookStoreEntity {
     @ManyToOne
     User user;
     @ManyToOne
-    BoardTypeEntity boardType;
+    BoardType boardType;
     @Column
     String boardTitle;
     String content;
     int recommendCount;
     int scrapCount;
     @OneToMany
-    ArrayList<BoardImageEntity> images;
+    ArrayList<BoardImage> images;
     Date createdAT;
     String author;
     boolean anonymity;

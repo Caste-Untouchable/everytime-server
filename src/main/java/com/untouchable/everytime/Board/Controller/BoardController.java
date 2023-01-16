@@ -1,7 +1,8 @@
 package com.untouchable.everytime.Board.Controller;
 
+import com.untouchable.everytime.Board.DTO.BoardRequestDTO;
 import com.untouchable.everytime.Config.JwtConfig;
-import com.untouchable.everytime.Board.DTO.BoardDTO;
+import com.untouchable.everytime.Board.DTO.BoardResponseDTO;
 import com.untouchable.everytime.Board.DTO.BoardScrapDTO;
 import com.untouchable.everytime.Board.Service.BoardReportService;
 import com.untouchable.everytime.Board.Service.BoardScrapService;
@@ -35,14 +36,14 @@ public class BoardController {
         this.boardScrapService = boardScrapService;
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     @Operation(summary = "게시글 조회", description = "게시글 PK와, JWT를 입력받아 회원 인증 후 특정 게시물 조회 하는 기능")
-    public ResponseEntity<BoardDTO> getBoard(
+    public ResponseEntity<BoardResponseDTO> getBoard(
             @Parameter(name = "게시글 PK", description = "게시글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
             @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        Optional<BoardDTO> result = boardService.boardGetByIdWithSchool(id, token);
+        Optional<BoardResponseDTO> result = boardService.boardGetByIdWithSchool(id, token);
 
         if (result.isPresent()) {
             return ResponseEntity.ok(result.get());
@@ -64,30 +65,30 @@ public class BoardController {
 
     @GetMapping("/getBoardByBoardType/{boardTypeId}")
     @Operation(summary = "특정 게시판들 글만 조회", description = "ex)동의대학교 자유게시판 조회")
-    public ResponseEntity<ArrayList<BoardDTO>> getBoardByBoardType(
+    public ResponseEntity<ArrayList<BoardResponseDTO>> getBoardByBoardType(
             @Parameter(name = "게시글 PK", description = "특정 게시판 PK", in = ParameterIn.PATH) @PathVariable("boardTypeId") Long boardTypeId,
             @Parameter(name = "jwt", description = "유저 인증 토큰", in = ParameterIn.HEADER) @RequestHeader(value = "jwt") String token) {
 
-        ArrayList<BoardDTO> result = boardService.boardGetByBoardType(boardTypeId, token);
+        ArrayList<BoardResponseDTO> result = boardService.boardGetByBoardType(boardTypeId, token);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/create")
     @Operation(summary = "게시글 생성", description = "게시글 새로 생성하는 기능")
-    public ResponseEntity<BoardDTO> createBoard(
-            @RequestBody BoardDTO boardDTO,
+    public ResponseEntity<BoardResponseDTO> createBoard(
+            @RequestBody BoardRequestDTO boardRequestDTO,
             @Parameter(name = "jwt", description = "유저 인증 토큰", in = ParameterIn.HEADER) @RequestHeader(value = "jwt") String token) {
-        return ResponseEntity.ok(boardService.createBoard(boardDTO, token));
+        return ResponseEntity.ok(boardService.createBoard(boardRequestDTO, token));
     }
 
-    @PatchMapping("/update")
+    @PatchMapping("/{id}/update")
     @Operation(summary = "게시글 수정", description = "게시글 수정 하는 기능")
-    public ResponseEntity<BoardDTO> updateBoard(
-            @RequestBody BoardDTO boardDTO,
+    public ResponseEntity<BoardResponseDTO> updateBoard(
+            @RequestBody BoardResponseDTO boardResponseDTO,
             @Parameter(name = "jwt", description = "유저 인증 토큰", in = ParameterIn.HEADER) @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        return ResponseEntity.ok(boardService.updateBoard(boardDTO));
+        return ResponseEntity.ok(boardService.updateBoard(boardResponseDTO));
     }
 
     @DeleteMapping("/delete")
@@ -97,9 +98,9 @@ public class BoardController {
             @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        Optional<BoardDTO> result = boardService.boardGetByIdWithSchool(id, token);
+        Optional<BoardResponseDTO> result = boardService.boardGetByIdWithSchool(id, token);
 
-        if (result.isPresent() && result.get().getUserID().equals(jwt.get("USERID"))) {
+        if (result.isPresent() && result.get().getUserUserId().equals(jwt.get("USERID"))) {
             boardService.deleteBoard(id);
             return ResponseEntity.ok("삭제 성공");
         } else {

@@ -1,9 +1,10 @@
 package com.untouchable.everytime.Board.Service;
 
 
+import com.untouchable.everytime.Board.DTO.BoardRequestDTO;
 import com.untouchable.everytime.Config.JwtConfig;
-import com.untouchable.everytime.Board.DTO.BoardDTO;
-import com.untouchable.everytime.Board.Entity.BoardEntity;
+import com.untouchable.everytime.Board.DTO.BoardResponseDTO;
+import com.untouchable.everytime.Board.Entity.Board;
 import com.untouchable.everytime.Board.Repository.BoardRepository;
 import com.untouchable.everytime.School.Repository.SchoolRepository;
 import com.untouchable.everytime.User.Repository.UserRepository;
@@ -35,50 +36,52 @@ public class BoardService {
         this.userRepository = userRepository;
     }
 
-    public BoardDTO createBoard(BoardDTO boardDTO, String token) {
+    public BoardResponseDTO createBoard(BoardRequestDTO boardRequestDTO, String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-        BoardEntity boardEntity = modelMapper.map(boardDTO, BoardEntity.class);
+        Board board = modelMapper.map(boardRequestDTO, Board.class);
 
-        boardEntity.setSchool(schoolRepository.findById(String.valueOf(jwt.get("SCHOOL"))).get());
-        boardEntity.setUser(userRepository.findById(String.valueOf(jwt.get("ID"))).get());
-        boardEntity.setCreatedAT(new Timestamp(System.currentTimeMillis()));
-        boardEntity.setRecommendCount(0);
+        board.setSchool(schoolRepository.findById(String.valueOf(jwt.get("userSchool"))).get());
+        board.setUser(userRepository.findById(String.valueOf(jwt.get("userId"))).get());
+        board.setCreatedAT(new Timestamp(System.currentTimeMillis()));
+        board.setRecommendCount(0);
+        board.setReportCount(0);
+        board.setCommentCount(0);
 
-        BoardEntity result = boardRepository.save(boardEntity);
-        return modelMapper.map(result, BoardDTO.class);
+        Board result = boardRepository.save(board);
+        return modelMapper.map(result, BoardResponseDTO.class);
     }
 
-    public Optional<BoardDTO> boardGetByIdWithSchool(Long id, String token) {
+    public Optional<BoardResponseDTO> boardGetByIdWithSchool(Long id, String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-        Optional<BoardEntity> boardEntity = boardRepository.findById(id);
+        Optional<Board> boardEntity = boardRepository.findById(id);
         if (boardEntity.isPresent() && boardEntity.get().getBoardType().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
-            return Optional.of(modelMapper.map(boardEntity.get(), BoardDTO.class));
+            return Optional.of(modelMapper.map(boardEntity.get(), BoardResponseDTO.class));
         } else {
             return Optional.empty();
         }
     }
 
-    public ArrayList<BoardDTO> boardGetByBoardType(Long id, String token) {
+    public ArrayList<BoardResponseDTO> boardGetByBoardType(Long id, String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        List<BoardEntity> boardEntities = boardRepository.findByBoardType_BoardTypePK(id);
+        List<Board> boardEntities = boardRepository.findByBoardType_BoardTypePK(id);
         if (!boardEntities.isEmpty() && boardEntities.get(0).getBoardType().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
-            ArrayList<BoardDTO> boardDTOS = new ArrayList<>();
-            for (BoardEntity boardEntity : boardEntities) {
-                boardDTOS.add(modelMapper.map(boardEntity, BoardDTO.class));
+            ArrayList<BoardResponseDTO> boardResponseDTOS = new ArrayList<>();
+            for (Board board : boardEntities) {
+                boardResponseDTOS.add(modelMapper.map(board, BoardResponseDTO.class));
             }
-            return boardDTOS;
+            return boardResponseDTOS;
         } else {
-            return new ArrayList<BoardDTO>();
+            return new ArrayList<BoardResponseDTO>();
         }
 
     }
 
 
-    public BoardDTO updateBoard(BoardDTO boardDTO) {
-        BoardEntity boardEntity = modelMapper.map(boardDTO, BoardEntity.class);
-        BoardEntity result = boardRepository.save(boardEntity);
-        return modelMapper.map(result, BoardDTO.class);
+    public BoardResponseDTO updateBoard(BoardResponseDTO boardResponseDTO) {
+        Board board = modelMapper.map(boardResponseDTO, Board.class);
+        Board result = boardRepository.save(board);
+        return modelMapper.map(result, BoardResponseDTO.class);
     }
 
     public void deleteBoard(Long id) {

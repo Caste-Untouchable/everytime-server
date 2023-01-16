@@ -12,15 +12,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardRecommendEntity {
+
+public class BoardScrap {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardRecommendPK;
+    private Long boardScarpPK;
 
     @ManyToOne
-    BoardEntity board;
-
+    Board board;
+    
     @ManyToOne
     User user;
+
 }

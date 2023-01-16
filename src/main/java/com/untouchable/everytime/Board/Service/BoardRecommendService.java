@@ -1,8 +1,8 @@
 package com.untouchable.everytime.Board.Service;
 
 import com.untouchable.everytime.Config.JwtConfig;
-import com.untouchable.everytime.Board.Entity.BoardEntity;
-import com.untouchable.everytime.Board.Entity.BoardRecommendEntity;
+import com.untouchable.everytime.Board.Entity.Board;
+import com.untouchable.everytime.Board.Entity.BoardRecommend;
 import com.untouchable.everytime.User.Entity.User;
 import com.untouchable.everytime.Board.Repository.BoardRecommendRepository;
 import com.untouchable.everytime.Board.Repository.BoardRepository;
@@ -35,28 +35,28 @@ public class BoardRecommendService {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
         // 이미 추천한 경우가 있는지 확인
-        List<BoardRecommendEntity> result = boardRecommendRepository.findByBoard_BoardPK(id);
+        List<BoardRecommend> result = boardRecommendRepository.findByBoard_BoardPk(id);
         if (result.size() > 0) {
-            for (BoardRecommendEntity boardRecommendEntity : result) {
-                if (boardRecommendEntity.getUser().getUserId().equals(jwt.get("ID"))) {
+            for (BoardRecommend boardRecommend : result) {
+                if (boardRecommend.getUser().getUserId().equals(jwt.get("ID"))) {
 
                     return ResponseEntity.badRequest().body("Already recommended");
                 }
             }
         }
 
-        BoardRecommendEntity boardRecommendEntity = new BoardRecommendEntity();
+        BoardRecommend boardRecommend = new BoardRecommend();
 
-        Optional<BoardEntity> user = boardRepository.findById(id);
+        Optional<Board> user = boardRepository.findById(id);
         if (user.isPresent()) {
-            boardRecommendEntity.setBoard(user.get());
+            boardRecommend.setBoard(user.get());
         }
         Optional<User> userEntity = userRepository.findById(jwt.get("ID").toString());
         if (userEntity.isPresent()) {
-            boardRecommendEntity.setUser(userEntity.get());
+            boardRecommend.setUser(userEntity.get());
         }
 
-        boardRecommendRepository.save(boardRecommendEntity);
+        boardRecommendRepository.save(boardRecommend);
 
         return ResponseEntity.ok().body("친구 추가 완료");
 

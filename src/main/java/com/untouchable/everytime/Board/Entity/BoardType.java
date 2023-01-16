@@ -1,6 +1,7 @@
 package com.untouchable.everytime.Board.Entity;
 
-import com.untouchable.everytime.Enum.AttachmentType;
+import com.untouchable.everytime.Enum.BoardTypeClass;
+import com.untouchable.everytime.School.Entity.School;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,15 +13,19 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardImageEntity {
+public class BoardType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardImagePK;
-    private String originFilename;
-    private String storeFilename;
-    @Enumerated(EnumType.STRING)
-    private AttachmentType attachmentType;
+    private Long boardTypePK;
 
     @ManyToOne
-    BoardEntity board;
+    School school;
+
+    String boardType;
+
+    @Enumerated(EnumType.STRING)
+    BoardTypeClass boardTypeClass;
+
+    String boardDescription;
+
 }

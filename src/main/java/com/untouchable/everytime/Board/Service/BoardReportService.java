@@ -1,8 +1,8 @@
 package com.untouchable.everytime.Board.Service;
 
 import com.untouchable.everytime.Config.JwtConfig;
-import com.untouchable.everytime.Board.Entity.BoardEntity;
-import com.untouchable.everytime.Board.Entity.BoardReportEntity;
+import com.untouchable.everytime.Board.Entity.Board;
+import com.untouchable.everytime.Board.Entity.BoardReport;
 import com.untouchable.everytime.Board.Enum.ReportType;
 import com.untouchable.everytime.Board.Repository.BoardReportRepository;
 import com.untouchable.everytime.Board.Repository.BoardRepository;
@@ -35,15 +35,15 @@ public class BoardReportService {
     public ResponseEntity<String> reportBoard(Long id, String token, String content) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        Optional<BoardEntity> boardEntity = boardRepository.findById(id);
+        Optional<Board> boardEntity = boardRepository.findById(id);
 
         if (boardEntity.isPresent() && boardEntity.get().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
             // 신고 히스토리 저장
-            BoardReportEntity boardReportEntity = new BoardReportEntity();
-            boardReportEntity.setReportBoard(boardEntity.get());
-            boardReportEntity.setReportUser(userRepository.findById(String.valueOf(jwt.get("ID"))).get());
-            boardReportEntity.setReportType(ReportType.valueOf(content));
-            boardReportRepository.save(boardReportEntity);
+            BoardReport boardReport = new BoardReport();
+            boardReport.setReportBoard(boardEntity.get());
+            boardReport.setReportUser(userRepository.findById(String.valueOf(jwt.get("ID"))).get());
+            boardReport.setReportType(ReportType.valueOf(content));
+            boardReportRepository.save(boardReport);
 
             // 신고 횟수 증가
             boardEntity.get().setReportCount(boardEntity.get().getReportCount() + 1);

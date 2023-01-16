@@ -1,7 +1,7 @@
 package com.untouchable.everytime.Board.Entity;
 
-import com.untouchable.everytime.Enum.BoardTypeClass;
-import com.untouchable.everytime.School.Entity.School;
+import com.untouchable.everytime.Board.Enum.ReportType;
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,19 +13,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardTypeEntity {
+public class BoardCommentReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardTypePK;
-
-    @ManyToOne
-    School school;
-
-    String boardType;
+    private Long boardCommentReportPK;
 
     @Enumerated(EnumType.STRING)
-    BoardTypeClass boardTypeClass;
+    ReportType reportType;
 
-    String boardDescription;
+    @ManyToOne
+    User reportUser;
 
+    @ManyToOne
+    BoardComment reportBoardComment;
 }

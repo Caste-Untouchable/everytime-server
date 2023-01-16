@@ -2,8 +2,8 @@ package com.untouchable.everytime.Board.Service;
 
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.Board.DTO.BoardScrapDTO;
-import com.untouchable.everytime.Board.Entity.BoardEntity;
-import com.untouchable.everytime.Board.Entity.BoardScrapEntity;
+import com.untouchable.everytime.Board.Entity.Board;
+import com.untouchable.everytime.Board.Entity.BoardScrap;
 import com.untouchable.everytime.Board.Repository.BoardRepository;
 import com.untouchable.everytime.Board.Repository.BoardScrapRepository;
 import com.untouchable.everytime.User.Repository.UserRepository;
@@ -37,10 +37,10 @@ public class BoardScrapService {
     public ArrayList<BoardScrapDTO> getMyScrap(String token){
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        List<BoardScrapEntity> resultEntity = boardScrapRepository.findByUser_UserId(String.valueOf(jwt.get("ID")));
+        List<BoardScrap> resultEntity = boardScrapRepository.findByUser_UserId(String.valueOf(jwt.get("ID")));
         ArrayList<BoardScrapDTO> resultDTOs = new ArrayList<>();
 
-        for (BoardScrapEntity entity : resultEntity) {
+        for (BoardScrap entity : resultEntity) {
             resultDTOs.add(modelMapper.map(entity, BoardScrapDTO.class));
         }
 
@@ -50,13 +50,13 @@ public class BoardScrapService {
     public ResponseEntity scrapBoard(Long id, String token){
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        Optional<BoardEntity> boardEntity = boardRepository.findById(id);
+        Optional<Board> boardEntity = boardRepository.findById(id);
         if (boardEntity.isPresent() && boardEntity.get().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
             // 스크랩 히스토리 저장
-            BoardScrapEntity boardScrapEntity = new BoardScrapEntity();
-            boardScrapEntity.setBoard(boardEntity.get());
-            boardScrapEntity.setUser(userRepository.findById(String.valueOf(jwt.get("ID"))).get());
-            boardScrapRepository.save(boardScrapEntity);
+            BoardScrap boardScrap = new BoardScrap();
+            boardScrap.setBoard(boardEntity.get());
+            boardScrap.setUser(userRepository.findById(String.valueOf(jwt.get("ID"))).get());
+            boardScrapRepository.save(boardScrap);
 
             // 스크랩 카운트 증가
             boardEntity.get().setScrapCount(boardEntity.get().getScrapCount() + 1);

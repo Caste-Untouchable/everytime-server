@@ -2,8 +2,8 @@ package com.untouchable.everytime.Board.Service;
 
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.Board.DTO.BoardCommentDTO;
-import com.untouchable.everytime.Board.Entity.BoardCommentEntity;
-import com.untouchable.everytime.Board.Entity.BoardEntity;
+import com.untouchable.everytime.Board.Entity.BoardComment;
+import com.untouchable.everytime.Board.Entity.Board;
 import com.untouchable.everytime.User.Entity.User;
 import com.untouchable.everytime.Board.Repository.BoardCommentRepository;
 import com.untouchable.everytime.Board.Repository.BoardRepository;
@@ -40,22 +40,22 @@ public class BoardCommentService {
 
     public ResponseEntity<BoardCommentDTO> createBoardComment(BoardCommentDTO boardCommentDTO, String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-        BoardCommentEntity boardCommentEntity = modelMapper.map(boardCommentDTO, BoardCommentEntity.class);
+        BoardComment boardComment = modelMapper.map(boardCommentDTO, BoardComment.class);
 
         //게시글 유효한지 확인
-        Optional<BoardEntity> boardEntity = boardRepository.findById(boardCommentDTO.getBoardBoardPK());
+        Optional<Board> boardEntity = boardRepository.findById(boardCommentDTO.getBoardBoardPK());
         if (!boardEntity.isPresent()) {
             ResponseEntity.notFound().build();
         }
 
         // User 정보 매핑
         User user = userRepository.findById(String.valueOf(jwt.get("ID"))).get();
-        boardCommentEntity.setUser(user);
-        boardCommentEntity.setBoard(boardEntity.get());
-        boardCommentEntity.setCreatedAT(new Timestamp(System.currentTimeMillis()));
+        boardComment.setUser(user);
+        boardComment.setBoard(boardEntity.get());
+        boardComment.setCreatedAT(new Timestamp(System.currentTimeMillis()));
 
 
-        BoardCommentEntity resultEntity = boardCommentRepository.save(boardCommentEntity);
+        BoardComment resultEntity = boardCommentRepository.save(boardComment);
 
         return ResponseEntity.ok(modelMapper.map(resultEntity, BoardCommentDTO.class));
     }
@@ -63,7 +63,7 @@ public class BoardCommentService {
     public ResponseEntity<BoardCommentDTO> updateBoardComment(BoardCommentDTO boardCommentDTO, String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        Optional<BoardEntity> boardEntity = boardRepository.findById(boardCommentDTO.getBoardBoardPK());
+        Optional<Board> boardEntity = boardRepository.findById(boardCommentDTO.getBoardBoardPK());
 
         if (!boardEntity.isPresent()){
             ResponseEntity.notFound().build();
@@ -71,13 +71,13 @@ public class BoardCommentService {
             ResponseEntity.badRequest().build();
         }
 
-        BoardCommentEntity resultEntity = boardCommentRepository.save(modelMapper.map(boardCommentDTO, BoardCommentEntity.class));
+        BoardComment resultEntity = boardCommentRepository.save(modelMapper.map(boardCommentDTO, BoardComment.class));
 
         return ResponseEntity.ok(modelMapper.map(resultEntity, BoardCommentDTO.class));
     }
 
     public boolean deleteBoardComment(Long id, String token) {
-        Optional<BoardCommentEntity> found = boardCommentRepository.findById(id);
+        Optional<BoardComment> found = boardCommentRepository.findById(id);
         if (found.isPresent() && found.get().getUser().getUserId().equals(jwtConfig.verifyJWT(token).get("userID"))) {
             boardCommentRepository.deleteById(id);
             return true;
@@ -91,7 +91,7 @@ public class BoardCommentService {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
         //게시글 유효한지 확인
-        Optional<BoardEntity> boardEntity = boardRepository.findById(id);
+        Optional<Board> boardEntity = boardRepository.findById(id);
         if (!boardEntity.isPresent()) {
             return ResponseEntity.notFound().build();
         }
@@ -101,12 +101,12 @@ public class BoardCommentService {
 //            return ResponseEntity.badRequest().build();
 //        }
 
-        List<BoardCommentEntity> result = boardCommentRepository.findByBoard_BoardPK(id);
+        List<BoardComment> result = boardCommentRepository.findByBoard_BoardPk(id);
 
         ArrayList<BoardCommentDTO> resultDTO = new ArrayList<>();
 
-        for (BoardCommentEntity boardCommentEntity : result) {
-            resultDTO.add(modelMapper.map(boardCommentEntity, BoardCommentDTO.class));
+        for (BoardComment boardComment : result) {
+            resultDTO.add(modelMapper.map(boardComment, BoardCommentDTO.class));
         }
 
         return ResponseEntity.ok(resultDTO);

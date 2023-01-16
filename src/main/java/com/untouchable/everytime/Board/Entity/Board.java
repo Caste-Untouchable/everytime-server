@@ -15,28 +15,25 @@ import java.sql.Timestamp;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardEntity {
-
+public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardPK;
-
+    private Long boardPk;
     @ManyToOne
     School school;
     @ManyToOne
     User user;
     @ManyToOne
-    BoardTypeEntity boardType;
+    BoardType boardType;
     @Column
     String boardTitle;
     String content;
+    int commentCount;
     int recommendCount;
     int scrapCount;
-    //    @OneToMany
-//    ArrayList<BoardImageEntity> images;
     Timestamp createdAT;
     boolean anonymity;
     int reportCount;
-
-
+    // @OneToMany
+    // ArrayList<BoardImageEntity> images;
 }
