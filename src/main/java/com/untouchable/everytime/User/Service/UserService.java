@@ -1,6 +1,7 @@
 package com.untouchable.everytime.User.Service;
 
 import com.untouchable.everytime.Config.JwtConfig;
+import com.untouchable.everytime.School.Entity.School;
 import com.untouchable.everytime.School.Repository.SchoolRepository;
 import com.untouchable.everytime.User.DTO.UserChangePasswordDTO;
 import com.untouchable.everytime.User.DTO.UserDTO;
@@ -32,28 +33,33 @@ public class UserService {
         this.schoolRepository = schoolRepository;
     }
 
-    public ResponseEntity<String> login(String ID, String PWD) {
-        User user = userRepository.findById(ID).get();
+    public ResponseEntity<String> login(String id, String pwd) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
 
-        if (encoder.matches(PWD, user.getUserPwd())) {
-            return ResponseEntity.ok(jwtConfig.createToken(user));
+        if (encoder.matches(pwd, user.get().getUserPwd())) {
+            return ResponseEntity.ok(jwtConfig.createToken(user.get()));
         }
         return ResponseEntity.badRequest().build();
     }
 
     public ResponseEntity<UserDTO> register(UserDTO userDTO) {
-
+        // id 중복 확인
         if (userRepository.existsByUserId(userDTO.getUserId())) {
             return ResponseEntity.badRequest().build();
         }
-
-        String password = encoder.encode(userDTO.getUserPwd());
-        userDTO.setUserPwd(password);
-        userDTO.setUserPoint(0L);
+        // 학교 존재 여부 확인
+        Optional<School> school = schoolRepository.findById(userDTO.getUserSchoolSchoolName());
+        if (school.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        // 유저 생성 후 저장
         User user = modelMapper.map(userDTO, User.class);
-
-        user.setUserSchool(schoolRepository.findById(userDTO.getUserSchoolSchoolName()).get());
-
+        user.setUserPwd(encoder.encode(user.getUserPwd()));
+        user.setUserPoint(0L);
+        user.setUserSchool(school.get());
         user = userRepository.save(user);
 
         return ResponseEntity.ok(modelMapper.map(user, UserDTO.class));
@@ -78,7 +84,7 @@ public class UserService {
         return ResponseEntity.ok(modelMapper.map(userInfo, UserDTO.class));
     }
 
-    public ResponseEntity deleteUser(String token) {
+    public ResponseEntity<String> deleteUser(String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
         userRepository.deleteById(String.valueOf(jwt.get("userId")));
         return ResponseEntity.ok("유저 삭제 완료");

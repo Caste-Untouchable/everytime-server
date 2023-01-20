@@ -3,6 +3,7 @@ package com.untouchable.everytime.User.Controller;
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.User.DTO.UserChangePasswordDTO;
 import com.untouchable.everytime.User.DTO.UserDTO;
+import com.untouchable.everytime.User.DTO.UserLoginDTO;
 import com.untouchable.everytime.User.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -29,7 +30,7 @@ public class UserController {
     @PostMapping("/login")
     @Operation(summary = "로그인", description = "ID, PWD를 입력받아 JWT 발급하는 기능")
     @ResponseBody
-    public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<String> login(@RequestBody UserLoginDTO userDTO) {
         return userService.login(userDTO.getUserId(), userDTO.getUserPwd());
     }
 

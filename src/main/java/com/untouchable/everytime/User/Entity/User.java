@@ -3,15 +3,14 @@ package com.untouchable.everytime.User.Entity;
 import com.untouchable.everytime.User.Enum.UserStatus;
 import com.untouchable.everytime.School.Entity.School;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
 public class User {
     @Id
@@ -23,8 +22,8 @@ public class User {
     @ManyToOne
     private School userSchool;
     private int userRegisteredYear;
-//    @OneToOne
-//    private UserProfileEntity userProfile;
+    // @OneToOne
+    // private UserProfileEntity userProfile;
     private boolean userSchoolVerified;
     Long userPoint;
     @Enumerated(EnumType.STRING)

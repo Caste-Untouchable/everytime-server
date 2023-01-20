@@ -29,15 +29,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf().disable();
-//        http.authorizeHttpRequests(authorize -> authorize
-//                .requestMatchers("/user/login", "/user/signup").permitAll()
-//                .anyRequest().authenticated()
-//        );
 
         http.headers().frameOptions().disable();
 
-
-
+        http.authorizeRequests((authorize) -> authorize
+                .anyRequest().permitAll());
 
         return http.build();
     }

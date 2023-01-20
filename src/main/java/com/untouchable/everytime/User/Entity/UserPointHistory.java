@@ -1,6 +1,5 @@
 package com.untouchable.everytime.User.Entity;
 
-import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,17 +11,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPointHistoryEntity {
+public class UserPointHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userPoint_PK;
-
+    private Long userPointHistoryPk;
     @ManyToOne
     User user;
-
     //@ManyToOne
     //TODO : 강의평가 클래스 넣기
-
     Long point;
-
 }
