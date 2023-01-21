@@ -1,11 +1,13 @@
 package com.untouchable.everytime.Board.Service;
 
+import com.untouchable.everytime.Board.DTO.BoardResponseDTO;
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.Board.DTO.BoardScrapDTO;
 import com.untouchable.everytime.Board.Entity.Board;
 import com.untouchable.everytime.Board.Entity.BoardScrap;
 import com.untouchable.everytime.Board.Repository.BoardRepository;
 import com.untouchable.everytime.Board.Repository.BoardScrapRepository;
+import com.untouchable.everytime.User.Entity.User;
 import com.untouchable.everytime.User.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,40 +36,88 @@ public class BoardScrapService {
         this.userRepository = userRepository;
     }
 
-    public ArrayList<BoardScrapDTO> getMyScrap(String token){
+    public ResponseEntity<ArrayList<BoardResponseDTO>> getMyScrap(String token){
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        List<BoardScrap> resultEntity = boardScrapRepository.findByUser_UserId(String.valueOf(jwt.get("userId")));
-        ArrayList<BoardScrapDTO> resultDTOs = new ArrayList<>();
+        Optional<User> userEntity = userRepository.findById(String.valueOf(jwt.get("userId")));
+        if (userEntity.isEmpty()) {
+            return null;
+        }
+
+        List<BoardScrap> resultEntity = boardScrapRepository.findByUser(userEntity.get());
+        ArrayList<BoardResponseDTO> result = new ArrayList<>();
 
         for (BoardScrap entity : resultEntity) {
-            resultDTOs.add(modelMapper.map(entity, BoardScrapDTO.class));
+            BoardResponseDTO boardResponseDTO = modelMapper.map(entity.getBoard(), BoardResponseDTO.class);
+            if (boardResponseDTO.isAnonymity()){
+                boardResponseDTO.setUserUserNickname("null");
+                boardResponseDTO.setUserUserId("null");
+            }
+            result.add(boardResponseDTO);
         }
-
-        return resultDTOs;
+        return ResponseEntity.ok(result);
     }
 
-    public ResponseEntity scrapBoard(Long id, String token){
+    public ResponseEntity<String> scrapBoard(Long id, String token){
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
+        // Null Check
         Optional<Board> boardEntity = boardRepository.findById(id);
-        if (boardEntity.isPresent() && boardEntity.get().getSchool().getSchoolName().equals(jwt.get("userSchool"))) {
-            // 스크랩 히스토리 저장
-            BoardScrap boardScrap = new BoardScrap();
-            boardScrap.setBoard(boardEntity.get());
-            boardScrap.setUser(userRepository.findById(String.valueOf(jwt.get("userId"))).get());
-            boardScrapRepository.save(boardScrap);
+        Optional<User> userEntity = userRepository.findById(String.valueOf(jwt.get("userId")));
 
-            // 스크랩 카운트 증가
-            boardEntity.get().setScrapCount(boardEntity.get().getScrapCount() + 1);
-            boardRepository.save(boardEntity.get());
-
-            return ResponseEntity.ok().build();
-        } else {
+        if (boardEntity.isEmpty() || userEntity.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        // 학교 체크
+        if (!boardEntity.get().getSchool().equals(userEntity.get().getUserSchool())) {
+            System.out.println("학교 불일치");
             return ResponseEntity.badRequest().build();
         }
+        // 중복 체크
+        if (boardScrapRepository.findByBoardAndUser(boardEntity.get(), userEntity.get()).isPresent()) {
+            System.out.println("중복 스크랩");
+            return ResponseEntity.badRequest().build();
+        }
+
+        // 스크랩 히스토리 저장
+        BoardScrap boardScrap = new BoardScrap();
+        boardScrap.setBoard(boardEntity.get());
+        boardScrap.setUser(userEntity.get());
+        boardScrapRepository.save(boardScrap);
+
+        // 스크랩 카운트 수정
+        Long scrapCount = boardScrapRepository.countByBoard(boardEntity.get());
+        boardEntity.get().setScrapCount(scrapCount);
+        boardRepository.save(boardEntity.get());
+        
+        return ResponseEntity.ok("스크랩 성공");
     }
 
+    public ResponseEntity<String> unScrapBoard(Long id, String token) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
+        // Null Check
+        Optional<Board> boardEntity = boardRepository.findById(id);
+        Optional<User> userEntity = userRepository.findById(String.valueOf(jwt.get("userId")));
+        if (boardEntity.isEmpty() || userEntity.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // 스크랩 조회
+        Optional<BoardScrap> boardScrap = boardScrapRepository.findByBoardAndUser(boardEntity.get(), userEntity.get());
+        if (boardScrap.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // 스크랩 히스토리 삭제
+        boardScrapRepository.delete(boardScrap.get());
+
+        // 스크랩 카운트 수정
+        Long scrapCount = boardScrapRepository.countByBoard(boardEntity.get());
+        boardEntity.get().setScrapCount(scrapCount);
+        boardRepository.save(boardEntity.get());
+
+        return ResponseEntity.ok("스크랩 취소 성공");
+    }
 }
 

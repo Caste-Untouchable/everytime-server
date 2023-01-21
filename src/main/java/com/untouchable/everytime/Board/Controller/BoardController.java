@@ -96,18 +96,24 @@ public class BoardController {
 
     @PostMapping("/{id}/scrap")
     @Operation(summary = "게시글 스크랩", description = "게시글 스크랩 하는 기능")
-    public ResponseEntity scrapBoard(
+    public ResponseEntity<String> addScrapBoard(
             @Parameter(name = "id", description = "게시글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
             @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token) {
-        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-        return scrapBoard(id, token);
+        return boardScrapService.scrapBoard(id, token);
     }
 
     @GetMapping("/getMyScrap")
     @Operation(summary = "스크랩한 글 조회", description = "스크랩 한 글들을 조회하는 기능")
-    public ArrayList<BoardScrapDTO> getMyScrap(
+    public ResponseEntity<ArrayList<BoardResponseDTO>> getMyScrap(
             @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token) {
         return boardScrapService.getMyScrap(token);
     }
-}
 
+    @DeleteMapping("{id}/unScrap")
+    @Operation(summary = "스크랩한 글 삭제", description = "스크랩 한 글을 삭제하는 기능")
+    public ResponseEntity<String> removeScrap(
+            @Parameter(name = "id", description = "게시글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
+            @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token) {
+        return boardScrapService.unScrapBoard(id, token);
+    }
+}
