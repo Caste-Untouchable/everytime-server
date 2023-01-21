@@ -39,7 +39,7 @@ public class BoardController {
     @GetMapping("/{id}")
     @Operation(summary = "게시글 조회", description = "게시글 PK와, JWT를 입력받아 회원 인증 후 특정 게시물 조회 하는 기능")
     public ResponseEntity<BoardResponseDTO> getBoard(
-            @Parameter(name = "게시글 PK", description = "게시글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
+            @Parameter(name = "id", description = "게시글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
             @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
@@ -56,7 +56,7 @@ public class BoardController {
     @PostMapping("/{id}/report")
     @Operation(summary = "특정 게시물 신고", description = "Body에는 다음 ABUSING, SCAM, COMMERCIAL, BELITTLE, PORNO, PHISHING, INAPPROPRIATE 문자열만 넣어주세요")
     public ResponseEntity<String> reportBoard(
-            @Parameter(name = "게시글 PK", description = "게시글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
+            @Parameter(name = "id", description = "게시글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
             @Parameter(name = "jwt", description = "유저 인증 토큰", in = ParameterIn.HEADER) @RequestHeader(value = "jwt") String token,
             @RequestBody String content) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
@@ -112,7 +112,7 @@ public class BoardController {
     @PostMapping("/{id}/scrap")
     @Operation(summary = "게시글 스크랩", description = "게시글 스크랩 하는 기능")
     public ResponseEntity scrapBoard(
-            @Parameter(name = "게시글 PK", description = "게시글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
+            @Parameter(name = "id", description = "게시글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
             @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
         return scrapBoard(id, token);

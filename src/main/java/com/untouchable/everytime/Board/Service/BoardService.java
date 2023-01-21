@@ -2,6 +2,7 @@ package com.untouchable.everytime.Board.Service;
 
 
 import com.untouchable.everytime.Board.DTO.BoardRequestDTO;
+import com.untouchable.everytime.Board.Repository.BoardTypeRepository;
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.Board.DTO.BoardResponseDTO;
 import com.untouchable.everytime.Board.Entity.Board;
@@ -23,17 +24,19 @@ public class BoardService {
 
     BoardRepository boardRepository;
     SchoolRepository schoolRepository;
+    BoardTypeRepository boardTypeRepository;
     UserRepository userRepository;
     ModelMapper modelMapper;
     JwtConfig jwtConfig;
 
     @Autowired
-    public BoardService(UserRepository userRepository,SchoolRepository schoolRepository,BoardRepository boardRepository, ModelMapper modelMapper, JwtConfig jwtConfig) {
+    public BoardService(BoardTypeRepository boardTypeRepository,UserRepository userRepository,SchoolRepository schoolRepository,BoardRepository boardRepository, ModelMapper modelMapper, JwtConfig jwtConfig) {
         this.boardRepository = boardRepository;
         this.schoolRepository = schoolRepository;
         this.modelMapper = modelMapper;
         this.jwtConfig = jwtConfig;
         this.userRepository = userRepository;
+        this.boardTypeRepository = boardTypeRepository;
     }
 
     public BoardResponseDTO createBoard(BoardRequestDTO boardRequestDTO, String token) {
@@ -42,6 +45,7 @@ public class BoardService {
 
         board.setSchool(schoolRepository.findById(String.valueOf(jwt.get("userSchool"))).get());
         board.setUser(userRepository.findById(String.valueOf(jwt.get("userId"))).get());
+        board.setBoardType(boardTypeRepository.findById(boardRequestDTO.getBoardTypePK()).get());
         board.setCreatedAT(new Timestamp(System.currentTimeMillis()));
         board.setRecommendCount(0);
         board.setReportCount(0);

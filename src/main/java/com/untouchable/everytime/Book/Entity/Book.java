@@ -7,19 +7,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookEntity {
+public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long book_PK;
-    String title;
-    String author;
-    String publisher;
-    Date publicationDate;
-    Long bookPrice;
+    private String isbn;
+    private String title;
+    private String author;
+    private String publisher;
+    private Timestamp publicationDate;
+    private Long bookPrice;
 }
