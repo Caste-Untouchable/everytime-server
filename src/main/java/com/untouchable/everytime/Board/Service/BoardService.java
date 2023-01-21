@@ -59,9 +59,9 @@ public class BoardService {
         board.setUser(user.get());
         board.setBoardType(boardType.get());
         board.setCreatedAT(new Timestamp(System.currentTimeMillis()));
-        board.setRecommendCount(0);
-        board.setReportCount(0);
-        board.setCommentCount(0);
+        board.setRecommendCount(0L);
+        board.setReportCount(0L);
+        board.setCommentCount(0L);
 
         Board result = boardRepository.save(board);
         return ResponseEntity.ok(modelMapper.map(result, BoardResponseDTO.class));

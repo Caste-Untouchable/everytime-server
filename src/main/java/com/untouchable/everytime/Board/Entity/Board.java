@@ -28,12 +28,12 @@ public class Board {
     @Column
     String boardTitle;
     String content;
-    int commentCount;
-    int recommendCount;
-    int scrapCount;
+    Long commentCount;
+    Long recommendCount;
+    Long scrapCount;
     Timestamp createdAT;
     boolean anonymity;
-    int reportCount;
+    Long reportCount;
     // @OneToMany
     // ArrayList<BoardImageEntity> images;
 }

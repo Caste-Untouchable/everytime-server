@@ -1,6 +1,7 @@
 package com.untouchable.everytime.Board.Controller;
 
 import com.untouchable.everytime.Board.DTO.BoardRequestDTO;
+import com.untouchable.everytime.Board.Enum.ReportType;
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.Board.DTO.BoardResponseDTO;
 import com.untouchable.everytime.Board.DTO.BoardScrapDTO;
@@ -10,6 +11,7 @@ import com.untouchable.everytime.Board.Service.BoardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,13 +47,15 @@ public class BoardController {
 
 
     @PostMapping("/{id}/report")
-    @Operation(summary = "특정 게시물 신고", description = "Body에는 다음 ABUSING, SCAM, COMMERCIAL, BELITTLE, PORNO, PHISHING, INAPPROPRIATE 문자열만 넣어주세요")
+    @Operation(summary = "특정 게시물 신고", description = "게시글 PK와, JWT를 입력받아 회원 인증 후 특정 게시물 신고 하는 기능")
+    @ApiResponse(responseCode = "200", description = "신고 성공")
+    @ApiResponse(responseCode = "400", description = "신고 실패")
     public ResponseEntity<String> reportBoard(
             @Parameter(name = "id", description = "게시글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
             @Parameter(name = "jwt", description = "유저 인증 토큰", in = ParameterIn.HEADER) @RequestHeader(value = "jwt") String token,
-            @RequestBody String content) {
-        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-        return boardReportService.reportBoard(id, token, content);
+            @Parameter(name = "report", description = "신고유형") @RequestParam(name = "report") ReportType report) {
+
+        return boardReportService.reportBoard(id, token, report);
     }
 
     @GetMapping("/getBoardByBoardType/{boardTypeId}")
@@ -79,7 +83,7 @@ public class BoardController {
             @Parameter(name = "jwt", description = "유저 인증 토큰", in = ParameterIn.HEADER) @RequestHeader(value = "jwt") String token) {
 
 
-        return boardService.modifyBoard(id=id, boardRequestDTO=boardRequestDTO, token=token);
+        return boardService.modifyBoard(id = id, boardRequestDTO = boardRequestDTO, token = token);
     }
 
     @DeleteMapping("/delete")
