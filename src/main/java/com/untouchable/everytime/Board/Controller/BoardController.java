@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Optional;
 
 @Tag(name = "게시글", description = "게시글 CRUD 관련 API")
 @RestController
@@ -41,15 +40,7 @@ public class BoardController {
     public ResponseEntity<BoardResponseDTO> getBoard(
             @Parameter(name = "id", description = "게시글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
             @RequestHeader(value = "jwt") String token) {
-        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-
-        Optional<BoardResponseDTO> result = boardService.boardGetByIdWithSchool(id, token);
-
-        if (result.isPresent()) {
-            return ResponseEntity.ok(result.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return boardService.findBoardById(id, token);
     }
 
 
@@ -66,11 +57,10 @@ public class BoardController {
     @GetMapping("/getBoardByBoardType/{boardTypeId}")
     @Operation(summary = "특정 게시판들 글만 조회", description = "ex)동의대학교 자유게시판 조회")
     public ResponseEntity<ArrayList<BoardResponseDTO>> getBoardByBoardType(
-            @Parameter(name = "게시글 PK", description = "특정 게시판 PK", in = ParameterIn.PATH) @PathVariable("boardTypeId") Long boardTypeId,
+            @Parameter(name = "boardTypeId", description = "특정 게시판 PK", in = ParameterIn.PATH) @PathVariable("boardTypeId") Long boardTypeId,
             @Parameter(name = "jwt", description = "유저 인증 토큰", in = ParameterIn.HEADER) @RequestHeader(value = "jwt") String token) {
 
-        ArrayList<BoardResponseDTO> result = boardService.boardGetByBoardType(boardTypeId, token);
-        return ResponseEntity.ok(result);
+        return boardService.findBoardsByBoardType(boardTypeId, token);
     }
 
     @PostMapping("/create")
@@ -78,17 +68,18 @@ public class BoardController {
     public ResponseEntity<BoardResponseDTO> createBoard(
             @RequestBody BoardRequestDTO boardRequestDTO,
             @Parameter(name = "jwt", description = "유저 인증 토큰", in = ParameterIn.HEADER) @RequestHeader(value = "jwt") String token) {
-        return ResponseEntity.ok(boardService.createBoard(boardRequestDTO, token));
+        return boardService.addBoard(boardRequestDTO, token);
     }
 
     @PatchMapping("/{id}/update")
     @Operation(summary = "게시글 수정", description = "게시글 수정 하는 기능")
     public ResponseEntity<BoardResponseDTO> updateBoard(
-            @RequestBody BoardResponseDTO boardResponseDTO,
+            @RequestBody BoardRequestDTO boardRequestDTO,
+            @Parameter(name = "id", description = "게시글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
             @Parameter(name = "jwt", description = "유저 인증 토큰", in = ParameterIn.HEADER) @RequestHeader(value = "jwt") String token) {
-        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        return ResponseEntity.ok(boardService.updateBoard(boardResponseDTO));
+
+        return boardService.modifyBoard(id=id, boardRequestDTO=boardRequestDTO, token=token);
     }
 
     @DeleteMapping("/delete")
@@ -96,17 +87,7 @@ public class BoardController {
     public ResponseEntity<String> deleteBoard(
             @Parameter(name = "게시글 PK", description = "게시글 PK") @RequestParam("id") Long id,
             @Parameter(name = "jwt", description = "유저 인증 토큰") @RequestHeader(value = "jwt") String token) {
-        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-
-        Optional<BoardResponseDTO> result = boardService.boardGetByIdWithSchool(id, token);
-
-        if (result.isPresent() && result.get().getUserUserId().equals(jwt.get("USERID"))) {
-            boardService.deleteBoard(id);
-            return ResponseEntity.ok("삭제 성공");
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-
+        return boardService.removeBoard(id, token);
     }
 
     @PostMapping("/{id}/scrap")
