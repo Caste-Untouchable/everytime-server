@@ -37,7 +37,7 @@ public class BoardScrapService {
     public ArrayList<BoardScrapDTO> getMyScrap(String token){
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
-        List<BoardScrap> resultEntity = boardScrapRepository.findByUser_UserId(String.valueOf(jwt.get("ID")));
+        List<BoardScrap> resultEntity = boardScrapRepository.findByUser_UserId(String.valueOf(jwt.get("userId")));
         ArrayList<BoardScrapDTO> resultDTOs = new ArrayList<>();
 
         for (BoardScrap entity : resultEntity) {
@@ -51,11 +51,11 @@ public class BoardScrapService {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
         Optional<Board> boardEntity = boardRepository.findById(id);
-        if (boardEntity.isPresent() && boardEntity.get().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
+        if (boardEntity.isPresent() && boardEntity.get().getSchool().getSchoolName().equals(jwt.get("userSchool"))) {
             // 스크랩 히스토리 저장
             BoardScrap boardScrap = new BoardScrap();
             boardScrap.setBoard(boardEntity.get());
-            boardScrap.setUser(userRepository.findById(String.valueOf(jwt.get("ID"))).get());
+            boardScrap.setUser(userRepository.findById(String.valueOf(jwt.get("userId"))).get());
             boardScrapRepository.save(boardScrap);
 
             // 스크랩 카운트 증가

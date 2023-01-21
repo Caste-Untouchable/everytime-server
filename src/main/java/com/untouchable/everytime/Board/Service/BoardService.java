@@ -62,6 +62,8 @@ public class BoardService {
         board.setRecommendCount(0L);
         board.setReportCount(0L);
         board.setCommentCount(0L);
+        board.setScrapCount(0L);
+        board.setBoardPk(null);
 
         Board result = boardRepository.save(board);
         return ResponseEntity.ok(modelMapper.map(result, BoardResponseDTO.class));
@@ -76,10 +78,16 @@ public class BoardService {
             return ResponseEntity.badRequest().build();
         }
         // Check School
-        if (!boardEntity.get().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
+        if (!boardEntity.get().getSchool().getSchoolName().equals(jwt.get("userSchool"))) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(modelMapper.map(boardEntity.get(), BoardResponseDTO.class));
+        BoardResponseDTO boardResponseDTO = modelMapper.map(boardEntity.get(), BoardResponseDTO.class);
+        // Check Anonymity
+        if (boardEntity.get().isAnonymity()) {
+            boardResponseDTO.setUserUserId(null);
+            boardResponseDTO.setUserUserNickname(null);
+        }
+        return ResponseEntity.ok(boardResponseDTO);
     }
 
     public ResponseEntity<ArrayList<BoardResponseDTO>> findBoardsByBoardType(Long id, String token) {
@@ -93,7 +101,7 @@ public class BoardService {
         }
 
         // Check School
-        if (!boardType.get().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
+        if (!boardType.get().getSchool().getSchoolName().equals(jwt.get("userSchool"))) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -101,7 +109,13 @@ public class BoardService {
         ArrayList<BoardResponseDTO> boardResponseDTOS = new ArrayList<>();
         List<Board> boardEntities = boardRepository.findByBoardType_BoardTypePK(id);
         for (Board board : boardEntities) {
-            boardResponseDTOS.add(modelMapper.map(board, BoardResponseDTO.class));
+            BoardResponseDTO boardResponseDTO = modelMapper.map(board, BoardResponseDTO.class);
+            // Check Anonymity
+            if (board.isAnonymity()) {
+                boardResponseDTO.setUserUserId(null);
+                boardResponseDTO.setUserUserNickname(null);
+            }
+            boardResponseDTOS.add(boardResponseDTO);
         }
         return ResponseEntity.ok(boardResponseDTOS);
     }

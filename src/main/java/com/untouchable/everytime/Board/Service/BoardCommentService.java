@@ -49,7 +49,7 @@ public class BoardCommentService {
         }
 
         // User 정보 매핑
-        User user = userRepository.findById(String.valueOf(jwt.get("ID"))).get();
+        User user = userRepository.findById(String.valueOf(jwt.get("userId"))).get();
         boardComment.setUser(user);
         boardComment.setBoard(boardEntity.get());
         boardComment.setCreatedAT(new Timestamp(System.currentTimeMillis()));
@@ -67,7 +67,7 @@ public class BoardCommentService {
 
         if (!boardEntity.isPresent()){
             ResponseEntity.notFound().build();
-        } else if (!boardEntity.get().getSchool().getSchoolName().equals(jwt.get("SCHOOL"))) {
+        } else if (!boardEntity.get().getSchool().getSchoolName().equals(jwt.get("userSchool"))) {
             ResponseEntity.badRequest().build();
         }
 
@@ -78,7 +78,7 @@ public class BoardCommentService {
 
     public boolean deleteBoardComment(Long id, String token) {
         Optional<BoardComment> found = boardCommentRepository.findById(id);
-        if (found.isPresent() && found.get().getUser().getUserId().equals(jwtConfig.verifyJWT(token).get("userID"))) {
+        if (found.isPresent() && found.get().getUser().getUserId().equals(jwtConfig.verifyJWT(token).get("userId"))) {
             boardCommentRepository.deleteById(id);
             return true;
         } else {
