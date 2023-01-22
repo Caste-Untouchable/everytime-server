@@ -3,13 +3,18 @@ package com.untouchable.everytime.Board.Service;
 import com.untouchable.everytime.Board.DTO.BoardTypeDTO;
 import com.untouchable.everytime.Board.Entity.BoardType;
 import com.untouchable.everytime.Board.Repository.BoardTypeRepository;
+import com.untouchable.everytime.Config.JwtConfig;
+import com.untouchable.everytime.School.Entity.School;
 import com.untouchable.everytime.School.Repository.SchoolRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class BoardTypeService {
@@ -17,12 +22,14 @@ public class BoardTypeService {
     BoardTypeRepository boardTypeRepository;
     ModelMapper modelMapper;
     SchoolRepository schoolRepository;
+    JwtConfig jwtConfig;
 
     @Autowired
-    public BoardTypeService(SchoolRepository schoolRepository,BoardTypeRepository boardTypeRepository, ModelMapper modelMapper) {
+    public BoardTypeService(JwtConfig jwtConfig,SchoolRepository schoolRepository,BoardTypeRepository boardTypeRepository, ModelMapper modelMapper) {
         this.boardTypeRepository = boardTypeRepository;
         this.modelMapper = modelMapper;
         this.schoolRepository = schoolRepository;
+        this.jwtConfig = jwtConfig;
     }
 
     public BoardTypeDTO createBoardType(BoardTypeDTO boardTypeDTO) {
@@ -42,15 +49,21 @@ public class BoardTypeService {
         boardTypeRepository.deleteById(id);
     }
 
-    public ArrayList<BoardTypeDTO> getBoardTypeBySchoolName(String schoolName) {
-        List<BoardType> boardType = boardTypeRepository.findBySchool_SchoolName(schoolName);
+    public ResponseEntity<ArrayList<BoardTypeDTO>> getBoardTypeBySchoolName(String token) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+        Optional<School> school = schoolRepository.findById(jwt.get("userSchool").toString());
+        // 학교가 Null 일 때
+        if (school.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        List<BoardType> boardType = boardTypeRepository.findBySchool(school.get());
 
         ArrayList<BoardTypeDTO> boardTypeDTOS = new ArrayList<>();
         for (BoardType boardType1 : boardType) {
             boardTypeDTOS.add(modelMapper.map(boardType1, BoardTypeDTO.class));
         }
 
-        return boardTypeDTOS;
+        return ResponseEntity.ok(boardTypeDTOS);
     }
 
 

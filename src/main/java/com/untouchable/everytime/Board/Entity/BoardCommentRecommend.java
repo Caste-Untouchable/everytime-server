@@ -7,25 +7,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardComment {
+public class BoardCommentRecommend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardCommentPK;
+    private Long boardCommentRecommendPk;
+
     @ManyToOne
-    Board board;
+    BoardComment boardComment;
+
     @ManyToOne
     User user;
-    boolean anonymity;
-    Timestamp createdAT;
-    Long reportCount;
-    Long recommendCount;
-    String content;
-    Long replyTo;
 }

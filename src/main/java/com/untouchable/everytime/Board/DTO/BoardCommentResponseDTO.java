@@ -18,6 +18,7 @@ public class BoardCommentResponseDTO {
     boolean anonymity;
     Timestamp createdAT;
     Long reportCount;
+    Long recommendCount;
     String content;
     Long replyTo;
 

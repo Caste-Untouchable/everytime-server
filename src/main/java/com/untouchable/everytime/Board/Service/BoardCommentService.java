@@ -1,6 +1,11 @@
 package com.untouchable.everytime.Board.Service;
 
 import com.untouchable.everytime.Board.DTO.BoardRequestDTO;
+import com.untouchable.everytime.Board.Entity.BoardCommentRecommend;
+import com.untouchable.everytime.Board.Entity.BoardCommentReport;
+import com.untouchable.everytime.Board.Enum.ReportType;
+import com.untouchable.everytime.Board.Repository.BoardCommentRecommendRepository;
+import com.untouchable.everytime.Board.Repository.BoardCommentReportRepository;
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.Board.DTO.BoardCommentResponseDTO;
 import com.untouchable.everytime.Board.Entity.BoardComment;
@@ -27,6 +32,8 @@ import java.util.Optional;
 public class BoardCommentService {
 
     BoardCommentRepository boardCommentRepository;
+    BoardCommentRecommendRepository boardCommentRecommendRepository;
+    BoardCommentReportRepository boardCommentReportRepository;
     BoardRepository boardRepository;
     UserRepository userRepository;
     SchoolRepository schoolRepository;
@@ -34,13 +41,15 @@ public class BoardCommentService {
     JwtConfig jwtConfig;
 
     @Autowired
-    public BoardCommentService(SchoolRepository schoolRepository, UserRepository userRepository, BoardRepository boardRepository, BoardCommentRepository boardCommentRepository, ModelMapper strictMapper, JwtConfig jwtConfig) {
+    public BoardCommentService(BoardCommentReportRepository boardCommentReportRepository, BoardCommentRecommendRepository boardCommentRecommendRepository, SchoolRepository schoolRepository, UserRepository userRepository, BoardRepository boardRepository, BoardCommentRepository boardCommentRepository, ModelMapper strictMapper, JwtConfig jwtConfig) {
         this.boardCommentRepository = boardCommentRepository;
+        this.boardCommentReportRepository = boardCommentReportRepository;
         this.modelMapper = strictMapper;
         this.jwtConfig = jwtConfig;
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
         this.schoolRepository = schoolRepository;
+        this.boardCommentRecommendRepository = boardCommentRecommendRepository;
     }
 
     public ResponseEntity<BoardCommentResponseDTO> addBoardComment(BoardRequestDTO boardRequestDTO, Long id, String token) {
@@ -57,6 +66,7 @@ public class BoardCommentService {
         boardComment.setUser(userEntity.get());
         boardComment.setCreatedAT(new Timestamp(System.currentTimeMillis()));
         boardComment.setReportCount(0L);
+        boardComment.setRecommendCount(0L);
 
         return ResponseEntity.ok(modelMapper.map(boardCommentRepository.save(boardComment), BoardCommentResponseDTO.class));
     }
@@ -93,7 +103,7 @@ public class BoardCommentService {
 
     }
 
-    public ResponseEntity<BoardCommentResponseDTO> updateBoardComment(BoardRequestDTO boardRequestDTO,Long id, String token) {
+    public ResponseEntity<BoardCommentResponseDTO> updateBoardComment(BoardRequestDTO boardRequestDTO, Long id, String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
 
         Optional<BoardComment> boardCommentEntity = boardCommentRepository.findById(id);
@@ -131,6 +141,64 @@ public class BoardCommentService {
         boardCommentRepository.deleteById(id);
 
         return ResponseEntity.ok("삭제되었습니다.");
+    }
+
+    public ResponseEntity<String> addCommentRecommend(Long id, String token) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+
+        Optional<BoardComment> boardCommentEntity = boardCommentRepository.findById(id);
+        Optional<User> userEntity = userRepository.findById(String.valueOf(jwt.get("userId")));
+        if (boardCommentEntity.isEmpty() || userEntity.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // 추천 확인
+        if (boardCommentRecommendRepository.existsByBoardCommentAndUser(boardCommentEntity.get(), userEntity.get())) {
+            return ResponseEntity.badRequest().body("이미 추천하셨습니다.");
+        }
+        // 추천 추가
+        BoardCommentRecommend boardCommentRecommend = new BoardCommentRecommend();
+        boardCommentRecommend.setBoardComment(boardCommentEntity.get());
+        boardCommentRecommend.setUser(userEntity.get());
+        boardCommentRecommendRepository.save(boardCommentRecommend);
+
+        // 추천 수 최신화
+        BoardComment boardComment = boardCommentEntity.get();
+        boardComment.setRecommendCount(boardCommentRecommendRepository.countByBoardComment(boardComment));
+        boardCommentRepository.save(boardComment);
+
+        return ResponseEntity.ok("추천되었습니다.");
+    }
+
+    public ResponseEntity<String> reportCommend(Long id, String token, ReportType reportType) {
+        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+
+        Optional<BoardComment> boardCommentEntity = boardCommentRepository.findById(id);
+        Optional<User> userEntity = userRepository.findById(String.valueOf(jwt.get("userId")));
+        if (boardCommentEntity.isEmpty() || userEntity.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // 신고 확인
+        if (boardCommentReportRepository.existsByReportUserAndReportBoardComment(userEntity.get(), boardCommentEntity.get())) {
+            return ResponseEntity.badRequest().body("이미 신고하셨습니다.");
+        }
+
+        // 신고
+        BoardCommentReport boardCommentReport = new BoardCommentReport();
+        boardCommentReport.setReportUser(userEntity.get());
+        boardCommentReport.setReportBoardComment(boardCommentEntity.get());
+        boardCommentReport.setReportType(reportType);
+
+
+        boardCommentReportRepository.save(boardCommentReport);
+
+        // 신고 수 최신화
+        BoardComment boardComment = boardCommentEntity.get();
+        boardComment.setReportCount(boardCommentReportRepository.countByReportBoardComment(boardComment));
+        boardCommentRepository.save(boardComment);
+
+        return ResponseEntity.ok("신고되었습니다.");
     }
 
 

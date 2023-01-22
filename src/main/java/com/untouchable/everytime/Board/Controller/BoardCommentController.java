@@ -1,6 +1,7 @@
 package com.untouchable.everytime.Board.Controller;
 
 import com.untouchable.everytime.Board.DTO.BoardRequestDTO;
+import com.untouchable.everytime.Board.Enum.ReportType;
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.Board.DTO.BoardCommentResponseDTO;
 import com.untouchable.everytime.Board.Service.BoardCommentService;
@@ -23,6 +24,8 @@ public class BoardCommentController {
 
     BoardCommentService boardCommentService;
     BoardRecommendService boardRecommendService;
+
+
     JwtConfig jwtConfig;
 
     @Autowired
@@ -57,7 +60,7 @@ public class BoardCommentController {
             @Parameter(name = "id", description = "댓글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
             @Parameter(name = "jwt", description = "유저 토큰", in = ParameterIn.HEADER) @RequestHeader(value = "jwt") String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-        return boardCommentService.updateBoardComment(boardRequestDTO,id, token);
+        return boardCommentService.updateBoardComment(boardRequestDTO, id, token);
     }
 
     @DeleteMapping("/{id}")
@@ -73,15 +76,15 @@ public class BoardCommentController {
     public ResponseEntity<String> recommendBoardComment(
             @Parameter(name = "id", description = "댓글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
             @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
-        Map<String, Object> jwt = jwtConfig.verifyJWT(token);
-        return boardRecommendService.recommendBoardComment(id, token);
+        return boardCommentService.addCommentRecommend(id, token);
     }
 
     @PostMapping("/{id}/report")
     @Operation(summary = "특정 댓글 신고하기", description = "해당 댓글 신고하는 기능")
     public ResponseEntity<String> reportBoardComment(
             @Parameter(name = "id", description = "댓글 PK", in = ParameterIn.PATH) @PathVariable("id") Long id,
-            @Parameter(name = "jwt", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
-        return boardRecommendService.recommendBoardComment(id, token);
+            @Parameter(name = "jwt", description = "유저 토큰") @RequestHeader(value = "jwt") String token,
+            @Parameter(name = "report", description = "신고유형") @RequestParam(name = "report") ReportType report) {
+        return boardCommentService.reportCommend(id, token, report);
     }
 }
