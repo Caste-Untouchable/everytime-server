@@ -10,11 +10,14 @@ import java.util.List;
 
 @Repository
 public interface BookOnSailRepository extends JpaRepository<BookOnSail, Long> {
-    @Query("select b from BookOnSail b where b.school = ?1")
-    List<BookOnSail> findBySchool(School school);
+    @Query("select b from BookOnSail b where b.school = ?1 order by b.createdAT DESC")
+    List<BookOnSail> findBySchoolOrderByCreatedATDesc(School school);
 
-    @Query("select b from BookOnSail b where b.book.title like ?1 and b.school = ?2")
-    List<BookOnSail> findByBook_TitleLikeAndSchool(String title, School school);
+    @Query("""
+            select b from BookOnSail b
+            where b.school = ?1 and (b.book.isbn like concat('%', ?2, '%') or b.book.title like concat('%', ?3, '%'))""")
+    List<BookOnSail> findBySchoolAndBook_IsbnContainsOrBook_TitleContains(School school, String isbn, String title);
+
 
 
 }
