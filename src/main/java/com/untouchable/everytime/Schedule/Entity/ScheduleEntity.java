@@ -23,12 +23,12 @@ public class ScheduleEntity {
     String location;
 
     // 일요일 0 ~ 토요일 6
+    @Column(name = "Schedule_Day")
     int day;
 
     // 0시 ~ 24시 , start < end
+    @Column(name = "start_time")
     int start;
+    @Column(name = "end_time")
     int end;
-
-
-
 }
