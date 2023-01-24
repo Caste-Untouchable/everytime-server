@@ -12,9 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BoardCommentReportDTO {
     Long boardCommentReport_PK;
-
     ReportType reportType;
     String User_ID;
-
     Long boardComment_PK;
 }

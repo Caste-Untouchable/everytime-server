@@ -13,14 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardRecommend {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardRecommendPK;
-
     @ManyToOne
     Board board;
-
     @ManyToOne
     User user;
 }

@@ -25,6 +25,7 @@ public class BoardComment {
     boolean anonymity;
     Timestamp createdAT;
     Long reportCount;
+    Long recommendCount;
     String content;
     Long replyTo;
 }

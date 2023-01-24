@@ -1,25 +1,23 @@
-package com.untouchable.everytime.Book.Entity;
+package com.untouchable.everytime.Board.Entity;
 
+import com.untouchable.everytime.User.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookEntity {
+public class BoardCommentRecommend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long book_PK;
-    String title;
-    String author;
-    String publisher;
-    Date publicationDate;
-    Long bookPrice;
+    private Long boardCommentRecommendPk;
+    @ManyToOne
+    BoardComment boardComment;
+    @ManyToOne
+    User user;
 }

@@ -38,7 +38,7 @@ public class BoardRecommendService {
         List<BoardRecommend> result = boardRecommendRepository.findByBoard_BoardPk(id);
         if (result.size() > 0) {
             for (BoardRecommend boardRecommend : result) {
-                if (boardRecommend.getUser().getUserId().equals(jwt.get("ID"))) {
+                if (boardRecommend.getUser().getUserId().equals(jwt.get("userId"))) {
 
                     return ResponseEntity.badRequest().body("Already recommended");
                 }
@@ -51,7 +51,7 @@ public class BoardRecommendService {
         if (user.isPresent()) {
             boardRecommend.setBoard(user.get());
         }
-        Optional<User> userEntity = userRepository.findById(jwt.get("ID").toString());
+        Optional<User> userEntity = userRepository.findById(jwt.get("userId").toString());
         if (userEntity.isPresent()) {
             boardRecommend.setUser(userEntity.get());
         }

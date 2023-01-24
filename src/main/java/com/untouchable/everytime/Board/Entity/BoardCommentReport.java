@@ -17,13 +17,10 @@ public class BoardCommentReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardCommentReportPK;
-
     @Enumerated(EnumType.STRING)
     ReportType reportType;
-
     @ManyToOne
     User reportUser;
-
     @ManyToOne
     BoardComment reportBoardComment;
 }

@@ -12,6 +12,7 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@Table(name = "users")
 public class User {
     @Id
     private String userId;

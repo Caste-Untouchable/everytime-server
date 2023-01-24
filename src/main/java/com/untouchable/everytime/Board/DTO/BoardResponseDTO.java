@@ -38,6 +38,8 @@ public class BoardResponseDTO {
     private Long reportCount;
     @Schema(description = "댓글 수")
     private Long commentCount;
+    @Schema(description = "스크랩 수")
+    private Long scrapCount;
     //@Schema(description = "게시글 이미지");
     //ArrayList<BoardImageDTO> images;
 }
