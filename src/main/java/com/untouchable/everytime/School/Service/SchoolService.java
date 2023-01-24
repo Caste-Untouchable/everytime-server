@@ -25,10 +25,13 @@ public class SchoolService {
         this.modelMapper = modelMapper;
     }
 
-    public SchoolInfoDTO createSchool(SchoolInfoDTO schoolInfoDTO) {
+    public ResponseEntity<SchoolInfoDTO> createSchool(SchoolInfoDTO schoolInfoDTO) {
         School school = modelMapper.map(schoolInfoDTO, School.class);
+        if (schoolRepository.existsById(school.getSchoolName())) {
+            return ResponseEntity.badRequest().build();
+        }
         schoolRepository.save(school);
-        return modelMapper.map(school, SchoolInfoDTO.class);
+        return ResponseEntity.ok(modelMapper.map(school, SchoolInfoDTO.class));
     }
 
     public ResponseEntity<SchoolInfoDTO> getSchool(String id) {
@@ -50,13 +53,13 @@ public class SchoolService {
         schoolRepository.deleteById(id);
     }
 
-    public ArrayList<SchoolListDTO> findAllSchool() {
+    public ResponseEntity<ArrayList<SchoolListDTO>> findAllSchool() {
         List<School> schoolEntities = schoolRepository.findAll();
         ArrayList<SchoolListDTO> schoolInfoDTOS = new ArrayList<>();
         for (School school : schoolEntities) {
             schoolInfoDTOS.add(modelMapper.map(school, SchoolListDTO.class));
         }
-        return schoolInfoDTOS;
+        return ResponseEntity.ok(schoolInfoDTOS);
 
     }
 }

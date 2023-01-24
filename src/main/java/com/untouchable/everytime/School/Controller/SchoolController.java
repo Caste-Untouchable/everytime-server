@@ -26,7 +26,7 @@ public class SchoolController {
 
     @PostMapping("/create")
     @Operation(summary = "학교 생성", description = "학교 생성하는 API")
-    public SchoolInfoDTO createSchool(@RequestBody SchoolInfoDTO schoolInfoDTO) {
+    public ResponseEntity<SchoolInfoDTO> createSchool(@RequestBody SchoolInfoDTO schoolInfoDTO) {
         return schoolService.createSchool(schoolInfoDTO);
     }
 
@@ -55,7 +55,7 @@ public class SchoolController {
 
     @GetMapping("/findAll")
     @Operation(summary = "학교명 전부 요청하는 기능", description = "회원가입 시 모든 학교 정보 가져오는 기능")
-    public ArrayList<SchoolListDTO> findAllSchool() {
+    public ResponseEntity<ArrayList<SchoolListDTO>> findAllSchool() {
         return schoolService.findAllSchool();
     }
 

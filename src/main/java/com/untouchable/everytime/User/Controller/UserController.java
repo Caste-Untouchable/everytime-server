@@ -78,7 +78,7 @@ public class UserController {
     @Operation(summary = "비밀번호 수정", description = "비밀번호 수정")
     public ResponseEntity<String> UserPasswordModify(
             @RequestBody UserChangePasswordDTO userChangePasswordDTO,
-            @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
+            @Parameter(name = "jwt", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
         return userService.modifyUserPassword(userChangePasswordDTO, token);
     }
 }

@@ -10,11 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardRecommendDTO {
-
     Long boardRecommendPK;
-
     Long boardPK;
-
     String UserID;
-
 }

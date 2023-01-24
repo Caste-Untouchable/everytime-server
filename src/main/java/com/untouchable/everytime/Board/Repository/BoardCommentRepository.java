@@ -9,12 +9,7 @@ import java.util.List;
 
 @Repository
 public interface BoardCommentRepository extends JpaRepository<BoardComment, Long> {
-
     @Query("select b from BoardComment b where b.board.boardPk = ?1")
     List<BoardComment> findByBoard_BoardPk(Long boardPk);
-
-
-
-
 }
 

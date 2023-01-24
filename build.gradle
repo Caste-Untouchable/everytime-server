@@ -48,6 +48,7 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 // https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
     implementation 'org.hibernate:hibernate-validator:8.0.0.Final'
+    implementation 'com.h2database:h2'
 
 
 }

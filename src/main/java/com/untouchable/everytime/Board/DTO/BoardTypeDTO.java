@@ -16,7 +16,5 @@ public class BoardTypeDTO {
     String schoolName;
     String boardType;
     String boardDescription;
-
     BoardTypeClass boardTypeClass;
-
 }

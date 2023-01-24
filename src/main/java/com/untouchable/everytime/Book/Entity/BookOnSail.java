@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 @Entity
@@ -19,35 +20,21 @@ import java.util.ArrayList;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookStoreEntity {
-
+public class BookOnSail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bookStore_PK;
-
+    private Long BookOnSailPk;
     @ManyToOne
     School school;
     @ManyToOne
     User user;
-    @ManyToOne
-    BoardType boardType;
-    @Column
     String boardTitle;
     String content;
-    int recommendCount;
-    int scrapCount;
-    @OneToMany
-    ArrayList<BoardImage> images;
-    Date createdAT;
-    String author;
-    boolean anonymity;
-    int reportCount;
-
-    @Column
-    Long price;
-    int bookStatus;
-    String location;
-
+    //    @OneToMany
+    //    ArrayList<BoardImage> images;
+    @ManyToOne
+    Book book;
+    Timestamp createdAT;
     BookStatus underLined;
     BookStatus written;
     boolean external;
@@ -58,5 +45,4 @@ public class BookStoreEntity {
     boolean direct;
     String meetingPlaces;
     int sellPrice;
-
 }

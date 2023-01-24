@@ -3,8 +3,10 @@ package com.untouchable.everytime.Board.Controller;
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.Board.DTO.BoardTypeDTO;
 import com.untouchable.everytime.Board.Service.BoardTypeService;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -30,9 +32,10 @@ public class BoardTypeController {
     }
 
     @GetMapping("/getBoardTypeBySchoolName")
-    public ArrayList<BoardTypeDTO> getBoardType(@RequestHeader(value = "jwt") String token) {
-        Map<String, Object> result = jwtConfig.verifyJWT(token);
-        return boardTypeService.getBoardTypeBySchoolName(String.valueOf(result.get("SCHOOL"))  );
+    public ResponseEntity<ArrayList<BoardTypeDTO>> getBoardType(
+            @Parameter(name = "jwt", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
+
+        return boardTypeService.getBoardTypeBySchoolName(token);
     }
 
     @PatchMapping("/update")
