@@ -47,7 +47,7 @@ public class UserController {
     @PatchMapping("/update")
     @Operation(summary = "회원 정보 수정", description = "유저 정보를 입력받아 수정하는 기능, 현재 닉네임, 이메일만 변경 가능")
     public ResponseEntity<UserDTO> update(
-            @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token,
+            @Parameter(name = "jwt", description = "유저 토큰") @RequestHeader(value = "jwt") String token,
             @RequestBody UserDTO userDTO) {
         return userService.updateUser(userDTO, token);
     }
@@ -55,7 +55,7 @@ public class UserController {
     @DeleteMapping("/delete")
     @Operation(summary = "회원 탈퇴", description = "회원 탈퇴 하는 기능")
     public ResponseEntity<String> delete(
-            @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
+            @Parameter(name = "jwt", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
         return userService.deleteUser(token);
     }
 
@@ -63,7 +63,7 @@ public class UserController {
     @ApiResponse(responseCode = "200", description = "유저 정보 가져오기 성공")
     @GetMapping("/info")
     public ResponseEntity<UserDTO> info(
-            @Parameter(name = "JWT", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
+            @Parameter(name = "jwt", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
         return userService.getUserByToken(token);
     }
 

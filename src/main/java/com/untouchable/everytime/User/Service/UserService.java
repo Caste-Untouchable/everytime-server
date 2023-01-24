@@ -1,5 +1,6 @@
 package com.untouchable.everytime.User.Service;
 
+import com.untouchable.everytime.Board.Repository.BoardRepository;
 import com.untouchable.everytime.Config.JwtConfig;
 import com.untouchable.everytime.School.Entity.School;
 import com.untouchable.everytime.School.Repository.SchoolRepository;
@@ -7,6 +8,7 @@ import com.untouchable.everytime.User.DTO.UserChangePasswordDTO;
 import com.untouchable.everytime.User.DTO.UserDTO;
 import com.untouchable.everytime.User.Entity.User;
 import com.untouchable.everytime.User.Repository.UserRepository;
+import jakarta.validation.constraints.Null;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +22,15 @@ import java.util.Optional;
 public class UserService {
     UserRepository userRepository;
     SchoolRepository schoolRepository;
+    BoardRepository boardRepository;
     ModelMapper modelMapper;
     JwtConfig jwtConfig;
     PasswordEncoder encoder;
 
     @Autowired
-    public UserService(SchoolRepository schoolRepository, UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig, ModelMapper modelMapper) {
+    public UserService(BoardRepository boardRepository,SchoolRepository schoolRepository, UserRepository userRepository, PasswordEncoder encoder, JwtConfig jwtConfig, ModelMapper modelMapper) {
         this.userRepository = userRepository;
+        this.boardRepository = boardRepository;
         this.encoder = encoder;
         this.jwtConfig = jwtConfig;
         this.modelMapper = modelMapper;
@@ -53,7 +57,7 @@ public class UserService {
         // 학교 존재 여부 확인
         Optional<School> school = schoolRepository.findById(userDTO.getUserSchoolSchoolName());
         if (school.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
         // 유저 생성 후 저장
         User user = modelMapper.map(userDTO, User.class);
@@ -86,6 +90,18 @@ public class UserService {
 
     public ResponseEntity<String> deleteUser(String token) {
         Map<String, Object> jwt = jwtConfig.verifyJWT(token);
+
+        Optional<User> user = userRepository.findById(String.valueOf(jwt.get("userId")));
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // 유저가 작성한 게시글 NULL 처리
+        boardRepository.updateUserByUser(null,user.get());
+
+        // 댓글
+        //Todo : 댓글,좋아요 히스토리 등등 삭제
+
         userRepository.deleteById(String.valueOf(jwt.get("userId")));
         return ResponseEntity.ok("유저 삭제 완료");
     }
@@ -111,11 +127,11 @@ public class UserService {
 
         // 현재 비밀번호가 일치하지 않을 경우
         if (!encoder.matches(userChangePasswordDTO.getUserPwd(), user.getUserPwd())) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("현재 비밀번호가 일치하지 않습니다.");
         }
         // 비밀번호 2번째랑 일치 하지 않을 경우
         if (!userChangePasswordDTO.getUserNewPwd().equals(userChangePasswordDTO.getUserNewPwd2())) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("비밀번호가 일치하지 않습니다.");
         }
         user.setUserPwd(encoder.encode(userChangePasswordDTO.getUserNewPwd()));
         userRepository.save(user);
