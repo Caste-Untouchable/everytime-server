@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface BoardReportRepository extends JpaRepository<BoardReport, Long> {
     @Query("select (count(b) > 0) from BoardReport b where b.reportUser = ?1 and b.reportBoard = ?2")
     boolean existsByReportUserAndReportBoard(User reportUser, Board reportBoard);
-
     @Query("select count(b) from BoardReport b where b.reportBoard = ?1")
     long countByReportBoard(Board reportBoard);
 }

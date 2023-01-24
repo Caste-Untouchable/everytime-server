@@ -9,9 +9,7 @@ import java.util.List;
 
 @Repository
 public interface BoardRecommendRepository extends JpaRepository<BoardRecommend, Long> {
-
     @Query("select b from BoardRecommend b where b.board.boardPk = ?1")
     List<BoardRecommend> findByBoard_BoardPk(Long boardPk);
-
 
 }

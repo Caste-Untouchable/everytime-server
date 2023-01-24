@@ -9,11 +9,6 @@ import java.util.List;
 
 public interface BoardTypeRepository extends JpaRepository<BoardType, Long> {
     List<BoardType> findBySchool_SchoolName(String SchoolName);
-
     @Query("select b from BoardType b where b.school = ?1")
     List<BoardType> findBySchool(School school);
-
-
-
-
 }

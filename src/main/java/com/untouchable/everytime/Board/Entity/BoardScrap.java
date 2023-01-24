@@ -14,14 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class BoardScrap {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardScarpPK;
-
     @ManyToOne
     Board board;
-    
     @ManyToOne
     User user;
 

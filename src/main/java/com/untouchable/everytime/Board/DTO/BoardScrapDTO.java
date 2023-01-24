@@ -7,11 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardScrapDTO {
-
     Long BoardScrapPK;
-
     Long board_PK;
-
     Long user_PK;
-
 }

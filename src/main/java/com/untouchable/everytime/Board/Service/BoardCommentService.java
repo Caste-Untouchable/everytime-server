@@ -30,7 +30,6 @@ import java.util.Optional;
 
 @Service
 public class BoardCommentService {
-
     BoardCommentRepository boardCommentRepository;
     BoardCommentRecommendRepository boardCommentRecommendRepository;
     BoardCommentReportRepository boardCommentReportRepository;

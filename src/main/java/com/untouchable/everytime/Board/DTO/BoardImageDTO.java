@@ -12,13 +12,10 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class BoardImageDTO {
-
     Long boardImagePK;
     String originFilename;
     String storeFilename;
-
     AttachmentType attachmentType;
-
     Long boardPK;
 
 }

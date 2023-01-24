@@ -16,10 +16,8 @@ public class BoardCommentRecommend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardCommentRecommendPk;
-
     @ManyToOne
     BoardComment boardComment;
-
     @ManyToOne
     User user;
 }

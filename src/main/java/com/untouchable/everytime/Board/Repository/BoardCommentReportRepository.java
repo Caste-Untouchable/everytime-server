@@ -11,9 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface BoardCommentReportRepository extends JpaRepository<BoardCommentReport, Long> {
     @Query("select (count(b) > 0) from BoardCommentReport b where b.reportUser = ?1 and b.reportBoardComment = ?2")
     boolean existsByReportUserAndReportBoardComment(User reportUser, BoardComment reportBoardComment);
-
     @Query("select count(b) from BoardCommentReport b where b.reportBoardComment = ?1")
     long countByReportBoardComment(BoardComment reportBoardComment);
-
-
 }

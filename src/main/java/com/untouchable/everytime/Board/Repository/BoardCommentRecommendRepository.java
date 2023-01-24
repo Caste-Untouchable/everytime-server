@@ -10,13 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface BoardCommentRecommendRepository extends JpaRepository<BoardCommentRecommend, Long> {
     @Query("select (count(b) > 0) from BoardCommentRecommend b where b.boardComment = ?1 and b.user = ?2")
     boolean existsByBoardCommentAndUser(BoardComment boardComment, User user);
-
-
     @Query("select count(b) from BoardCommentRecommend b where b.boardComment = ?1")
     long countByBoardComment(BoardComment boardComment);
-
-
-
-
-
 }

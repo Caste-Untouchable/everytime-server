@@ -35,7 +35,7 @@ public class BoardTypeController {
     public ResponseEntity<ArrayList<BoardTypeDTO>> getBoardType(
             @Parameter(name = "jwt", description = "유저 토큰") @RequestHeader(value = "jwt") String token) {
 
-        return boardTypeService.getBoardTypeBySchoolName(token)  ;
+        return boardTypeService.getBoardTypeBySchoolName(token);
     }
 
     @PatchMapping("/update")

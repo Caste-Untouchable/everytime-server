@@ -167,4 +167,5 @@ class SchoolServiceTest {
             assertEquals("테스트 대학교" + String.valueOf(i), result.get(i).getSchoolName());
         }
     }
+
 }

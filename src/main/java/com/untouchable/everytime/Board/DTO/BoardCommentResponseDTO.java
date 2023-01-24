@@ -21,5 +21,5 @@ public class BoardCommentResponseDTO {
     Long recommendCount;
     String content;
     Long replyTo;
-
 }
+

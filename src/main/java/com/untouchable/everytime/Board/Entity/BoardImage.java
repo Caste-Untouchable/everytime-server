@@ -20,7 +20,6 @@ public class BoardImage {
     private String storeFilename;
     @Enumerated(EnumType.STRING)
     private AttachmentType attachmentType;
-
     @ManyToOne
     Board board;
 }

@@ -17,15 +17,11 @@ public class BoardType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardTypePK;
-
     @ManyToOne
     School school;
-
     String boardType;
-
     @Enumerated(EnumType.STRING)
     BoardTypeClass boardTypeClass;
-
     String boardDescription;
 
 }
