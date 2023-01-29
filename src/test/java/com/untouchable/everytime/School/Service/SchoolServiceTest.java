@@ -110,11 +110,10 @@ class SchoolServiceTest {
 
         SchoolInfoDTO result1 = schoolService.createSchool(schoolInfoDTO).getBody();
 
-        result1.setSchoolName("테스트 대학교2");
         result1.setSchoolLocation("대한민국 어딘가2");
         result1.setSchoolTell("010-1111-3333");
 
-        SchoolInfoDTO result2 = schoolService.updateSchool(result1);
+        SchoolInfoDTO result2 = schoolService.updateSchool(result1).getBody();
 
         assertEquals(result2.getSchoolName(), result1.getSchoolName());
         assertEquals(result2.getSchoolLocation(), result1.getSchoolLocation());
