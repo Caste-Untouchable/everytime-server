@@ -40,7 +40,7 @@ public class SchoolController {
 
     @PatchMapping("/update")
     @Operation(summary = "학교 정보 수정", description = "학교 정보 수정하는 기능")
-    public SchoolInfoDTO updateSchool(@RequestBody SchoolInfoDTO schoolInfoDTO) {
+    public ResponseEntity<SchoolInfoDTO> updateSchool(@RequestBody SchoolInfoDTO schoolInfoDTO) {
         return schoolService.updateSchool(schoolInfoDTO);
     }
 

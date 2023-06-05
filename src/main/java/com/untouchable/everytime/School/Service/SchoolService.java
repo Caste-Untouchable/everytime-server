@@ -43,10 +43,13 @@ public class SchoolService {
 
     }
 
-    public SchoolInfoDTO updateSchool(SchoolInfoDTO schoolInfoDTO) {
+    public ResponseEntity<SchoolInfoDTO> updateSchool(SchoolInfoDTO schoolInfoDTO) {
+        if (!schoolRepository.existsById(schoolInfoDTO.getSchoolName())) {
+            return ResponseEntity.badRequest().build();
+        }
         School school = modelMapper.map(schoolInfoDTO, School.class);
         schoolRepository.save(school);
-        return modelMapper.map(school, SchoolInfoDTO.class);
+        return ResponseEntity.ok(modelMapper.map(school, SchoolInfoDTO.class));
     }
 
     public void deleteSchool(String id) {
